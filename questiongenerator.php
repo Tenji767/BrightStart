@@ -1,13 +1,16 @@
-<!-- Caleb McHaney This program generates the selected depending on the operation selected then generates the values for the variables making the correct answer and the three incorrect answers. -->
+<!-- Caleb McHaney This program generates the selected depending on the operation selected then 
+ generates the values for the variables making the correct answer and the three incorrect answers. -->
 <!DOCTYPE html>
     <html>
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 
 $data = json_decode(file_get_contents("questiontemplate.json"), true);
 
-$min = $data["range"]["min"];
-$max = $data["range"]["max"];
+$min = $data["limits"]["min"];
+$max = $data["limits"]["max"];
 
 // Pick random operation
 $operation = $data["operations"][array_rand($data["operations"])];

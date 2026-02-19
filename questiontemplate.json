@@ -2,12 +2,13 @@
   {
     "gradeID": 1,
     "conceptID": 0,
-    "operations": ["addition", "subtraction", "multiplication", "division"],
-    "range": {
-        "min": 0,
-        "max": 20
+    "limits": {
+        "min": 1,
+        "max": 10
+    },
+  "operations": ["addition", "subtraction", "multiplication", "division"]
     }
-}
+
 
 
 ]
