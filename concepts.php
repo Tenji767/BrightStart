@@ -26,3 +26,5 @@ while ($row = $result->fetch_assoc()) {
 
 }
 ?>
+
+<!-- written by Benjamin Nguyen -->

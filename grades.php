@@ -9,3 +9,6 @@ while ($row = $result->fetch_assoc()) {
     echo "</a>";
 }
 ?>
+
+
+<!-- written by Benjamin Nguyen -->
