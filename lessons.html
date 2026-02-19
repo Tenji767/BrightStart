@@ -1,3 +1,5 @@
+<!--lines 14-81 & 102-263 by Jordan Munster-->
+
 <!DOCTYPE html>
 
 <html>
@@ -9,6 +11,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Add stylesheet here -->
+    <style>
+        .grade {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            max-width: 500px;
+        }
+
+        .grade-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .grade-header:hover {
+            background-color: #45a049;
+        }
+
+        .grade-header h1 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .dropdown-arrow {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .lessons-dropdown {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .lessons-dropdown.open {
+            display: block;
+        }
+
+        .lessons-dropdown li {
+            padding: 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .lessons-dropdown li a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .lessons-dropdown li a:hover {
+            background-color: #f1f1f1;
+            padding-left: 25px;
+        }
+    </style>
 </head>
 
 <header>
@@ -27,61 +98,172 @@
 
 <!---->
 <body>
+    <!--button for create and upload lessons are only for admin-->
+    <button onclick="window.location.href='#upload.html'">Upload Lesson</button>
+    <button onclick="window.location.href='#create.html'">Create Lesson</button>
 
     <div class="grades-menu">
         <!--loop through grade levels
         Add functionality to put the last practiced or viewed grade on top-->
         <div class="grade" id="first-grade">
-            <h1>1st Grade | Counting, Adding, Subtracting</h1><!--turn these into buttons that will create a webpage that lists all the concepts (using the PHP id function)-->
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>1st Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=1&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=1&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=1&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="second-grade">
-            <h1>2nd Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>2nd Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=2&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=2&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=2&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="third-grade">
-            <h1>3rd Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>3rd Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=3&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=3&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=3&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="fourth-grade">
-            <h1>4th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>4th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=4&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=4&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=4&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="fifth-grade">
-            <h1>5th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>5th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=5&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=5&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=5&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="sixth-grade">
-            <h1>6th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>6th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=6&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=6&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=6&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="seventh-grade">
-            <h1>7th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>7th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=7&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=7&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=7&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
-        <div class="grade" id="eigth-grade">
-            <h1>8th Grade | Counting, Adding, Subtracting</h1>
+        <div class="grade" id="eighth-grade">
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>8th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=8&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=8&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=8&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="ninth-grade">
-            <h1>9th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>9th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=9&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=9&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=9&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="tenth-grade">
-            <h1>10th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>10th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=10&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=10&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=10&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="eleventh-grade">
-            <h1>11th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>11th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=11&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=11&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=11&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
         <div class="grade" id="twelfth-grade">
-            <h1>12th Grade | Counting, Adding, Subtracting</h1>
+            <div class="grade-header" onclick="toggleGrade(this)">
+                <h1>12th Grade</h1>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <ul class="lessons-dropdown">
+                <li><a href="#concepts.php?grade=12&concept=counting">Counting</a></li>
+                <li><a href="#concepts.php?grade=12&concept=adding">Adding</a></li>
+                <li><a href="#concepts.php?grade=12&concept=subtracting">Subtracting</a></li>
+            </ul>
         </div>
 
 
 
     </div>
+
+    <script>
+        function toggleGrade(header) {
+            const dropdown = header.nextElementSibling;
+            const arrow = header.querySelector('.dropdown-arrow');
+            
+            dropdown.classList.toggle('open');
+            arrow.classList.toggle('open');
+        }
+    </script>
 </body>
 
 </html>
+
+<!-- By Benjamin Nguyen -->
