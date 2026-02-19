@@ -1,9 +1,10 @@
-<doctype html>
+<!-- Caleb McHaney This program generates the selected depending on the operation selected then generates the values for the variables making the correct answer and the three incorrect answers. -->
+<!DOCTYPE html>
     <html>
 <?php
 session_start();
 
-$data = json_decode(file_get_contents("question.json"), true);
+$data = json_decode(file_get_contents("questiontemplate.json"), true);
 
 $min = $data["range"]["min"];
 $max = $data["range"]["max"];
@@ -57,7 +58,7 @@ $_SESSION["correct"] = $correctAnswer;
 $options = [$correctAnswer];
 
 while (count($options) < 4) {
-    $wrong = $correctAnswer + rand(-10, 10);
+    $wrong = $correctAnswer + rand(1, 10);
     if (!in_array($wrong, $options) && $wrong >= 0) {
         $options[] = $wrong;
     }
@@ -67,7 +68,7 @@ shuffle($options);
 ?>
 
 
-<h2><?php echo "$x + $y = ?"; ?></h2>
+<h2><?php echo "$x $symbol $y = ?"; ?></h2>
 
 <form method="post" action="check.php">
     <?php foreach ($options as $option): ?>
