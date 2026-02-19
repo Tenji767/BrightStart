@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+
 <html>
-    <!--This entire head was copied from index.html. It contains the metadata and the header/navigation bar-->
+
+<!--This entire head was copied from index.html. It contains the metadata and the header/navigation bar-->
     <head>
     <title>Learn</title>
     <meta charset="utf-8">
@@ -23,32 +25,15 @@
     <a href="account.html"><img src="pfp.png"/></a>
 </header>
 
-
+<!---->
 <body>
 
-<div class="account-configure">
+    <div class="grades-menu">
+        <!--loop through grade levels
+        Add functionality to put the last practiced or viewed grade on top-->
+<?php include('grades.php');?>
 
-    <div class="user-info">
-    <p id="user-name"></p>
-    <p id="user-email"></p>
-    <br>
-    <button id="change-password"></button>
     </div>
-
-    <div class="interest-list">
-        <table class="interest-table">
-            <tr>
-                <td>Name</td>
-                <td>Date-added</td>
-            </tr>
-            <!--loop through interests and date added and display on table-->
-        </table>
-    </div>
-
-
-</div>
-
-
 </body>
-</html>
 
+</html>
