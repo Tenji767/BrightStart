@@ -9,11 +9,13 @@ session_start();
 
 $data = json_decode(file_get_contents("questiontemplate.json"), true);
 
-$min = $data["limits"]["min"];
-$max = $data["limits"]["max"];
+$template = $data[0];
+
+$min = $template["limits"]["min"];
+$max = $template["limits"]["max"];
 
 // Pick random operation
-$operation = $data["operations"][array_rand($data["operations"])];
+$operation = $template["operations"][array_rand($template["operations"])];
 $_SESSION["operation"] = $operation;
 
 // Generate numbers

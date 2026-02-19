@@ -19,6 +19,6 @@ if (isset($_POST["answer"])) {
     }
 }
 
-echo "<br><a href='index.php'>Next Question</a>";
+echo "<br><a href='questiongenerator.php'>Next Question</a>";
 ?>
 </html>
