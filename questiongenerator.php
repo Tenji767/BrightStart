@@ -1,0 +1,80 @@
+<doctype html>
+    <html>
+<?php
+session_start();
+
+$data = json_decode(file_get_contents("question.json"), true);
+
+$min = $data["range"]["min"];
+$max = $data["range"]["max"];
+
+// Pick random operation
+$operation = $data["operations"][array_rand($data["operations"])];
+$_SESSION["operation"] = $operation;
+
+// Generate numbers
+$x = rand($min, $max);
+$y = rand($min, $max);
+
+// Prevent divide by zero
+if ($operation === "division") {
+    $y = rand(1, $max); // never 0
+    $x = $y * rand(0, $max); // ensures whole number answer
+}
+
+switch ($operation) {
+
+    case "addition":
+        $correctAnswer = $x + $y;
+        $symbol = "+";
+        break;
+
+    case "subtraction":
+        // Optional: prevent negative answers
+        if ($x < $y) {
+            $temp = $x;
+            $x = $y;
+            $y = $temp;
+        }
+        $correctAnswer = $x - $y;
+        $symbol = "-";
+        break;
+
+    case "multiplication":
+        $correctAnswer = $x * $y;
+        $symbol = "×";
+        break;
+
+    case "division":
+        $correctAnswer = $x / $y;
+        $symbol = "÷";
+        break;
+}
+
+$_SESSION["correct"] = $correctAnswer;
+
+// Generate answer options
+$options = [$correctAnswer];
+
+while (count($options) < 4) {
+    $wrong = $correctAnswer + rand(-10, 10);
+    if (!in_array($wrong, $options) && $wrong >= 0) {
+        $options[] = $wrong;
+    }
+}
+
+shuffle($options);
+?>
+
+
+<h2><?php echo "$x + $y = ?"; ?></h2>
+
+<form method="post" action="check.php">
+    <?php foreach ($options as $option): ?>
+        <button type="submit" name="answer" value="<?php echo $option; ?>">
+            <?php echo $option; ?>
+        </button><br><br>
+    <?php endforeach; ?>
+</form>
+
+</html>

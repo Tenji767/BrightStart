@@ -1,5 +1,9 @@
 <?php
-$conn = new mysqli("localhost", "username", "password", "database");
+$conn = new mysqli("sql305.infinityfree.com", "if0_41181546", "iloveliberty26!", "if0_41181546_learningdatabase");
+
+if (!isset($_GET['grade_id'])) {
+    die("Grade not specified.");
+}
 
 $grade_id = $_GET['grade_id'];
 
@@ -9,9 +13,16 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 
+
+
+
 while ($row = $result->fetch_assoc()) {
+    $grade = isset($_GET['grade_id']) ? urlencode($_GET['grade_id']) : '';
+    $concept = urlencode($row['conceptID']);
+
     echo "<div>";
-    echo $row['conceptContent'];
+    echo "<a href='quizes.php?grade_id=$grade&concept=$concept'><p>" . htmlspecialchars($row['conceptName']) . "</p></a>";
     echo "</div>";
+
 }
 ?>

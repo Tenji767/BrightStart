@@ -1,0 +1,13 @@
+[
+   {
+    "gradeID": 1,
+    "conceptID": 0,
+    "operations": ["addition", "subtraction", "multiplication", "division"],
+    "range": {
+        "min": 0,
+        "max": 20
+    }
+}
+
+
+]
