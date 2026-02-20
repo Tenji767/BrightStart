@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("sql305.infinityfree.com", "if0_41181546", "iloveliberty26!", "if0_41181546_learningdatabase");
+$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P!", "if0_41201125_brightstar_db");
 
 $result = $conn->query("SELECT * FROM GRADES");
 

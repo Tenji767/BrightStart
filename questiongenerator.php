@@ -9,13 +9,30 @@ session_start();
 
 $data = json_decode(file_get_contents("questiontemplate.json"), true);
 
-$template = $data[0];
+$selectedTemplate = null;
 
-$min = $template["limits"]["min"];
-$max = $template["limits"]["max"];
+foreach ($data as $template) {
+    if (
+        $template["gradeID"] == $_GET['grade_id'] &&
+        $template["conceptID"] == $_GET['concept_id']
+    ) {
+        $selectedTemplate = $template;
+        break;
+    }
+}
+
+if (!$selectedTemplate) {
+    die("No matching template found.");
+}
+
+$min = $selectedTemplate["limits"]["min"];
+$max = $selectedTemplate["limits"]["max"];
+
+$operation = $selectedTemplate["operations"][array_rand($selectedTemplate["operations"])];
+
 
 // Pick random operation
-$operation = $template["operations"][array_rand($template["operations"])];
+$operation = $selectedTemplate["operations"][array_rand($selectedTemplate["operations"])];
 $_SESSION["operation"] = $operation;
 
 // Generate numbers
