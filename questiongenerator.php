@@ -1,96 +1,98 @@
-<!-- Caleb McHaney This program generates the selected depending on the operation selected then 
- generates the values for the variables making the correct answer and the three incorrect answers. -->
 <!DOCTYPE html>
     <html>
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 session_start();
+// Logs in to database
+$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P!", "if0_41201125_brightstar_db");
 
-$data = json_decode(file_get_contents("questiontemplate.json"), true);
+// Gets the grade id and concept id using GET, which takes from url
+$grade_id = isset($_GET['grade_id']) ? (int)$_GET['grade_id'] : 0;
+$concept_id = isset($_GET['concept_id']) ? (int)$_GET['concept_id'] : 0;
 
-$selectedTemplate = null;
+// sql query to get a random question template from a concept within that grade (will add school partitioning later)
+$stmt = $conn->prepare("SELECT * FROM QuestionTemplate WHERE gradeID = ? AND conceptID = ? ORDER BY RAND() LIMIT 1");
+$stmt->bind_param("ii", $grade_id, $concept_id);
+$stmt->execute();
 
-foreach ($data as $template) {
-    if (
-        $template["gradeID"] == $_GET['grade_id'] &&
-        $template["conceptID"] == $_GET['concept_id']
-    ) {
-        $selectedTemplate = $template;
-        break;
-    }
+// gets the result and stores it into a variable, then creates an associative array to call each value of the attribute of the called question template
+$result=$stmt->get_result();
+
+$row = $result->fetch_assoc();
+
+// Generate question (if this gets too big, add to another file)
+// Will add multiple types of problems, will separate into different files. this will be arithmetic
+
+if (!$row) {
+    die("No question template found.");
 }
 
-if (!$selectedTemplate) {
-    die("No matching template found.");
-}
+$min = $row['min_value'];
+$max = $row['max_value'];
 
-$min = $selectedTemplate["limits"]["min"];
-$max = $selectedTemplate["limits"]["max"];
-
-$operation = $selectedTemplate["operations"][array_rand($selectedTemplate["operations"])];
-
-
-// Pick random operation
-$operation = $selectedTemplate["operations"][array_rand($selectedTemplate["operations"])];
-$_SESSION["operation"] = $operation;
-
-// Generate numbers
 $x = rand($min, $max);
 $y = rand($min, $max);
 
-// Prevent divide by zero
+$operation = $row['operations'];
+
+
 if ($operation === "division") {
-    $y = rand(1, $max); // never 0
-    $x = $y * rand(0, $max); // ensures whole number answer
-}
+    $y = rand(1, $max); // always prevent 0
 
-switch ($operation) {
-
-    case "addition":
-        $correctAnswer = $x + $y;
-        $symbol = "+";
-        break;
-
-    case "subtraction":
-        // Optional: prevent negative answers
-        if ($x < $y) {
-            $temp = $x;
-            $x = $y;
-            $y = $temp;
-        }
-        $correctAnswer = $x - $y;
-        $symbol = "-";
-        break;
-
-    case "multiplication":
-        $correctAnswer = $x * $y;
-        $symbol = "×";
-        break;
-
-    case "division":
-        $correctAnswer = $x / $y;
-        $symbol = "÷";
-        break;
-}
-
-$_SESSION["correct"] = $correctAnswer;
-
-// Generate answer options
-$options = [$correctAnswer];
-
-while (count($options) < 4) {
-    $wrong = $correctAnswer + rand(1, 10);
-    if (!in_array($wrong, $options) && $wrong >= 0) {
-        $options[] = $wrong;
+    if ($row['require_whole_division']) {
+        $x = $y * rand(1, $max);
     }
 }
 
-shuffle($options);
+
+    switch ($operation) {
+        case "addition":
+            $answer = $x + $y;
+            $symbol = "+";
+            break;
+
+        case "subtraction":
+            if (!$row['allow_negative'] && $x < $y) {
+                [$x, $y] = [$y, $x];
+            }
+            $answer = $x - $y;
+            $symbol = "-";
+            break;
+
+        case "multiplication":
+            $answer = $x * $y;
+            $symbol = "×";
+            break;
+
+        case "division":
+            $answer = $x / $y;
+            $symbol = "÷";
+            break;
+    }
+
+    
+        $question = "$x $symbol $y = ?";
+        
+                
+        $_SESSION["correct"] = $answer;
+
+        // Generate answer options
+        $options = [$answer];
+
+        while (count($options) < 4) {
+            $range = max(5, intval($answer / 2));
+            $wrong = $answer + rand(-$range, $range);
+            if (!in_array($wrong, $options) && $wrong >= 0) {
+                $options[] = $wrong;
+            }
+        }
+
+        shuffle($options);
+
+
 ?>
 
 
-<h2><?php echo "$x $symbol $y = ?"; ?></h2>
+<h2><?php echo "$question"; ?></h2>
 
 <form method="post" action="check.php">
     <?php foreach ($options as $option): ?>
@@ -99,5 +101,4 @@ shuffle($options);
         </button><br><br>
     <?php endforeach; ?>
 </form>
-
 </html>

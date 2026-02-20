@@ -21,7 +21,7 @@ while ($row = $result->fetch_assoc()) {
     $concept = urlencode($row['conceptID']);
 
     echo "<div>";
-    echo "<a href='quizes.php?grade_id=$grade&concept=$concept'><p>" . htmlspecialchars($row['conceptName']) . "</p></a>";
+    echo "<a href='quizes.php?grade_id=$grade&concept_id=$concept'><p>" . htmlspecialchars($row['conceptName']) . "</p></a>";
     echo "</div>";
 
 }
