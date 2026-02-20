@@ -2,7 +2,7 @@
 
 
 ?>
-//This is a placeholder page for the "Create Lesson" tool. The form and layout are based on the sketch of the Admin UI Diagram.
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -17,14 +17,12 @@
         <p><strong><?php echo htmlspecialchars($message); ?></strong></p>
     <?php endif; ?>
 
-    <form action="admin-lesson-file.php" method="post" enctype="multipart/form-data">
+    <form action="admin-lesson-create.php" method="post" enctype="multipart/form-data">
 
         <h2>Create a Lesson File</h2>
-        <p><em>Simple prototype. Tools are placeholders for now.</em></p>
+        <p><em>This is just a Simple prototype. Tools are just placeholders for now.</em></p>
 
-        <a href="admin-dashboard.php"><button type="button" class="admin-menu-item">Back to Dashboard</button></a>
-
-        <!-- Sketch-style layout: big text area + tool buttons on the right -->
+        <!-- Add Lesson Context and added tools beside it on the right side that text,image, and video as placeholders.  -->
         <table>
             <tr>
                 <td style="vertical-align: top; width: 80%;">
@@ -45,10 +43,10 @@
 
         <hr>
 
-        <!-- Requirements from partner sketch -->
+        <!-- Able to select grade from K-12 for Lesson that is being created. -->
         <h3>Lesson Details (Required)</h3>
 
-        <label for="grade"><strong>Select Grade:</strong></label><br>
+        <label for="grade"><strong>Select Grade K-12:</strong></label><br>
         <select id="grade" name="grade" required>
             <option value="" selected disabled>Select grade</option>
             <option value="K">K</option>
@@ -65,6 +63,8 @@
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
+
+<!-- Able to name your concept/lesson and add a description for it and add any prerequisites that are required to suceed at the lesson. -->
 
         <br><br>
 
@@ -89,5 +89,17 @@
         <input type="submit" value="Create Lesson">
 
         <br><br>
+
         <hr>
+        
+        <!-- Simple Buttons that will lead allow for easy navigation back to previous pages -->
+        <div class="admin-menu">
+            <a href="admin-lesson-manage.php">
+                <button type="button" class="admin-menu-item">Back to Lesson Management page</button>
+            </a>    
+            
+            <a href="admin-dashboard.php">
+                <button type="button" class="admin-menu-item">Back to Dashboard page</button>
+            </a>
+        <!-- by Noah Reynolds-->
 
