@@ -9,13 +9,15 @@ session_start();
 if (!isset($_SESSION["correct"])) {
     die("No active question.");
 }
+$grade_id = $_POST['grade_id'];
+$concept_id = $_POST['concept_id'];
 
 
 if (isset($_POST["answer"])) {
     $selected = $_POST["answer"];
     $correct = $_SESSION["correct"];
 //if the selected answer is correct, display a message in green, otherwise display a message in red and show the correct answer
-    if ($selected === $correct) {
+    if ($selected == $correct) {
         echo "<h2 style='color:green;'>Correct! </h2>";
     } else {
         echo "<h2 style='color:red;'>Incorrect </h2>";
@@ -23,8 +25,9 @@ if (isset($_POST["answer"])) {
     }
 }
 
-echo "<br><a href='questiongenerator.php?grade_id=" 
-     . $_GET['grade_id'] . "&concept_id=" 
-     . $_GET['concept_id'] . "'>Next Question</a>";
+echo "<br><a href='quizes.php?grade_id=" 
+     . $grade_id . "&concept_id=" 
+     . $concept_id . "'>Next Question</a>";
+
 ?>
 </html>
