@@ -31,7 +31,7 @@
     <div class="grades-menu">
         <!--loop through grade levels
         Add functionality to put the last practiced or viewed grade on top-->
-<?php include('grades.php');?>
+<?php include('grades.php') or die("Include Failed");?>
 
     </div>
 </body>
