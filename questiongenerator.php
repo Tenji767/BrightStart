@@ -1,9 +1,23 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+?>
+
 <!DOCTYPE html>
     <html>
 <?php
 session_start();
 // Logs in to database (BN)
-$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P!", "if0_41201125_brightstar_db");
+$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P", "if0_41201125_brightstar_db");
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
+else {
+    echo "<p>Login successful</p>";
+}
+
+
 
 // Gets the grade id and concept id using GET, which takes from url (BN)
 $grade_id = isset($_GET['grade_id']) ? (int)$_GET['grade_id'] : 0;
@@ -39,6 +53,7 @@ $y = rand($min, $max);
 
 $operation = $row['operations'];
 
+$operation = trim(strtolower($operation));
 
 if ($operation === "division") {
     $y = rand(1, $max); // always prevent 0
@@ -100,6 +115,8 @@ if ($operation === "division") {
 <h2><?php echo "$question"; ?></h2>
 
 <form method="post" action="check.php">
+    <input type="hidden" name="grade_id" value="<?php echo $_GET['grade_id']; ?>">
+    <input type="hidden" name="concept_id" value="<?php echo $_GET['concept_id']; ?>">
     <?php foreach ($options as $option): ?>
         <button type="submit" name="answer" value="<?php echo $option; ?>">
             <?php echo $option; ?>

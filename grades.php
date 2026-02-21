@@ -1,5 +1,5 @@
 <?php
-echo"loaded";
+echo"<p>loaded</p>";
 $conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P!", "if0_41201125_brightstar_db");
 
 $result = $conn->query("SELECT * FROM Grades");
@@ -9,7 +9,7 @@ if (!$result) {
 
 while ($row = $result->fetch_assoc()) {
     echo "<a href='concepts.php?grade_id={$row['gradeID']}'>";
-    echo "<div>{$row['gradeDesc']}</div>";
+    echo "<div><p>{$row['gradeDesc']}</p></div>";
     echo "</a>";
 }
 ?>
