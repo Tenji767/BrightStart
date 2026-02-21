@@ -50,20 +50,20 @@ $max = $row['max_value'];
 $x = rand($min, $max);
 $y = rand($min, $max);
 
-
+//gets the operator to be used in these questions and turns it into a safe string
 $operation = $row['operations'];
 
 $operation = trim(strtolower($operation));
 
-if ($operation === "division") {
+if ($operation === "division") {//in case it's division, will try to prevent it from dividing by 0
     $y = rand(1, $max); // always prevent 0
 
-    if ($row['require_whole_division']) {
+    if ($row['require_whole_division']) {//if it needs to be divided into whole numbers for simplicitly, makes the number to be divided a multiple of the quotient
         $x = $y * rand(1, $max);
     }
 }
 
-
+//switch statements for arithmetic problems (will need to expand this to include different types of problems)
     switch ($operation) {
         case "addition":
             $answer = $x + $y;
@@ -89,23 +89,23 @@ if ($operation === "division") {
             break;
     }
 
-    
+    //puts the question into a readable format
         $question = "$x $symbol $y = ?";
         
-                
+        //takes the correct answer and stores it
         $_SESSION["correct"] = $answer;
 
-        // Generate answer options
+        // Generate answer options, starting with the correct answer
         $options = [$answer];
 
-        while (count($options) < 4) {
+        while (count($options) < 4) {//generates fake answers within a margin of 5
             $range = max(5, intval($answer / 2));
             $wrong = $answer + rand(-$range, $range);
             if (!in_array($wrong, $options) && $wrong >= 0) {
                 $options[] = $wrong;
             }
         }
-
+            //shuffles it around
         shuffle($options);
 
 
@@ -113,8 +113,8 @@ if ($operation === "division") {
 
 
 <h2><?php echo "$question"; ?></h2>
-
-<form method="post" action="check.php">
+<!-- Displays the question -->
+<form method="post" action="check.php"><!--This was written by Caleb, he can explain it better than i can-->
     <input type="hidden" name="grade_id" value="<?php echo $_GET['grade_id']; ?>">
     <input type="hidden" name="concept_id" value="<?php echo $_GET['concept_id']; ?>">
     <?php foreach ($options as $option): ?>
@@ -124,3 +124,4 @@ if ($operation === "division") {
     <?php endforeach; ?>
 </form>
 </html>
+<!--Lines 1-115 written by Benjamin Nguyen-->

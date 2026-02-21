@@ -1,9 +1,9 @@
-<!-- Caleb McHaney This program generates the selected depending on the operation selected then 
+<!--  This program generates the selected depending on the operation selected then 
  generates the values for the variables making the correct answer and the three incorrect answers. -->
 <!DOCTYPE html>
     <html>
 <?php
-error_reporting(E_ALL);
+error_reporting(E_ALL);//for detecting errors during development
 ini_set('display_errors', 1);
 session_start();
 
@@ -101,3 +101,5 @@ shuffle($options);
 </form>
 
 </html>
+<!-- Lines 1-9, 38-103 by Caleb McHaney -->
+ <!-- Lines 10-37 by Benjamin Nguyen -->

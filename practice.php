@@ -33,20 +33,20 @@
         Add functionality to put the last practiced or viewed grade on top-->
         <p>List of grades</p>
  <?php
-echo"<p>loaded</p>";
-$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P", "if0_41201125_brightstar_db");
 
+$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P", "if0_41201125_brightstar_db");
+// log in and check to see if the query worked
 $result = $conn->query("SELECT * FROM Grades");
 if (!$result) {
     die("Query failed: " . $conn->error);
 }
-
+// loops through the list of grades and the database and displays a link to the concepts related to that grade
 while ($row = $result->fetch_assoc()) {
     echo "<a href='concepts.php?grade_id={$row['gradeID']}'>";
     echo "<div><p>{$row['gradeDesc']}</p></div>";
     echo "</a>";
 }
-echo "<p>Loaded</p>";
+
 ?>
 
 
@@ -54,4 +54,4 @@ echo "<p>Loaded</p>";
 </body>
 
 </html>
-<!-- written by Benjamin Nguyen -->
+<!-- Lines 1-56 written by Benjamin Nguyen -->
