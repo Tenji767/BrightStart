@@ -87,6 +87,73 @@ if ($operation === "division") {//in case it's division, will try to prevent it 
             $answer = $x / $y;
             $symbol = "÷";
             break;
+                // Newly added K–12 concepts start here
+ 
+    // case "exponents": // exponents
+    //     $answer = pow($x, 2);
+    //     $question = "{$x}² = ?";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // case "square_root": // square roots
+    //     $base = rand(2, 15);
+    //     $perfect = $base * $base;
+    //     $answer = $base;
+    //     $question = "√{$perfect} = ?";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // case "percentage": // percentages
+    //     $percent = rand(5, 100);
+    //     $base = rand(20, 200);
+    //     $answer = round(($percent / 100) * $base, 2);
+    //     $question = "{$percent}% of {$base} = ?";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // case "area_triangle": // Geometry
+    //     $base = rand(5, 20);
+    //     $height = rand(5, 20);
+    //     $answer = ($base * $height) / 2;
+    //     $question = "Area of triangle (base={$base}, height={$height})?";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // case "area_circle": // Geometry
+    //     $radius = rand(1, 15);
+    //     $answer = round(pi() * $radius * $radius, 2);
+    //     $question = "Area of circle (r={$radius})? (Use π)";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // case "slope": // Algebra 1
+    //     $x1 = rand(1, 10);
+    //     $y1 = rand(1, 10);
+    //     $x2 = rand(11, 20);
+    //     $y2 = rand(11, 20);
+    //     $answer = round(($y2 - $y1) / ($x2 - $x1), 2);
+    //     $question = "Find slope between ({$x1},{$y1}) and ({$x2},{$y2})";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // case "linear_equation": // Algebra 1
+    //     $a = rand(1, 10);
+    //     $b = rand(1, 20);
+    //     $answer = rand(1, 10);
+    //     $c = $a * $answer + $b;
+    //     $question = "Solve: {$a}x + {$b} = {$c}";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // case "quadratic_eval": // Algebra 1
+    //     $xVal = rand(1, 10);
+    //     $answer = ($xVal * $xVal) + (3 * $xVal) + 2;
+    //     $question = "Evaluate: x² + 3x + 2 when x = {$xVal}";
+    //     $customQuestion = true;
+    //     break;
+ 
+    // default:
+    //     die("Unsupported operation.");
     }
 
     //puts the question into a readable format
