@@ -1,4 +1,4 @@
-<!-- Caleb McHaney this checks for the correct answer if the answer selected was incorrect the incorrect
+<!-- Caleb McHaney originally wrote lines 1-34 this checks for the correct answer if the answer selected was incorrect the incorrect
   message will display -->
 <!DOCTYPE html>
     <html>
