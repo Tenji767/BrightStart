@@ -51,11 +51,10 @@
             <li><a href="lessons.php">Learn</a></li>
             <li><a href="practice.php">Practice</a></li>
             <li><a href="helper.html">Helper</a></li>
-            <li><a href="admin/admin-dashboard.html">Admin</a></li>
+ 
         </ul>
     </nav>
 
-    <a href="account.html"><img src="pfp.png"/></a>
 </header>
 
 <body>

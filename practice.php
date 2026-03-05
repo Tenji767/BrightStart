@@ -16,7 +16,7 @@
     <h1>BrightStart</h1>
     <nav>
         <ul>
-            <li><a href="lessons.html">Learn</a></li>
+            <li><a href="lessons.php">Learn</a></li>
             <li><a href="practice.php">Practice</a></li>
             <li><a href="helper.html">Helper</a></li>
         </ul>
