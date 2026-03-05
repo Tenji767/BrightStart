@@ -39,12 +39,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Add stylesheet here -->
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <header>
     <a href="index.html"><img src="logo.png" alt="Brightstart logo"/></a>
-    <h1>BrightStart</h1>
+    <h1>BrightStart Learning</h1>
     <nav>
         <ul>
             <li><a href="lessons.php">Learn</a></li>
@@ -58,26 +59,33 @@
 
 <body>
 
-    <!--Add a "continue practice" option to pick up from where session was left off from last-->
-    <div class="menu">
-
-        <div class="menu-item" id="lesson-menu">
-            <a href="lessons.html"><button>Learn</button></a>
+    <main>
+        <div class="welcome-section">
+            <h2 class="welcome-text">Welcome, <span class="user-name">Student</span>!</h2>
+            <p class="welcome-subtitle">Ready to learn today?</p>
         </div>
 
-        <div class="menu-item" id="practice-menu">
-            <a href="practice.php"><button>Practice</button></a>
-        </div>
+        <!--Add a "continue practice" option to pick up from where session was left off from last-->
+        <div class="menu">
 
-        <div class="menu-item" id="lesson-menu">
-            <a href="helper.html"><button>Helper</button></a>
-        </div>
+            <div class="menu-item" id="lesson-menu">
+                <a href="lessons.html"><button>Learn</button></a>
+            </div>
 
-    </div>
+            <div class="menu-item" id="practice-menu">
+                <a href="practice.php"><button>Practice</button></a>
+            </div>
+
+            <div class="menu-item" id="lesson-menu">
+                <a href="helper.html"><button>Helper</button></a>
+            </div>
+
+        </div>
+    </main>
 </body>
 
 <footer>
-    <!--insert footer comment here-->
+    <p>&copy; 2025 BrightStart Math Tutoring. All rights reserved.</p>
 </footer>
 
 </html>
