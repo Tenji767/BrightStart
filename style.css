@@ -54,12 +54,13 @@ header img:first-of-type {
     width: 50px;
     border-radius: 50%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
 header img:first-of-type:hover {
     transform: scale(1.1);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
 }
 
 header h1 {
@@ -234,7 +235,7 @@ main {
 
 #lesson-menu:nth-child(3) button:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 15px 30px rgba(219, 205, 10, 0.618);
 }
 
 /* FOOTER */
