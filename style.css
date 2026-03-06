@@ -117,25 +117,6 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* PROFILE ICON */
-header a:last-child {
-    display: flex;
-    align-items: center;
-}
-
-header a:last-child img {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    border: 3px solid white;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-header a:last-child img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
 
 /* MAIN BODY CONTENT */
 main {
