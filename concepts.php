@@ -42,7 +42,8 @@ while ($row = $result->fetch_assoc()) {//puts the results into an array that can
     $concept = urlencode($row['conceptID']);//gets the concept id
 
     echo "<div>";
-    echo "<a href='quizes.php?grade_id=$grade&concept_id=$concept'><p>" . htmlspecialchars($row['conceptDesc']) . "</p></a>";//will open the quiz section that will pull questions templates from the database
+    echo "<a href='learnconcept.php?grade_id=$grade&concept_id=$concept'><p>Learn " . htmlspecialchars($row['conceptDesc']) . "</p></a>";
+    echo "<a href='quizes.php?grade_id=$grade&concept_id=$concept'><p>Practice " . htmlspecialchars($row['conceptDesc']) . "</p></a>";//will open the quiz section that will pull questions templates from the database REDO THE QUIZES TO PULL FROM DATABASE INSTEAD OF GENERATE
     echo "</div>";
 
 }
