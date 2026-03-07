@@ -65,7 +65,7 @@
             <p class="welcome-subtitle">Ready to learn today?</p>
         </div>
 
-        <!--Add a "continue practice" option to pick up from where session was left off from last-->
+        <!-- Add a "continue practice" option to pick up from where session was left off from last
         <div class="menu">
 
             <div class="menu-item" id="lesson-menu">
@@ -78,6 +78,10 @@
 
             <div class="menu-item" id="lesson-menu">
                 <a href="helper.html"><button>Helper</button></a>
+            </div> -->
+
+            <div class="menu-item">
+                <a href="practice.php"><button>Let's get started!</button></a>
             </div>
 
         </div>
