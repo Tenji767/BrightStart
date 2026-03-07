@@ -14,7 +14,7 @@
 
 <header>
     <a href="index.html"><img src="logo.png" alt="Brightstart logo"/></a>
-    <h1>BrightStart</h1>
+    <h1>BrightStart Learning</h1>
     <nav>
         <ul>
             <li><a href="lessons.php">Learn</a></li>
