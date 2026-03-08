@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Add stylesheet here -->
+     <!--<link rel="stylesheet" href="lessons.css"> -->
 </head>
 
 <header>
@@ -16,7 +17,7 @@
     <h1>BrightStart</h1>
     <nav>
         <ul>
-            <li><a href="lessons.html">Learn</a></li>
+            <li><a href="lessons.php">Learn</a></li>
             <li><a href="practice.php">Practice</a></li>
             <li><a href="helper.html">Helper</a></li>
         </ul>

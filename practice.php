@@ -9,14 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Add stylesheet here -->
+    <link rel="stylesheet" href="practice.css">
 </head>
 
 <header>
     <a href="index.html"><img src="logo.png" alt="Brightstart logo"/></a>
-    <h1>BrightStart</h1>
+    <h1>BrightStart Learning</h1>
     <nav>
         <ul>
-            <li><a href="lessons.html">Learn</a></li>
+            <li><a href="lessons.php">Learn</a></li>
             <li><a href="practice.php">Practice</a></li>
             <li><a href="helper.html">Helper</a></li>
         </ul>
