@@ -53,8 +53,9 @@
             <li><a href="helper.html">Helper</a></li>
  
         </ul>
+        
     </nav>
-
+    <a href="account.html"><img src="pfp.png"/></a>
 </header>
 
 <body>

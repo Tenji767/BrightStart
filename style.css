@@ -187,6 +187,7 @@ main {
     cursor: pointer;
     transition: all 0.3s ease;
     color: white;
+    background-color: #3c76b1bb;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: var(--shadow);
@@ -201,13 +202,17 @@ main {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(164, 69, 69, 0.2);
     transition: left 0.3s ease;
     z-index: -1;
 }
 
 .menu-item button:hover::before {
     left: 0;
+}
+
+.menu-item button:hover {
+    box-shadow: 0 14px 28px rgba(8, 104, 178, 0.3);
 }
 
 /* Individual Button Styles */

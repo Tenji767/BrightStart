@@ -98,6 +98,15 @@ if (!isset($_SESSION["students"]) || !is_array($_SESSION["students"])) {
             "status" => "Active",
             "date_added" => "2026-02-14"
         ],
+        [
+            "id" => "Test_test123",
+            "name" => "Test User",
+            "email" => "test.user@example.com",
+            "username" => "Test_test123",
+            "grade" => "3",
+            "status" => "Active",
+            "date_added" => "2023-05-21"
+        ],
     ];
 }
 
