@@ -29,7 +29,7 @@ if (!isset($_GET['grade_id'])) {//if accessed outside of from practice page, ere
 
 $grade_id = $_GET['grade_id'];//gets the grade that was selected into a variable
 
-$stmt = $conn->prepare("SELECT * FROM Concepts WHERE gradeID = ?");//loads that grade_id variable into the query to get all related concepts
+$stmt = $conn->prepare("SELECT * FROM Lesson WHERE grade_id = ?");//loads that grade_id variable into the query to get all related concepts
 $stmt->bind_param("i", $grade_id);
 $stmt->execute();
 
@@ -42,12 +42,12 @@ if(!$result){
 
 while ($row = $result->fetch_assoc()) {//puts the results into an array that can be referenced by the name of the column
     $grade = isset($_GET['grade_id']) ? urlencode($_GET['grade_id']) : '';//gets the grade id
-    $concept = urlencode($row['conceptID']);//gets the concept id
+    $concept = urlencode($row['lesson_id']);//gets the concept id
 
     echo "<div>";
     // echo "<a href='learnconcept.php?grade_id=$grade&concept_id=$concept'><p>Learn " . htmlspecialchars($row['conceptDesc']) . "</p></a>";
     // echo "<a href='quizes.php?grade_id=$grade&concept_id=$concept'><p>" . htmlspecialchars($row['conceptDesc']) . "</p></a>";//will open the quiz section that will pull questions templates from the database REDO THE QUIZES TO PULL FROM DATABASE INSTEAD OF GENERATE
-    echo '<button class="concept-btn" data-concept="' . $row['conceptID'] . '">' . $row['conceptDesc'] . '</button>';
+    echo '<button class="concept-btn" data-concept="' . $row['lesson_id'] . '">' . $row['lesson_title'] . '</button>';
     echo "</div>";
 
 }

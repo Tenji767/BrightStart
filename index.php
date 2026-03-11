@@ -82,7 +82,7 @@
             </div> -->
 
             <div class="menu-item">
-                <a href="practice.php"><button>Let's get started!</button></a>
+                <a href="choose-grade.php"><button>Let's get started!</button></a>
             </div>
 
         </div>
