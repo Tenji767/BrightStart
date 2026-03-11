@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 $removed = false;
 $selected = "";
 $errorMsg = "";

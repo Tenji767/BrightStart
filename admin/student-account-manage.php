@@ -1,4 +1,4 @@
-<?php
+<!--<?php
 
 session_start();
 
@@ -378,6 +378,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
 
 <!-- by Noah Reynolds-->
