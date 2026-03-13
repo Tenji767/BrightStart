@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 
 <!DOCTYPE HTML>
 <html lang="en">
@@ -11,95 +7,111 @@
 </head>
 
 <body>
-    <h1>Admin Lesson File Create</h1>
+<h1>Create Lesson</h1>
 
-    <?php if (!empty($message)): ?>
-        <p><strong><?php echo htmlspecialchars($message); ?></strong></p>
-    <?php endif; ?>
+<input id="lessonTitle" placeholder="Lesson Title">
 
-    <form action="admin-lesson-create.php" method="post" enctype="multipart/form-data">
+<label for="grade-select">Select a grade</label>
+<select id="grade-select" name="grades">
 
-        <h2>Create a Lesson File</h2>
-        <p><em>This is just a Simple prototype. Tools are just placeholders for now.</em></p>
+     <?php
 
-        <!-- Add Lesson Context and added tools beside it on the right side that text,image, and video as placeholders.  -->
-        <table>
-            <tr>
-                <td style="vertical-align: top; width: 80%;">
-                    <label for="lesson-content"><strong>Lesson Content (Text)</strong></label><br>
-                    <textarea id="lesson-content" name="lesson-content" rows="12" cols="70"
-                        placeholder="Type lesson text here..."></textarea>
-                </td>
+$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P", "if0_41201125_brightstar_db");
+// log in and check to see if the query worked
+$result = $conn->query("SELECT * FROM Grade");
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
+// loops through the list of grades and the database and displays a link to the concepts related to that grade
+while ($row = $result->fetch_assoc()) {
+    echo "<option value='".$row['grade_id']."'>".$row['grade_name']."</option>";}
 
-                <td style="vertical-align: top; padding-left: 12px;">
-                    <strong>Tools</strong><br><br>
-                    <button type="button">Text</button><br><br>
-                    <button type="button">Image</button><br><br>
-                    <button type="button">Video</button><br><br>
-                    <em>(placeholders)</em>
-                </td>
-            </tr>
-        </table>
+?>
+</select>
+<div id="lessonBuilder"></div>
 
-        <hr>
 
-        <!-- Able to select grade from K-12 for Lesson that is being created. -->
-        <h3>Lesson Details (Required)</h3>
 
-        <label for="grade"><strong>Select Grade K-12:</strong></label><br>
-        <select id="grade" name="grade" required>
-            <option value="" selected disabled>Select grade</option>
-            <option value="K">K</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-        </select>
+<button onclick="addText()">Add Text</button>
+<button onclick="addImage()">Add Image</button>
+<button onclick="addDiagram()">Add Diagram</button>
 
-<!-- Able to name your concept/lesson and add a description for it and add any prerequisites that are required to suceed at the lesson. -->
+<button onclick="saveLesson()">Save Lesson</button>
 
-        <br><br>
+<script>
+    const builder = document.getElementById("lessonBuilder");
 
-        <label for="concept-name"><strong>Concept Name:</strong></label><br>
-        <input type="text" id="concept-name" name="concept-name" size="60" required
-               placeholder="Example: Solving Two-Step Equations">
+function addText(){
 
-        <br><br>
+const block = document.createElement("div");
 
-        <label for="concept-description"><strong>Concept Description:</strong></label><br>
-        <textarea id="concept-description" name="concept-description" rows="4" cols="70" required
-                  placeholder="Brief explanation of what the student will learn..."></textarea>
+block.innerHTML = `
+<h3>Text</h3>
+<textarea class="blockContent"></textarea>
+`;
 
-        <br><br>
+builder.appendChild(block);
 
-        <label for="prerequisites"><strong>Prerequisites:</strong></label><br>
-        <textarea id="prerequisites" name="prerequisites" rows="3" cols="70"
-                  placeholder="Example: Basic addition, subtraction, understanding variables..."></textarea>
+}
 
-                  <br><br>
+function addImage(){
 
-        <input type="submit" value="Create Lesson">
+const block = document.createElement("div");
 
-        <br><br>
+block.innerHTML = `
+<h3>Image</h3>
+<input type="file" class="blockImage">
+`;
 
-        <hr>
-        
-        <!-- Simple Buttons that will lead allow for easy navigation back to previous pages -->
-        <div class="admin-menu">
-            <a href="admin-lesson-manage.php">
-                <button type="button" class="admin-menu-item">Back to Lesson Management page</button>
-            </a>    
-            
-            <a href="admin-dashboard.php">
-                <button type="button" class="admin-menu-item">Back to Dashboard page</button>
-            </a>
-        <!-- by Noah Reynolds-->
+builder.appendChild(block);
 
+}
+
+function addDiagram(){
+
+const block = document.createElement("div");
+
+block.innerHTML = `
+<h3>Diagram</h3>
+<input type="file" class="blockDiagram">
+`;
+
+builder.appendChild(block);
+
+}
+//saving lesson
+function saveLesson(){
+
+const lessonTitle = document.getElementById("lessonTitle").value;
+
+const gradeSelected = document.getElementById("grade-select").value;
+
+const lessonHTML = document.getElementById("lessonBuilder").innerHTML;
+
+fetch("saveLesson.php", {
+    method: "POST",
+
+    headers:{
+        "Content-Type":"application.json"
+    },
+
+    body: JSON.stringify({
+        title:lessonTitle,
+        grade:gradeSelected,
+        html:lessonHTML
+    })
+});
+}
+</script>
+<?php
+
+
+
+?>
+
+
+</body>
+
+
+
+</html>
