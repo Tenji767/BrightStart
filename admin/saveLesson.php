@@ -1,14 +1,27 @@
 <?php
 
-$data = json_decode(file_get_contents("php://input"), true);
+$conn = new mysqli("sql112.infinityfree.com","DB_USER","DB_PASS","DB_NAME");
 
-$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P", "if0_41201125_brightstar_db");
+$title = $_POST['title'];
+$grade = $_POST['grade'];
+$html = $_POST['html'];
 
-$title = $data['title'];
-$grade = $data['grade'];
-$html = $data['html'];
+$uploadDir = "uploads/";
 
-$stmt = $conn->prepare("INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html) VALUES (?, ?, ?)");
+// save uploaded images
+foreach($_FILES as $file){
+
+$path = $uploadDir . basename($file["name"]);
+
+move_uploaded_file($file["tmp_name"], $path);
+
+}
+
+// save lesson
+$stmt = $conn->prepare(
+"INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html)
+VALUES (?, ?, ?)"
+);
 
 $stmt->bind_param("sis", $title, $grade, $html);
 

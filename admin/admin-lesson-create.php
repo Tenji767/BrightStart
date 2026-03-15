@@ -1,36 +1,39 @@
-
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Admin Lesson Creation</title>
+<meta charset="utf-8">
+<title>Admin Lesson Creation</title>
 </head>
 
 <body>
+
 <h1>Create Lesson</h1>
 
 <input id="lessonTitle" placeholder="Lesson Title">
 
 <label for="grade-select">Select a grade</label>
-<select id="grade-select" name="grades">
 
-     <?php
+<select id="grade-select">
 
-$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P", "if0_41201125_brightstar_db");
-// log in and check to see if the query worked
+<?php
+
+$conn = new mysqli("sql112.infinityfree.com","DB_USER","DB_PASS","DB_NAME");
+
 $result = $conn->query("SELECT * FROM Grade");
-if (!$result) {
-    die("Query failed: " . $conn->error);
+
+if(!$result){
+    die("Query failed: ".$conn->error);
 }
-// loops through the list of grades and the database and displays a link to the concepts related to that grade
-while ($row = $result->fetch_assoc()) {
-    echo "<option value='".$row['grade_id']."'>".$row['grade_name']."</option>";}
+
+while($row = $result->fetch_assoc()){
+    echo "<option value='".$row['grade_id']."'>".$row['grade_name']."</option>";
+}
 
 ?>
+
 </select>
+
 <div id="lessonBuilder"></div>
-
-
 
 <button onclick="addText()">Add Text</button>
 <button onclick="addImage()">Add Image</button>
@@ -39,7 +42,8 @@ while ($row = $result->fetch_assoc()) {
 <button onclick="saveLesson()">Save Lesson</button>
 
 <script>
-    const builder = document.getElementById("lessonBuilder");
+
+const builder = document.getElementById("lessonBuilder");
 
 function addText(){
 
@@ -79,39 +83,72 @@ block.innerHTML = `
 builder.appendChild(block);
 
 }
-//saving lesson
 function saveLesson(){
 
-const lessonTitle = document.getElementById("lessonTitle").value;
+const title = document.getElementById("lessonTitle").value;
+const grade = document.getElementById("grade-select").value;
 
-const gradeSelected = document.getElementById("grade-select").value;
+const formData = new FormData();
 
-const lessonHTML = document.getElementById("lessonBuilder").innerHTML;
+formData.append("title", title);
+formData.append("grade", grade);
 
-fetch("saveLesson.php", {
-    method: "POST",
+let lessonHTML = "";
 
-    headers:{
-        "Content-Type":"application.json"
-    },
+// handle TEXT blocks
+document.querySelectorAll(".blockContent").forEach(textarea => {
 
-    body: JSON.stringify({
-        title:lessonTitle,
-        grade:gradeSelected,
-        html:lessonHTML
-    })
+const text = textarea.value.trim();
+
+if(text !== ""){
+lessonHTML += `<p>${text}</p>`;
+}
+
 });
+
+// handle IMAGE blocks
+document.querySelectorAll(".blockImage").forEach((img, index)=>{
+
+if(img.files[0]){
+
+const filename = img.files[0].name;
+
+formData.append("image"+index, img.files[0]);
+
+lessonHTML += `<img src="uploads/${filename}" class="lesson-image">`;
+
+}
+
+});
+
+// handle DIAGRAM blocks
+document.querySelectorAll(".blockDiagram").forEach((diagram, index)=>{
+
+if(diagram.files[0]){
+
+const filename = diagram.files[0].name;
+
+formData.append("diagram"+index, diagram.files[0]);
+
+lessonHTML += `<img src="uploads/${filename}" class="lesson-diagram">`;
+
+}
+
+});
+
+formData.append("html", lessonHTML);
+
+fetch("saveLesson.php",{
+method:"POST",
+body:formData
+})
+.then(response => response.text())
+.then(data => alert(data));
+
 }
 </script>
-<?php
-
-
-
-?>
-
 
 </body>
-
-
-
 </html>
+
+<!--...I think most of this I learned from ChatGPT and a lot I just pasted over...this shouldn't count...-->

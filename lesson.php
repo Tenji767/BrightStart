@@ -12,7 +12,7 @@
      <!--<link rel="stylesheet" href="lessons.css"> -->
 </head>
 
-<header>
+<!-- <header>
     <a href="index.html"><img src="logo.png" alt="Brightstart logo"/></a>
     <h1>BrightStart</h1>
     <nav>
@@ -24,12 +24,43 @@
     </nav>
 
     <a href="account.html"><img src="pfp.png"/></a>
-</header>
+</header> -->
 
 <!---->
 <body>
 
-<!-- PDF viewer here -->
+<?php
+
+
+$conn = new mysqli("sql112.infinityfree.com","DB_USER","DB_PASS","DB_NAME");
+
+$grade = isset($_GET['grade_id']) ? urlencode($_GET['grade_id']) : '';//gets the grade id
+$concept = urlencode($row['lesson_id']);//gets the concept id
+
+$stmt = $conn->prepare("SELECT * FROM Lesson WHERE lesson_id=? AND grade_id=?");
+
+$stmt->bind_param("ii", $concept, $grade);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+$row=$result->fetch_assoc();
+
+
+
+if(!$result){
+    die("Query failed: ".$conn->error);
+}
+
+echo "<h1>" . $row['lesson_title'] . "</h1>";
+echo $row['lesson_content_html'];
+
+
+?>
+
+
+
+
 </body>
 
 </html>
