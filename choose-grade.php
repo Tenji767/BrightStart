@@ -10,21 +10,10 @@
 
     <!-- Add stylesheet here -->
     <link rel="stylesheet" href="choose-grade.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<header>
-    <a href="index.html"><img src="logo.png" alt="Brightstart logo"/></a>
-    <h1>BrightStart Learning</h1>
-    <nav>
-        <ul>
-            <li><a href="lessons.php">Learn</a></li>
-            <li><a href="practice.php">Practice</a></li>
-            <li><a href="helper.html">Helper</a></li>
-        </ul>
-    </nav>
-
-    <a href="account.html"><img src="pfp.png"/></a>
-</header>
+<?php include('includes/nav.php');?>
 
 <!---->
 <body>

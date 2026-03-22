@@ -1,5 +1,5 @@
 <!--nav.php include created by Jordan Munster -->    
-    
+<header>
     <a href="index.php"><img src="logo.png" alt="Brightstart logo"/></a>
     <h1>BrightStart Learning</h1>
     <nav>
@@ -12,3 +12,4 @@
         
     </nav>
     <a href="account.html"><img src="pfp.png"/></a>
+</header>
