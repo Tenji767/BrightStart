@@ -17,8 +17,7 @@
 
  <div class="admin-menu">
 
-
-    <a href="admin-lesson-manage.php"><button class="admin-menu-item">Upload/Create Lessons</button></a>
+    <a href="admin-lesson-create.php"><button class="admin-menu-item">Upload/Create Lessons</button></a>
     <a href="tutor-manage.php"><button class="admin-menu-item">Manage Tutor Credentials</button></a>
     <a href="student-account-manage.php"><button class="admin-menu-item">Manage School and Student Accounts</button></a>
 

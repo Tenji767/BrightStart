@@ -17,8 +17,7 @@
 
 <?php
 
-$conn = new mysqli("sql112.infinityfree.com","DB_USER","DB_PASS","DB_NAME");
-
+include("db_connect.php");
 $result = $conn->query("SELECT * FROM Grade");
 
 if(!$result){
