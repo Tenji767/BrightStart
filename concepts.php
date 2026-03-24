@@ -10,8 +10,12 @@ ini_set('display_startup_errors', 1);//development error checking
 <head>
     <meta charset="utf-8">
     <link href="concepts.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
+<?php include('includes/nav.php');?>
+<body>
 <?php
 
 // echo "<p>Loaded</p>";
@@ -97,7 +101,7 @@ practiceBtn.addEventListener("click", () => {
 
 });
 </script>
-
+</body>
 
 </html>
 <!-- lines 1-50 written by Benjamin Nguyen -->
