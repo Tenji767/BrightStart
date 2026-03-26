@@ -43,6 +43,10 @@ if(!$result){
     echo "<p>Error loading in concepts</p>";//welp...hopefully you have concepts in the database
 }
 
+echo "<a href='choose-grade.php'>";
+echo "<div><p>Select Grade</p></div>";
+echo "</a>";
+
 
 while ($row = $result->fetch_assoc()) {//puts the results into an array that can be referenced by the name of the column
     $grade = isset($_GET['grade_id']) ? urlencode($_GET['grade_id']) : '';//gets the grade id

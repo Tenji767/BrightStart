@@ -16,7 +16,7 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
 echo "<a href='concepts.php?grade_id={$grade}'>";
-echo "<div><p>Select Grade</p></div>";
+echo "<div><p>Select Lesson</p></div>";
 echo "</a>";
 
 echo "<h1>" . $row['lesson_title'] . "</h1>";
