@@ -88,7 +88,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 </head>
  
 <body>
-    <?php include('includes/nav.php'); ?>
+    <?php include('../includes/nav.php'); ?>
  
     <main>
  
@@ -102,7 +102,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
         <?php endif; ?>
  
         <!-- Create Question Form -->
-        <form method="POST" action="questions.php">
+        <form method="POST" action="admin-create-questions.php">
  
             <label for="lesson_id">Lesson:
                 <select name="lesson_id" id="lesson_id" required>
@@ -176,7 +176,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
                             <?= $row['correct_option'] === 'D' ? ' ✓' : '' ?>
                         </li>
                     </ul>
-                    <form method="POST" action="questions.php"
+                    <form method="POST" action="admin-create-questions.php"
                           onsubmit="return confirm('Delete this question?');">
                         <input type="hidden" name="question_id" value="<?= $row['question_id'] ?>">
                         <button type="submit" name="delete_question">Delete</button>
