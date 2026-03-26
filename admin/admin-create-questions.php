@@ -10,7 +10,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 // connects to the database
-include('db_connect.php');
+include('../db_connect.php');
  
 $msg = "";
 $msg_type = ""; // "success" or "error"
@@ -83,7 +83,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.php'); ?>
+    <?php include('../includes/header.php'); ?>
     <!-- Stylesheets need to be added still 3/24/26 CM -->
 </head>
  
