@@ -1,6 +1,7 @@
 <?php
+// be able to select grade id for the questions and add sortability by lesson to the questions databank deletion
 // Author: Caleb McHaney
-// Questions.php is the main file for handling questions
+// admin-create-questions.php is the main file for handling question creation
 // Questions are multiple choice only
  
 // Starts sessions and sets error reporting for debugging
@@ -10,7 +11,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 // connects to the database
-include('../db_connect.php');
+include "../db_connect.php";
  
 $msg = "";
 $msg_type = ""; // "success" or "error"
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_question'])) {
  
         if ($stmt->execute()) {
             // Redirect after POST to prevent duplicate submission on refresh
-            header("Location: questions.php?success=1");
+            header("Location: admin-create-questions.php?success=1");
             exit;
         } else {
             $msg      = "Error creating question: " . $stmt->error;
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_question'])) {
     $stmt->bind_param("i", $question_id);
  
     if ($stmt->execute()) {
-        header("Location: questions.php?deleted=1");
+        header("Location: admin-create-questions.php?deleted=1");
         exit;
     } else {
         $msg      = "Error deleting question: " . $stmt->error;
