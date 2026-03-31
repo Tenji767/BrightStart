@@ -24,7 +24,17 @@
         <p>List of grades</p>
  <?php
 
-$conn = new mysqli( "sql112.infinityfree.com", "if0_41201125", "EvKOulpa615P", "if0_41201125_brightstar_db");
+
+
+$conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");//log in
+if ($conn->connect_error) {
+    echo "Database Connection failed";
+    die("Database connection failed: " . $conn->connect_error);
+    //check forc connection
+    
+  
+}
+
 // log in and check to see if the query worked
 $result = $conn->query("SELECT * FROM Grade");
 if (!$result) {

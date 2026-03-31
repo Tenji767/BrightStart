@@ -1,19 +1,19 @@
 <?php
-// session_start();
+session_start();
 
-// if(!isset($_SESSION($username))) {
-//     $_SESSION['msg'] = "Log in first";
-//     //Incorporate the login session
-//     //         $_SESSION['msg'] = "You must log in first";
-//     //     header('location: login.php');
-//     // }
-//     // if(isset($_GET['logout'])) {
-//     //     session_destroy();
-//     //     unset($_SESSION['username']);
-//     //     header('location: login.php');
-//     // }
+if(!isset($_SESSION['user_id'])) {
+    $_SESSION['msg'] = "Log in first";
+    // Incorporate the login session
+            $_SESSION['msg'] = "You must log in first";
+        header('location: login.php');
+    }
+    if(isset($_GET['logout'])) {
+        session_destroy();
+        unset($_SESSION['username']);
+        header('location: login.php');
+    }
 
-// }
+
 
 
 ?>
@@ -43,20 +43,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<header>
-    <a href="index.php"><img src="logo.png" alt="Brightstart logo"/></a>
-    <h1>BrightStart Learning</h1>
-    <nav>
-        <ul>
-            <li><a href="lessons.php">Learn</a></li>
-            <li><a href="practice.php">Practice</a></li>
-            <li><a href="helper.html">Helper</a></li>
- 
-        </ul>
-        
-    </nav>
-    <a href="account.html"><img src="pfp.png"/></a>
-</header>
+<?php include('includes/nav.php');?>
+
 
 <body>
 
