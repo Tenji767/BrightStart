@@ -1,4 +1,4 @@
-/*Practice.php Stylesheet*/
+/*choose-grade.php Stylesheet*/
 /*Created by Jordan Munster*/
 
 * {
@@ -236,6 +236,11 @@ main {
 #lesson-menu:nth-child(3) button:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(219, 205, 10, 0.618);
+}
+
+/*choose-grade menu*/
+#grade-menu button {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
 }
 
 /* FOOTER */
