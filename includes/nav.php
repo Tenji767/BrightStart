@@ -6,7 +6,7 @@
         <ul>
             <li><a href="index.php">Home</a></li>
   
-            <li><a href="helper.html">Helper</a></li>
+            <li><a href="helper.php">Helper</a></li>
  
         </ul>
         
