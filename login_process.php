@@ -44,7 +44,7 @@ if($result->num_rows > 0){
         $_SESSION['user_id'] = $student['student_id'];
         $_SESSION['role'] = "student";
 
-        header("Location: lesson.php");
+        header("Location: index.php");
         exit();
     }
 }

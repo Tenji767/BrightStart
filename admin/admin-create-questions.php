@@ -1,6 +1,7 @@
 <?php
+// be able to select grade id for the questions and add sortability by lesson to the questions databank deletion
 // Author: Caleb McHaney
-// Questions.php is the main file for handling questions
+// admin-create-questions.php is the main file for handling question creation
 // Questions are multiple choice only
  
 // Starts sessions and sets error reporting for debugging
@@ -10,7 +11,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 // connects to the database
-include('db_connect.php');
+include "../db_connect.php";
  
 $msg = "";
 $msg_type = ""; // "success" or "error"
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_question'])) {
  
         if ($stmt->execute()) {
             // Redirect after POST to prevent duplicate submission on refresh
-            header("Location: questions.php?success=1");
+            header("Location: admin-create-questions.php?success=1");
             exit;
         } else {
             $msg      = "Error creating question: " . $stmt->error;
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_question'])) {
     $stmt->bind_param("i", $question_id);
  
     if ($stmt->execute()) {
-        header("Location: questions.php?deleted=1");
+        header("Location: admin-create-questions.php?deleted=1");
         exit;
     } else {
         $msg      = "Error deleting question: " . $stmt->error;
@@ -83,12 +84,12 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.php'); ?>
+    <?php include('../includes/header.php'); ?>
     <!-- Stylesheets need to be added still 3/24/26 CM -->
 </head>
  
 <body>
-    <?php include('includes/nav.php'); ?>
+    <?php include('../includes/nav.php'); ?>
  
     <main>
  
@@ -102,7 +103,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
         <?php endif; ?>
  
         <!-- Create Question Form -->
-        <form method="POST" action="questions.php">
+        <form method="POST" action="admin-create-questions.php">
  
             <label for="lesson_id">Lesson:
                 <select name="lesson_id" id="lesson_id" required>
@@ -176,7 +177,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
                             <?= $row['correct_option'] === 'D' ? ' ✓' : '' ?>
                         </li>
                     </ul>
-                    <form method="POST" action="questions.php"
+                    <form method="POST" action="admin-create-questions.php"
                           onsubmit="return confirm('Delete this question?');">
                         <input type="hidden" name="question_id" value="<?= $row['question_id'] ?>">
                         <button type="submit" name="delete_question">Delete</button>
