@@ -102,7 +102,7 @@ practiceBtn.addEventListener("click", () => {
 
   if(selectedConcept){
     window.location.href =
-      `practice.php?grade_id=${gradeID}&concept_id=${selectedConcept}`;
+      `practice.php?lesson_id=${selectedConcept}`;
   }
 
 });
