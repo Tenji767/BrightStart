@@ -1,32 +1,40 @@
 <?php
 //Author Caleb McHaney
 //practice.php is the main file for handling practice sessions on the student view allowing the students to do practice exercises
-// Flow:
-//   1. Student arrives from the lessons page with ?lesson_id=X in the URL.
-//   2. Questions for that lesson (matching the student's grade from session) are
-//      loaded and stored in $_SESSION so progress survives page reloads.
-//   3. One question is shown at a time.
-//   4. Wrong answer → "Do you need help?" prompt.
-//      Yes → AI chatbot panel; student can retry the same question as many times as needed.
-//      No  → Move to the next question immediately.
-//   5. After the last question → results summary (score + per-question review).
 
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-include "../db_connect.php";
+include "db_connect.php";
 
-//student must be logged in with a grade
-if (!isset($_SESSION['grade_id']) || !isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
+//redirect to login if the student is not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
     exit;
 }
 
-$grade_id = intval($_SESSION['grade_id']);
+//get the lesson id from the URL or from the session if it was set previously
+$lesson_id = intval($_GET['lesson_id'] ?? $_SESSION['practice_lesson_id'] ?? 0);
 
-//AI chatbot endpoint
+//if no lesson id is found send the student back to the lesson page
+if (!$lesson_id) {
+    header("Location: lesson.php");
+    exit;
+}
+
+//look up the grade that this lesson belongs to
+$grade_id = 0;
+
+$stmt = $conn->prepare("SELECT grade_id FROM Lesson WHERE lesson_id = ?");
+$stmt->bind_param("i", $lesson_id);
+$stmt->execute();
+$lesson = $stmt->get_result()->fetch_assoc();
+
+$grade_id = intval($lesson['grade_id'] ?? 0);
+
+//handles the chatbot request sent from the browser via fetch
 if (isset($_POST['action']) && $_POST['action'] === 'ai_help') {
     header('Content-Type: application/json');
 
@@ -37,115 +45,66 @@ if (isset($_POST['action']) && $_POST['action'] === 'ai_help') {
     $history        = json_decode($_POST['conversation'] ?? '[]', true);
     if (!is_array($history)) $history = [];
 
-    // Tutor system prompt — guide the student, never reveal the answer outright
-    $system_prompt = <<<PROMPT
-You are a friendly, encouraging tutor helping a student who answered a multiple-choice question incorrectly.
-Your job is to guide them to understand the concept well enough to work out the correct answer on their own.
-Do NOT simply state the correct answer. Instead ask guiding questions, give hints, and explain relevant concepts.
-Keep responses concise and age-appropriate (elementary / middle school level).
-
-The question is:
-"{$question_text}"
-
-The answer choices are:
-A: {$options['a']}
-B: {$options['b']}
-C: {$options['c']}
-D: {$options['d']}
-
-The correct answer is option {$correct_option}. Do not reveal this letter or the answer text directly.
-Guide the student through reasoning so they can discover it themselves.
-PROMPT;
-
-    // Append the new user message to history before sending
-    $history[] = ['role' => 'user', 'content' => $user_message];
-
-    $payload = json_encode([
-        'model'      => 'claude-sonnet-4-20250514',
-        'max_tokens' => 512,
-        'system'     => $system_prompt,
-        'messages'   => $history,
-    ]);
-
-    $ch = curl_init('https://api.anthropic.com/v1/messages');
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => $payload,
-        CURLOPT_HTTPHEADER     => [
-            'Content-Type: application/json',
-            'x-api-key: ' . ($_ENV['ANTHROPIC_API_KEY'] ?? getenv('ANTHROPIC_API_KEY')),
-            'anthropic-version: 2023-06-01',
-        ],
-    ]);
-
-    $response  = curl_exec($ch);
-    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    if ($http_code !== 200) {
-        echo json_encode(['reply' => 'Sorry, I ran into a problem. Please try again.']);
-        exit;
-    }
-
-    $data  = json_decode($response, true);
-    $reply = $data['content'][0]['text'] ?? 'Sorry, I could not generate a response.';
-
+    // TODO: Nick plug in your chatbot here
+    // Available variables:
+    //   $question_text  — the question the student got wrong
+    //   $options        — array with keys 'a','b','c','d'
+    //   $correct_option — the correct letter (e.g. 'B')
+    //   $user_message   — the student's latest message
+    //   $history        — prior conversation turns [['role'=>'user'/'assistant','content'=>'...']]
+    $reply = 'Chatbot not connected yet.';
     echo json_encode(['reply' => $reply]);
     exit;
 }
 
-//Determine lesson
-$lesson_id = intval($_GET['lesson_id'] ?? $_SESSION['practice_lesson_id'] ?? 0);
-
-if (!$lesson_id) {
-    header("Location: lessons.php");
-    exit;
-}
-
-//Load (or resume) a quiz session 
+//start a new quiz session or resume the existing one for this lesson
 $reset = isset($_GET['reset']);
 
 if ($reset || !isset($_SESSION['practice']) || $_SESSION['practice']['lesson_id'] !== $lesson_id) {
 
+    //fetch all questions for this lesson from the database
     $stmt = $conn->prepare(
         "SELECT question_id, question_text, option_a, option_b, option_c, option_d, correct_option
          FROM Questions
-         WHERE lesson_id = ? AND grade_id = ?
+         WHERE lesson_id = ?
          ORDER BY question_id ASC"
     );
-    $stmt->bind_param("ii", $lesson_id, $grade_id);
+    $stmt->bind_param("i", $lesson_id);
     $stmt->execute();
     $result    = $stmt->get_result();
     $questions = [];
     while ($row = $result->fetch_assoc()) $questions[] = $row;
 
+    //if no questions exist for this lesson send the student back
     if (empty($questions)) {
         $_SESSION['practice_error'] = "No practice questions are available for this lesson yet.";
-        header("Location: lessons.php");
+        header("Location: lesson.php");
         exit;
     }
 
+    //get the lesson title to display on the page
     $lstmt = $conn->prepare("SELECT lesson_title FROM Lesson WHERE lesson_id = ?");
     $lstmt->bind_param("i", $lesson_id);
     $lstmt->execute();
     $lesson_row   = $lstmt->get_result()->fetch_assoc();
     $lesson_title = $lesson_row['lesson_title'] ?? 'Practice';
 
+    //store the quiz state in the session so it persists across page loads
     $_SESSION['practice'] = [
         'lesson_id'    => $lesson_id,
         'lesson_title' => $lesson_title,
         'questions'    => $questions,
         'current'      => 0,
-        'answers'      => [],   // [question_id => ['chosen','correct','is_correct','used_ai']]
+        'answers'      => [],
         'done'         => false,
     ];
     $_SESSION['practice_lesson_id'] = $lesson_id;
 }
 
+//reference the session quiz data for easy access throughout the page
 $quiz = &$_SESSION['practice'];
 
-//POST: student submitted an answer 
+//handles when the student submits an answer
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_answer'])) {
     $chosen     = strtoupper(trim($_POST['chosen_option'] ?? ''));
     $idx        = intval($_POST['question_index'] ?? $quiz['current']);
@@ -153,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_answer'])) {
     $is_correct = ($chosen === $q['correct_option']);
     $used_ai    = isset($_POST['used_ai']) && $_POST['used_ai'] === '1';
 
-    // Record the first attempt 
+    //record the students answer for this question
     if (!isset($quiz['answers'][$q['question_id']])) {
         $quiz['answers'][$q['question_id']] = [
             'chosen'     => $chosen,
@@ -162,30 +121,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_answer'])) {
             'used_ai'    => $used_ai,
         ];
     } elseif ($used_ai) {
+        //update the answer if the student retried after using AI help
         $quiz['answers'][$q['question_id']]['used_ai']    = true;
         $quiz['answers'][$q['question_id']]['is_correct'] = $is_correct;
         $quiz['answers'][$q['question_id']]['chosen']     = $chosen;
     }
 
     if ($is_correct) {
+        //advance to the next question or mark the quiz as done
         $next = $idx + 1;
         $quiz['done']    = ($next >= count($quiz['questions']));
         $quiz['current'] = $quiz['done'] ? $idx : $next;
         header("Location: practice.php?lesson_id={$lesson_id}");
         exit;
     } else {
-        //Wrong answer 
+        //send the student to the wrong answer screen
         header("Location: practice.php?lesson_id={$lesson_id}&wrong=1&idx={$idx}");
         exit;
     }
 }
 
-//POST: student declined help
+//handles when the student skips AI help and moves to the next question
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skip_to_next'])) {
     $idx = intval($_POST['question_index'] ?? $quiz['current']);
     $q   = $quiz['questions'][$idx];
 
-    // Ensure a wrong answer is on record even when help is declined
+    //record a wrong answer if nothing was recorded yet
     if (!isset($quiz['answers'][$q['question_id']])) {
         $quiz['answers'][$q['question_id']] = [
             'chosen'     => strtoupper(trim($_POST['last_chosen'] ?? '')),
@@ -202,14 +163,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skip_to_next'])) {
     exit;
 }
 
-//View state
+//determine which screen to show based on the current state
 $show_wrong_prompt = isset($_GET['wrong']) && isset($_GET['idx']);
 $wrong_idx         = intval($_GET['idx'] ?? $quiz['current']);
 $current_idx       = $quiz['current'];
 $total             = count($quiz['questions']);
 $current_q         = $quiz['questions'][$current_idx] ?? null;
 
-//Compute score for results screen
+//calculate the score once the quiz is finished
 $score = 0;
 if ($quiz['done']) {
     foreach ($quiz['answers'] as $a) {
@@ -220,11 +181,11 @@ if ($quiz['done']) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('../includes/header.php'); ?>
+    <?php include('includes/header.php'); ?>
     <title>Practice – <?= htmlspecialchars($quiz['lesson_title']) ?></title>
 </head>
 <body>
-    <?php include('../includes/nav.php'); ?>
+    <?php include('includes/nav.php'); ?>
 
     <main>
 
@@ -268,8 +229,8 @@ if ($quiz['done']) {
             <button type="button">Retry This Lesson</button>
         </a>
         &nbsp;
-        <a href="lessons.php">
-            <button type="button">Back to Lessons</button>
+        <a href="lesson.php?lesson_id=<?= $lesson_id ?>">
+            <button type="button">Back to Lesson</button>
         </a>
 
 
@@ -325,7 +286,7 @@ if ($quiz['done']) {
             </form>
         </div>
 
-        <!--Hidden data attributes used by the JS chatbot-->
+        <!--Hidden span that stores question data for the JavaScript chatbot to read-->
         <span id="js-question-data"
               data-text="<?= htmlspecialchars($wq['question_text']) ?>"
               data-a="<?= htmlspecialchars($wq['option_a']) ?>"
@@ -365,7 +326,7 @@ if ($quiz['done']) {
 
     </main>
 
-    <!--JS — AI chatbot-->
+    <!--JavaScript that handles the chatbot chat panel-->
     <script>
     (function () {
         const panel      = document.getElementById('chatbot-panel');
@@ -375,11 +336,13 @@ if ($quiz['done']) {
         const chatMsgs   = document.getElementById('chat-messages');
         const qData      = document.getElementById('js-question-data');
 
-        if (!panel || !btnHelp) return; // not on the wrong-answer screen
+        //only run this code on the wrong answer screen
+        if (!panel || !btnHelp) return;
 
-        let history = []; // full conversation sent to the server each turn
+        //keeps track of the full conversation to send to the server each time
+        let history = [];
 
-        // Show chatbot and open with a tutor greeting
+        //show the chatbot panel when the student asks for help
         btnHelp.addEventListener('click', function () {
             panel.style.display = 'block';
             btnHelp.disabled    = true;
@@ -399,6 +362,7 @@ if ($quiz['done']) {
             sendToAI(text);
         }
 
+        //sends the students message to the PHP chatbot endpoint and displays the reply
         function sendToAI(userMessage) {
             history.push({ role: 'user', content: userMessage });
 
@@ -416,7 +380,6 @@ if ($quiz['done']) {
             fd.append('options[d]',     qData.dataset.d);
             fd.append('correct_option', qData.dataset.correct);
             fd.append('user_message',   userMessage);
-            // Send history without the message we just appended (server appends it itself)
             fd.append('conversation',   JSON.stringify(history.slice(0, -1)));
 
             fetch('practice.php?lesson_id=<?= $lesson_id ?>', { method: 'POST', body: fd })
@@ -436,7 +399,7 @@ if ($quiz['done']) {
                 });
         }
 
-        // Appends a chat bubble and returns the text <span> so we can update "..."
+        //creates a chat bubble and returns the text node so it can be updated
         function appendMessage(sender, text) {
             const div  = document.createElement('div');
             const span = document.createElement('span');
