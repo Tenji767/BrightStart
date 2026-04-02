@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button type="submit" name="remove" form="removeForm">- Remove Tutor</button>
             </div>
 
-            <!-- Used some of the same sorting startegy as the lesson management page, but with different options that would maybe fit the tutor page. -->
+            Used some of the same sorting startegy as the lesson management page, but with different options that would maybe fit the tutor page. -->
 
             <br>
             <select id="tutor-sort" onchange="sortTutorsByDate()">

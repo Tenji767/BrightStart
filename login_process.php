@@ -50,4 +50,5 @@ if($result->num_rows > 0){
 }
 
 echo "Invalid email or password.";
+echo "<br><a href='login.php'>Try again</a>";
 ?>

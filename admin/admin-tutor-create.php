@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <H1>
         Create Tutor </H1>
         <div>
-    <!-- Buttons for going to see all the tutors and a simple back to main dashboard button. -->
+     Buttons for going to see all the tutors and a simple back to main dashboard button. -->
     <a href="tutor-manage.php"><button>View Tutors</button></a>
     <a href="admin-dashboard.php"><button>Back to Dashboard</button></a>
 
