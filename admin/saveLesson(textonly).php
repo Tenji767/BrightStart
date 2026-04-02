@@ -2,38 +2,33 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// DB CONNECTION
 $conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");//log in
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);//check forc connection
 
-
+  
 }
 
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
 
+// GET DATA
 $title = $_POST['title'] ?? '';
 $grade = $_POST['grade'] ?? '';
-$html = $_POST['html'] ?? '';
+$html  = $_POST['html'] ?? '';
 
-$uploadDir = "uploads/";
+// DEBUG (optional)
+echo "Received:<br>";
+echo "Title: $title <br>";
+echo "Grade: $grade <br>";
+echo "HTML: $html <br><hr>";
 
-// DEBUG FILES
-echo "<pre>";
-print_r($_FILES);
-echo "</pre>";
-
-foreach($_FILES as $file){
-    $path = $uploadDir . basename($file["name"]);
-
-    if(move_uploaded_file($file["tmp_name"], $path)){
-        echo "Uploaded: " . $file["name"] . "<br>";
-    } else {
-        echo "Failed: " . $file["name"] . "<br>";
-    }
-}
-
+// SAVE TO DATABASE
 $stmt = $conn->prepare(
-"INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html)
-VALUES (?, ?, ?)"
+    "INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html)
+     VALUES (?, ?, ?)"
 );
 
 if(!$stmt){
@@ -46,5 +41,5 @@ if(!$stmt->execute()){
     die("Execute failed: " . $stmt->error);
 }
 
-echo "Lesson saved";
+echo "Lesson saved successfully!";
 ?>
