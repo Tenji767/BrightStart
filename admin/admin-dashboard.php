@@ -64,11 +64,6 @@ $totalLessons = 12;
 $totalPdfLessons = 9;
 $totalQuestions = 37;
 
-$recentActivity = [
-    "Lesson content was updated for Grade 3 reading.",
-    "A PDF lesson file was uploaded for Grade 5 science.",
-    "New questions were added to a lesson.",
-];
 
 $currentDate = date("F j, Y");
 $currentTime = date("g:i:s A");
@@ -78,6 +73,7 @@ $currentTime = date("g:i:s A");
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($pageTitle); ?></title>
     <style>
         * {
@@ -87,39 +83,76 @@ $currentTime = date("g:i:s A");
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            color: #333;
+            background-color: #eef3f9;
+            color: #243447;
         }
 
-        .page-wrap {
-            max-width: 1180px;
-            margin: 35px auto;
-            padding: 20px;
+        .page-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background-color: #0f2747;
+            color: white;
+            padding: 16px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .brand-subtitle {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.78);
+            letter-spacing: 0.3px;
+        }
+
+        .topbar-meta {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.92);
         }
 
         .hero {
-            background: linear-gradient(135deg, #1d3557, #457b9d);
+            background: linear-gradient(135deg, #16345d, #3e6fa3);
             color: white;
-            padding: 30px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            padding: 42px 40px 34px;
         }
 
         .hero h1 {
-            margin: 0 0 10px 0;
-            font-size: 32px;
+            margin: 0 0 12px 0;
+            font-size: 38px;
+            line-height: 1.2;
         }
 
         .hero p {
             margin: 6px 0;
-            font-size: 16px;
+            font-size: 17px;
+            max-width: 900px;
+        }
+
+        .main-content {
+            width: 100%;
+            padding: 30px 40px 50px;
         }
 
         .status-box {
             padding: 14px 18px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            margin-bottom: 22px;
             font-weight: bold;
         }
 
@@ -135,78 +168,75 @@ $currentTime = date("g:i:s A");
             border: 1px solid #ffcdd2;
         }
 
-        .section-title {
-            margin: 0 0 14px 0;
-            font-size: 24px;
-            color: #1d3557;
+        .section-block {
+            margin-bottom: 30px;
         }
 
-        .stats-grid,
-        .tools-grid,
+        .section-heading-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: 28px;
+            color: #16345d;
+        }
+
+        .section-subtitle {
+            margin: 4px 0 0 0;
+            color: #607086;
+            font-size: 14px;
+        }        .stats-grid,
         .two-col-grid {
             display: grid;
-            gap: 18px;
+            gap: 20px;
         }
 
         .stats-grid {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            margin-bottom: 28px;
-        }
-
-        .tools-grid {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            margin-bottom: 28px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
         }
 
         .two-col-grid {
             grid-template-columns: 1fr 1fr;
-            margin-bottom: 28px;
         }
 
-        .card {
+        .panel {
             background-color: white;
-            border-radius: 16px;
-            padding: 22px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 28px rgba(17, 39, 69, 0.08);
+            border: 1px solid rgba(22, 52, 93, 0.06);
         }
 
-        .stat-card h2 {
-            margin: 0 0 10px 0;
-            color: #1d3557;
-            font-size: 20px;
-            text-align: center;
+        .stat-card {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            font-weight: bold;
+            color: #4d5f75;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .stat-number {
-            text-align: center;
-            font-size: 34px;
+            font-size: 40px;
             font-weight: bold;
-            color: #457b9d;
-        }
-
-        .tool-card {
-            display: block;
-            text-decoration: none;
-            background-color: #1d3557;
-            color: white;
-            border-radius: 16px;
-            padding: 22px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .tool-card:hover {
-            background-color: #457b9d;
-            transform: translateY(-4px);
-        }
-
-        .tool-card-title {
-            font-size: 20px;
-            font-weight: bold;
+            color: #214f83;
             margin-bottom: 8px;
         }
 
-        .tool-card-text {
+        .stat-note {
+            color: #6b7a8c;
             font-size: 14px;
             line-height: 1.5;
         }
@@ -215,39 +245,52 @@ $currentTime = date("g:i:s A");
             display: block;
             font-weight: bold;
             margin-bottom: 8px;
-            color: #1d3557;
+            color: #16345d;
         }
 
         select,
-        input[type="text"],
         button {
             width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
+            padding: 13px 14px;
+            border-radius: 12px;
+            border: 1px solid #cfd7e3;
             font-size: 15px;
             margin-bottom: 12px;
+            background-color: white;
         }
 
         button {
-            background-color: #1d3557;
+            background-color: #16345d;
             color: white;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
         button:hover {
-            background-color: #457b9d;
+            background-color: #214f83;
+            transform: translateY(-1px);
         }
 
         .secondary-button {
-            background-color: #457b9d;
+            background-color: #3e6fa3;
         }
 
         .secondary-button:hover {
-            background-color: #355f7d;
+            background-color: #335f8d;
+        }
+
+        .school-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #edf4ff;
+            color: #16345d;
+            padding: 12px 16px;
+            border-radius: 999px;
+            font-weight: bold;
+            margin: 4px 0 16px;
         }
 
         .info-list,
@@ -258,168 +301,172 @@ $currentTime = date("g:i:s A");
 
         .info-list li,
         .activity-list li {
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-
-        .school-badge {
-            display: inline-block;
-            background-color: #eaf2ff;
-            color: #1d3557;
-            padding: 10px 14px;
-            border-radius: 999px;
-            font-weight: bold;
-            margin-top: 6px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #42556d;
         }
 
         .footer-note {
+            margin-top: auto;
+            background-color: #0f2747;
+            color: rgba(255, 255, 255, 0.78);
             text-align: center;
+            padding: 18px 24px;
             font-size: 14px;
-            color: #666;
-            margin-top: 10px;
         }
 
-        @media (max-width: 900px) {
-            .two-col-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 1100px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 850px) {
+            .topbar,
+            .h
+           }
+
+            .topbar-meta {
+                text-align: left;
             }
 
             .hero h1 {
-                font-size: 28px;
+                font-size: 30px;
+            }
+
+            .two-col-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-
-    <div class="page-wrap">
-
-        <div class="hero">
-            <h1><?php echo htmlspecialchars($systemName); ?> Admin Dashboard</h1>
-            <p><strong>Welcome:</strong> <?php echo htmlspecialchars($adminName); ?></p>
-            <p><strong>Date:</strong> <span id="live-date"><?php echo htmlspecialchars($currentDate); ?></span> | <strong>Time:</strong> <span id="live-time"><?php echo htmlspecialchars($currentTime); ?></span> EST</p>
-            <p>This dashboard is focused on K-12 school access, lesson management, PDF uploads, and lesson questions.</p>
-        </div>
-
-        <?php if ($statusMessage !== ''): ?>
-            <div class="status-box <?php echo $statusType === 'success' ? 'status-success' : 'status-error'; ?>">
-                <?php echo htmlspecialchars($statusMessage); ?>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="topbar-inner">
+                <div>
+                    <div class="brand-title"><?php echo htmlspecialchars($systemName); ?></div>
+                    <div class="brand-subtitle">K-12 Lesson and Question Administration Portal</div>
+                </div>
+                <div class="topbar-meta">
+                    <div><strong>Welcome:</strong> <?php echo htmlspecialchars($adminName); ?></div>
+                    <div><strong>Date:</strong> <span id="live-date"><?php echo htmlspecialchars($currentDate); ?></span> | <strong>Time:</strong> <span id="live-time"><?php echo htmlspecialchars($currentTime); ?></span> ET</div>
+                </div>
             </div>
-        <?php endif; ?>
+        </header>
 
-        <h2 class="section-title">Overview</h2>
-        <div class="stats-grid">
-            <div class="card stat-card">
-                <h2>Active School Access</h2>
-                <div class="stat-number"><?php echo $schoolAccessCount; ?></div>
-            </div>
+        <section class="hero">
+            <h1>Admin Dashboard</h1>
+            <p>Manage K-12 lesson creation, PDF lesson content, and question setup from one professional full-page control center.</p>
+            <p>Use this dashboard to choose the active school, move into grade-level lesson work, and organize question content for each lesson.</p>
+        </section>
 
-            <div class="card stat-card">
-                <h2>Total Lessons</h2>
-                <div class="stat-number"><?php echo $totalLessons; ?></div>
-            </div>
+        <main class="main-content">
+            <?php if ($statusMessage !== ''): ?>
+                <div class="status-box <?php echo $statusType === 'success' ? 'status-success' : 'status-error'; ?>">
+                    <?php echo htmlspecialchars($statusMessage); ?>
+                </div>
+            <?php endif; ?>
 
-            <div class="card stat-card">
-                <h2>Lesson PDFs</h2>
-                <div class="stat-number"><?php echo $totalPdfLessons; ?></div>
-            </div>
-
-            <div class="card stat-card">
-                <h2>Total Questions</h2>
-                <div class="stat-number"><?php echo $totalQuestions; ?></div>
-            </div>
-        </div>
-
-        <div class="two-col-grid">
-            <div class="card">
-                <h2 class="section-title">School Access</h2>
-                <p>Select the school context the tutor/admin is working in.</p>
-                <div class="school-badge">
-                    Current School: <?php echo htmlspecialchars($currentSchool); ?>
+            <section class="section-block">
+                <div class="section-heading-row">
+                    <div>
+                        <h2 class="section-title">System Overview</h2>
+                        <p class="section-subtitle">High-level view of school access, lesson totals, PDFs, and question content.</p>
+                    </div>
                 </div>
 
-                <form method="post" action="">
-                    <label class="label" for="selected_school">Choose School</label>
-                    <select name="selected_school" id="selected_school">
-                        <?php foreach ($schools as $school): ?>
-                            <option value="<?php echo htmlspecialchars($school); ?>" <?php echo $school === $currentSchool ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($school); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                <div class="stats-grid">
+                    <div class="panel stat-card">
+                        <div class="stat-label">Active School Access</div>
+                        <div class="stat-number"><?php echo $schoolAccessCount; ?></div>
+                        <div class="stat-note">Current dashboard context is set to one active school at a time.</div>
+                    </div>
 
-                    <button type="submit" name="set_school">Set Active School</button>
-                </form>
-            </div>
+                    <div class="panel stat-card">
+                        <div class="stat-label">Total Lessons</div>
+                        <div class="stat-number"><?php echo $totalLessons; ?></div>
+                        <div class="stat-note">Tracks all available lessons across the active K-12 environment.</div>
+                    </div>
 
-            <div class="card">
-                <h2 class="section-title">Quick Lesson Actions</h2>
-                <p>Choose a grade, then go to the related page.</p>
+                    <div class="panel stat-card">
+                        <div class="stat-label">Lesson PDFs</div>
+                        <div class="stat-number"><?php echo $totalPdfLessons; ?></div>
+                        <div class="stat-note">Shows how many lessons currently have PDF content uploaded.</div>
+                    </div>
 
-                <form method="post" action="">
-                    <label class="label" for="grade_level">Grade Level</label>
-                    <select name="grade_level" id="grade_level">
-                        <option value="Kindergarten">Kindergarten</option>
-                        <option value="Grade 1">Grade 1</option>
-                        <option value="Grade 2">Grade 2</option>
-                        <option value="Grade 3">Grade 3</option>
-                        <option value="Grade 4">Grade 4</option>
-                        <option value="Grade 5">Grade 5</option>
-                        <option value="Grade 6">Grade 6</option>
-                        <option value="Grade 7">Grade 7</option>
-                        <option value="Grade 8">Grade 8</option>
-                        <option value="Grade 9">Grade 9</option>
-                        <option value="Grade 10">Grade 10</option>
-                        <option value="Grade 11">Grade 11</option>
-                        <option value="Grade 12">Grade 12</option>
-                    </select>
+                    <div class="panel stat-card">
+                        <div class="stat-label">Total Questions</div>
+                        <div class="stat-number"><?php echo $totalQuestions; ?></div>
+                        <div class="stat-note">Total question and answer entries prepared for lesson use.</div>
+                    </div>
+                </div>
+            </section>
 
-                    <button type="submit" name="go_create_lesson">Create / Edit Lesson</button>
-                    <button type="submit" name="go_add_questions" class="secondary-button">Add Questions to Lesson</button>
-                </form>
-            </div>
-        </div>
+            <section class="section-block">
+                <div class="section-heading-row">
+                    <div>
+                        <h2 class="section-title">School and Lesson Setup</h2>
+                        <p class="section-subtitle">Choose the working school, then jump straight into grade-level lesson tasks.</p>
+                    </div>
+                </div>
 
-        <h2 class="section-title">Admin Tools</h2>
-        <div class="tools-grid">
-            <a class="tool-card" href="admin-lesson-create.php">
-                <div class="tool-card-title">Create Lesson by Grade</div>
-                <div class="tool-card-text">Create or edit a lesson for a specific grade level.</div>
-            </a>
+                <div class="two-col-grid">
+                    <div class="panel">
+                        <h3 class="section-title" style="font-size: 22px;">School Access</h3>
+                        <p class="section-subtitle" style="margin-bottom: 14px;">Select the school context the admin is working in.</p>
 
-            <a class="tool-card" href="admin-lesson-create.php">
-                <div class="tool-card-title">Upload Lesson PDF</div>
-                <div class="tool-card-text">Upload a PDF to serve as the content for a lesson.</div>
-            </a>
+                        <div class="school-badge">Current School: <?php echo htmlspecialchars($currentSchool); ?></div>
 
-            <a class="tool-card" href="admin-create-questions.php">
-                <div class="tool-card-title">Add Lesson Questions</div>
-                <div class="tool-card-text">Add question text and answer text for a lesson. The lesson should be assigned automatically on that page.</div>
-            </a>
-        </div>
+                        <form method="post" action="">
+                            <label class="label" for="selected_school">Choose School</label>
+                            <select name="selected_school" id="selected_school">
+                                <?php foreach ($schools as $school): ?>
+                                    <option value="<?php echo htmlspecialchars($school); ?>" <?php echo $school === $currentSchool ? 'selected' : ''; ?>>
+                                        <?php echo htmlspecialchars($school); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
 
-        <div class="two-col-grid">
-            <div class="card">
-                <h2 class="section-title">Lesson and Question Workflow</h2>
-                <ul class="info-list">
-                    <li>Select the active school.</li>
-                    <li>Create a lesson for a specific K-12 grade.</li>
-                    <li>Upload a PDF as the content for that lesson.</li>
-                    <li>Add questions and answers to the lesson.</li>
-                    <li>The lesson should be automatically associated when adding questions on the question page.</li>
-                </ul>
-            </div>
+                            <button type="submit" name="set_school">Set Active School</button>
+                        </form>
+                    </div>
 
-            <div class="card">
-                <h2 class="section-title">Recent Activity</h2>
-                <ul class="activity-list">
-                    <?php foreach ($recentActivity as $activity): ?>
-                        <li><?php echo htmlspecialchars($activity); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
+                    <div class="panel">
+                        <h3 class="section-title" style="font-size: 22px;">Quick Lesson Actions</h3>
+                        <p class="section-subtitle" style="margin-bottom: 14px;">Choose a grade level and continue to the right admin page.</p>
 
+                        <form method="post" action="">
+                            <label class="label" for="grade_level">Grade Level</label>
+                            <select name="grade_level" id="grade_level">
+                                <option value="Kindergarten">Kindergarten</option>
+                                <option value="Grade 1">Grade 1</option>
+                                <option value="Grade 2">Grade 2</option>
+                                <option value="Grade 3">Grade 3</option>
+                                <option value="Grade 4">Grade 4</option>
+                                <option value="Grade 5">Grade 5</option>
+                                <option value="Grade 6">Grade 6</option>
+                                <option value="Grade 7">Grade 7</option>
+                                <option value="Grade 8">Grade 8</option>
+                                <option value="Grade 9">Grade 9</option>
+                                <option value="Grade 10">Grade 10</option>
+                                <option value="Grade 11">Grade 11</option>
+                                <option value="Grade 12">Grade 12</option>
+                            </select>
+
+                            <button type="submit" name="go_create_lesson">Create or Edit Lesson</button>
+                            <button type="submit" name="go_add_questions" class="secondary-button">Add Questions to Lesson</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer-note">
+            &copy; <?php echo date("Y"); ?> BrightStart Educational Systems. All rights reserved.   
+        </footer>
     </div>
 
     <script>
