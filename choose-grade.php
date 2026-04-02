@@ -9,8 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Add stylesheet here -->
+     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="choose-grade.css">
-    <link rel="stylesheet" href="style.css">
+    
 </head>
 
 <?php include('includes/nav.php');?>

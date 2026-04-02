@@ -102,7 +102,7 @@ practiceBtn.addEventListener("click", () => {
 
   if(selectedConcept){
     window.location.href =
-      `practice.php?grade_id=${gradeID}&concept_id=${selectedConcept}`;
+      `practice.php?lesson_id=${selectedConcept}`;
   }
 
 });
@@ -110,4 +110,4 @@ practiceBtn.addEventListener("click", () => {
 </body>
 
 </html>
-<!-- lines 1-50 written by Benjamin Nguyen -->
+<!-- lines 1-112 written by Benjamin Nguyen -->

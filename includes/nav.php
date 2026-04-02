@@ -4,9 +4,9 @@
     <h1>BrightStart Learning</h1>
     <nav>
         <ul>
-            <li><a href="lessons.php">Learn</a></li>
-            <li><a href="practice.php">Practice</a></li>
-            <li><a href="helper.html">Helper</a></li>
+            <li><a href="index.php">Home</a></li>
+  
+            <li><a href="helper.php">Helper</a></li>
  
         </ul>
         
