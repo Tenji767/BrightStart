@@ -156,7 +156,7 @@ fetch("saveLesson.php",{///runs the save lkesson php file with the data accumula
 method:"POST",
 body:formData
 })
-.then(response => response.text())
+.then(response => response.text())//then sends a message regarding the data sent from the save lesson end any errors
 .then(data => alert(data))
 .catch(err => console.error(err));
 

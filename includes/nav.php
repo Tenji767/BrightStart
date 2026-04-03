@@ -13,3 +13,4 @@
     </nav>
     <a href="account.html"><img src="pfp.png"/></a>
 </header>
+<!-- nav updated to include only two links (lines 7-9) by Benjamin Nguyen -->
