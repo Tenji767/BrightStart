@@ -20,12 +20,22 @@
     <link rel="stylesheet" href="admin-style.css">
 </head>
 
-<h1>Admin Dashboard</h1>
+<h1>BrightStart Admin Dashboard</h1>
 <h2>
     <?php
     if(isset($_SESSION['school_id'])){
-        echo $_SESSION['school_name'];
-
+    $conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");//log in
+    if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);//check for connection 
+}
+        $stmt = $conn->prepare("SELECT school_name FROM School WHERE school_id=?");
+        $stmt->bind_param("i", $_SESSION['school_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            echo $row['school_name'];
+        }
     }
     ?>
 </h2>
@@ -76,6 +86,5 @@ if($result->num_rows > 0){
     <a href="admin-create-questions.php"><button>Create Questions</button></a>
 </div>
 
-<img src="ye.jpg">
 
 </html>  

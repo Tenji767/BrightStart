@@ -134,7 +134,6 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 </head>
 
 <body>
-    <?php include('../includes/nav.php'); ?>
 
     <main>
 

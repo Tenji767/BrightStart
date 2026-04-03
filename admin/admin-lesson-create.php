@@ -9,11 +9,12 @@ ini_set('display_startup_errors', 1);
 <head>
 <meta charset="utf-8">
 <title>Admin Lesson Creation</title>
+<link rel="stylesheet" href="admin-style.css">
 </head>
 
 <body>
 
-<a href="admin-dashboard(notAI).php"<button>To Dashboard</button></a>
+<a href="admin-dashboard(notAI).php"></a><button>To Dashboard</button></a>
 
 <h1>Create Lesson</h1>
 <!-- text box to insert name of lesson -->
