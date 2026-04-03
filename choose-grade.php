@@ -14,7 +14,7 @@
     
 </head>
 
-<?php include('includes/nav.php');?>
+<?php include('includes/nav.php');?><!--Includes the navigation bar for simplicity-->
 
 <!---->
 <body>
@@ -31,7 +31,7 @@ $conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025"
 if ($conn->connect_error) {
     echo "Database Connection failed";
     die("Database connection failed: " . $conn->connect_error);
-    //check forc connection
+    //check for connection
     
   
 }

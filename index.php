@@ -83,4 +83,4 @@ if(!isset($_SESSION['user_id'])) {
 
 </html>
 
-<!-- Lines 1-61 written by Benjamin Nguyen -->
+<!-- Lines 1-85 written by Benjamin Nguyen -->

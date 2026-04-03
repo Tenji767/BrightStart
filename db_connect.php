@@ -8,3 +8,4 @@ if ($conn->connect_error) {
   
 }
 ?>
+<!-- lines 1-10 created by Benjamin Nguyen, file introduced by Nicholas Deblock -->
