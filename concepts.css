@@ -77,17 +77,21 @@ body > a[href='choose-grade.php']:focus-visible > div {
 }
 
 body > a[href='choose-grade.php'] {
-  display: block;
+  display: inline-block;
+  position: fixed;
+  top: 6.75rem;
+  left: 1rem;
+  z-index: 30;
   text-decoration: none;
-  width: min(1100px, calc(100% - 2rem));
-  margin: 2rem auto 1.25rem;
+  width: auto;
+  margin: 0;
 }
 
 body > a[href='choose-grade.php'] > div {
-  min-height: 100px;
+  min-height: 48px;
   display: grid;
   place-items: center;
-  padding: 1rem 1.25rem;
+  padding: 0.55rem 0.9rem;
   background: linear-gradient(145deg, #2563eb, #1d4ed8);
   box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
 }
@@ -95,10 +99,10 @@ body > a[href='choose-grade.php'] > div {
 body > a[href='choose-grade.php'] > div p {
   margin: 0;
   color: #ffffff;
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 0.82rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
   text-shadow: 0 2px 10px rgba(15, 23, 42, 0.35);
 }
 
@@ -108,13 +112,10 @@ body > a[href='choose-grade.php']:focus-visible > div {
   box-shadow: 0 16px 34px rgba(37, 99, 235, 0.34);
 }
 
-body > div {
-  width: min(1100px, calc(100% - 2rem));
+.concept-btn {
+  display: block;
+  width: min(820px, calc(100% - 2rem));
   margin: 0 auto 1rem;
-}
-
-body > div .concept-btn {
-  width: 100%;
   min-height: 88px;
   padding: 1.25rem 1.5rem;
   font-size: 1.1rem;
@@ -126,41 +127,45 @@ body > div .concept-btn {
   box-shadow: 0 12px 24px rgba(14, 165, 233, 0.26);
 }
 
-body > div .concept-btn:hover,
-body > div .concept-btn:focus-visible {
+.concept-btn:hover,
+.concept-btn:focus-visible {
   transform: translateY(-6px);
   box-shadow: 0 18px 34px rgba(14, 165, 233, 0.34);
   filter: saturate(1.06);
 }
 
-body > div:nth-of-type(2n) .concept-btn {
+body > div:nth-of-type(2n) > .concept-btn {
   background: linear-gradient(145deg, #10b981, #047857);
   box-shadow: 0 12px 24px rgba(16, 185, 129, 0.22);
 }
 
-body > div:nth-of-type(2n) .concept-btn:hover,
-body > div:nth-of-type(2n) .concept-btn:focus-visible {
+body > div:nth-of-type(2n) > .concept-btn:hover,
+body > div:nth-of-type(2n) > .concept-btn:focus-visible {
   box-shadow: 0 18px 34px rgba(16, 185, 129, 0.3);
 }
 
-body > div:nth-of-type(3n) .concept-btn {
+body > div:nth-of-type(3n) > .concept-btn {
   background: linear-gradient(145deg, #f59e0b, #b45309);
   box-shadow: 0 12px 24px rgba(245, 158, 11, 0.22);
 }
 
-body > div:nth-of-type(3n) .concept-btn:hover,
-body > div:nth-of-type(3n) .concept-btn:focus-visible {
+body > div:nth-of-type(3n) > .concept-btn:hover,
+body > div:nth-of-type(3n) > .concept-btn:focus-visible {
   box-shadow: 0 18px 34px rgba(245, 158, 11, 0.3);
 }
 
-body > div:nth-of-type(4n) .concept-btn {
+body > div:nth-of-type(4n) > .concept-btn {
   background: linear-gradient(145deg, #ef4444, #b91c1c);
   box-shadow: 0 12px 24px rgba(239, 68, 68, 0.22);
 }
 
-body > div:nth-of-type(4n) .concept-btn:hover,
-body > div:nth-of-type(4n) .concept-btn:focus-visible {
+body > div:nth-of-type(4n) > .concept-btn:hover,
+body > div:nth-of-type(4n) > .concept-btn:focus-visible {
   box-shadow: 0 18px 34px rgba(239, 68, 68, 0.3);
+}
+
+body > div:first-of-type > .concept-btn {
+  margin-top: 3.25rem;
 }
 
 #learnBtn,
@@ -198,15 +203,23 @@ body > div:nth-of-type(4n) .concept-btn:focus-visible {
 }
 
 @media (max-width: 768px) {
-  body > a[href='choose-grade.php'],
-  body > div,
   #concept-action-menu {
     width: calc(100% - 1rem);
   }
 
-  body > div .concept-btn {
+  body > a[href='choose-grade.php'] {
+    top: 10rem;
+    left: 0.5rem;
+  }
+
+  .concept-btn {
+    width: min(700px, calc(100% - 1.25rem));
     min-height: 76px;
     font-size: 1rem;
+  }
+
+  body > div:first-of-type > .concept-btn {
+    margin-top: 5rem;
   }
 
   #concept-action-btns {
