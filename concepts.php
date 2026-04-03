@@ -9,8 +9,9 @@ ini_set('display_startup_errors', 1);//development error checking
 <html>
 <head>
     <meta charset="utf-8">
-    <link href="concepts.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="concepts.css">
 
 </head>
 
