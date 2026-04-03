@@ -14,6 +14,21 @@ $title = $_POST['title'] ?? '';//gets the stuff from the form (submitted from th
 $grade = $_POST['grade'] ?? '';
 $html = $_POST['html'] ?? '';
 
+if (!empty($_FILES)) {
+    foreach ($_FILES as $file) {
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            echo "Upload error for " . $file['name'] . "<br>";
+            continue;
+        }
+        // Optional: Validate file type
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($file['type'], $allowedTypes)) {
+            echo "Invalid file type for " . $file['name'] . "<br>";
+            continue;
+        }
+    }
+}//this if block was recommended by copilot
+
 $uploadDir = "uploads/";//pulls images from the uploads folder
 
 // DEBUG FILES
@@ -49,4 +64,4 @@ if(!$stmt->execute()){//runs statement execute and checks if it worked or not
 echo "Lesson saved";//confirmation
 ?>
 
-<!-- lines 1-51 by Benjamin Nguyen -->
+<!-- lines 1-67 by Benjamin Nguyen -->

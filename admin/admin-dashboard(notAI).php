@@ -76,4 +76,6 @@ if($result->num_rows > 0){
     <a href="admin-create-questions.php"><button>Create Questions</button></a>
 </div>
 
-</html>
+<img src="ye.jpg">
+
+</html>  

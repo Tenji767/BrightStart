@@ -129,7 +129,7 @@ const filename = img.files[0].name;
 
 formData.append("image"+index, img.files[0]);
 
-lessonHTML += `<img src="uploads/${filename}" class="lesson-image">`;
+lessonHTML += `<img src="admin/uploads/${filename}" class="lesson-image">`;
 
 }
 
@@ -144,7 +144,7 @@ const filename = diagram.files[0].name;
 
 formData.append("diagram"+index, diagram.files[0]);
 
-lessonHTML += `<img src="uploads/${filename}" class="lesson-diagram">`;
+lessonHTML += `<img src="admin/uploads/${filename}" class="lesson-diagram">`;
 
 }
 
