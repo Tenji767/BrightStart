@@ -15,9 +15,15 @@
 
 <?php include("../header.php"); ?>
 
-<button onclick="window.location.href='admin.php'">Back to Dashboard</button>
 <h1>Admin Dashboard</h1>
+<h2>
+    <?php
+    if(isset($_SESSION['school_id'])){
+        echo $_SESSION['school_name'];
 
+    }
+    ?>
+</h2>
 <div class="dashboard-stats">
     <div id="lesson-count" class="stat-box">
 
