@@ -72,7 +72,7 @@ if($result->num_rows > 0){
 </div>
 
 <div class="dashboard-pages">
-    <a href="admin-lesson-create(textonly).php"><button>Create Lessons</button></a>
+    <a href="admin-lesson-create.php"><button>Create Lessons</button></a>
     <a href="admin-create-questions.php"><button>Create Questions</button></a>
 </div>
 

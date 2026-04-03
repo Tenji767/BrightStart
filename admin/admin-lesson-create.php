@@ -13,6 +13,8 @@ ini_set('display_startup_errors', 1);
 
 <body>
 
+<a href="admin-dashboard(notAI).php"<button>To Dashboard</button></a>
+
 <h1>Create Lesson</h1>
 <!-- text box to insert name of lesson -->
 <input id="lessonTitle" placeholder="Lesson Title">
