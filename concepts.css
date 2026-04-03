@@ -6,4 +6,215 @@
   background: #eee;
   padding: 20px;
   display: none;
+  background: rgba(15, 23, 42, 0.96);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(10px);
+  z-index: 20;
+}
+
+#concept-action-menu #selectedConceptText {
+  margin: 0 0 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+#concept-action-btns {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.concept-btn,
+#learnBtn,
+#practiceBtn,
+body > a[href='choose-grade.php'] > div {
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.concept-btn::before,
+#learnBtn::before,
+#practiceBtn::before,
+body > a[href='choose-grade.php'] > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -110%;
+  width: 70%;
+  height: 180%;
+  transform: rotate(18deg);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  transition: left 0.35s ease;
+  z-index: -1;
+}
+
+.concept-btn:hover::before,
+.concept-btn:focus-visible::before,
+#learnBtn:hover::before,
+#learnBtn:focus-visible::before,
+#practiceBtn:hover::before,
+#practiceBtn:focus-visible::before,
+body > a[href='choose-grade.php']:hover > div::before,
+body > a[href='choose-grade.php']:focus-visible > div::before {
+  left: 140%;
+}
+
+.concept-btn:focus-visible,
+#learnBtn:focus-visible,
+#practiceBtn:focus-visible,
+body > a[href='choose-grade.php']:focus-visible > div {
+  outline: 3px solid #cfbf06;
+  outline-offset: 3px;
+}
+
+body > a[href='choose-grade.php'] {
+  display: block;
+  text-decoration: none;
+  width: min(1100px, calc(100% - 2rem));
+  margin: 2rem auto 1.25rem;
+}
+
+body > a[href='choose-grade.php'] > div {
+  min-height: 100px;
+  display: grid;
+  place-items: center;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(145deg, #2563eb, #1d4ed8);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+}
+
+body > a[href='choose-grade.php'] > div p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-shadow: 0 2px 10px rgba(15, 23, 42, 0.35);
+}
+
+body > a[href='choose-grade.php']:hover > div,
+body > a[href='choose-grade.php']:focus-visible > div {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.34);
+}
+
+body > div {
+  width: min(1100px, calc(100% - 2rem));
+  margin: 0 auto 1rem;
+}
+
+body > div .concept-btn {
+  width: 100%;
+  min-height: 88px;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(145deg, #0ea5e9, #0369a1);
+  box-shadow: 0 12px 24px rgba(14, 165, 233, 0.26);
+}
+
+body > div .concept-btn:hover,
+body > div .concept-btn:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 34px rgba(14, 165, 233, 0.34);
+  filter: saturate(1.06);
+}
+
+body > div:nth-of-type(2n) .concept-btn {
+  background: linear-gradient(145deg, #10b981, #047857);
+  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.22);
+}
+
+body > div:nth-of-type(2n) .concept-btn:hover,
+body > div:nth-of-type(2n) .concept-btn:focus-visible {
+  box-shadow: 0 18px 34px rgba(16, 185, 129, 0.3);
+}
+
+body > div:nth-of-type(3n) .concept-btn {
+  background: linear-gradient(145deg, #f59e0b, #b45309);
+  box-shadow: 0 12px 24px rgba(245, 158, 11, 0.22);
+}
+
+body > div:nth-of-type(3n) .concept-btn:hover,
+body > div:nth-of-type(3n) .concept-btn:focus-visible {
+  box-shadow: 0 18px 34px rgba(245, 158, 11, 0.3);
+}
+
+body > div:nth-of-type(4n) .concept-btn {
+  background: linear-gradient(145deg, #ef4444, #b91c1c);
+  box-shadow: 0 12px 24px rgba(239, 68, 68, 0.22);
+}
+
+body > div:nth-of-type(4n) .concept-btn:hover,
+body > div:nth-of-type(4n) .concept-btn:focus-visible {
+  box-shadow: 0 18px 34px rgba(239, 68, 68, 0.3);
+}
+
+#learnBtn,
+#practiceBtn {
+  flex: 1 1 180px;
+  min-height: 56px;
+  padding: 0.9rem 1.2rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.35px;
+}
+
+#learnBtn {
+  background: linear-gradient(145deg, #2563eb, #1d4ed8);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.28);
+}
+
+#practiceBtn {
+  background: linear-gradient(145deg, #8b5cf6, #6d28d9);
+  box-shadow: 0 10px 22px rgba(139, 92, 246, 0.28);
+}
+
+#learnBtn:hover,
+#learnBtn:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.34);
+}
+
+#practiceBtn:hover,
+#practiceBtn:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(139, 92, 246, 0.34);
+}
+
+@media (max-width: 768px) {
+  body > a[href='choose-grade.php'],
+  body > div,
+  #concept-action-menu {
+    width: calc(100% - 1rem);
+  }
+
+  body > div .concept-btn {
+    min-height: 76px;
+    font-size: 1rem;
+  }
+
+  #concept-action-btns {
+    flex-direction: column;
+  }
+
+  #learnBtn,
+  #practiceBtn {
+    width: 100%;
+  }
 }
