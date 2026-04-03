@@ -13,9 +13,13 @@
 <!DOCTYPE html>
 <html>
 
-<?php include("../header.php"); ?>
+<head>
+    <title>BrightStart Control Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin-style.css">
+</head>
 
-<button onclick="window.location.href='admin.php'">Back to Dashboard</button>
 <h1>Admin Dashboard</h1>
 
 <div class="dashboard-stats">
@@ -34,9 +38,9 @@ $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows > 0){
     $row = $result->fetch_assoc();
-    echo "<p>Total Lessons: " . $row['COUNT(lesson_id)'] . "</p>";
+    echo "<p>Total Lessons: </p><h2>" . $row['COUNT(lesson_id)'] . "</h2>";
 } else {
-    echo "<p>Total Lessons: 0</p>";
+    echo "<p>Total Lessons: </p><h2>0</h2>";
 }
 
 ?>
@@ -50,9 +54,9 @@ $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows > 0){
     $row = $result->fetch_assoc();
-    echo "<p>Total Questions: " . $row['COUNT(question_id)'] . "</p>";
+    echo "<p>Total Questions: </p><h2>" . $row['COUNT(question_id)'] . "</h2>";
 } else {
-    echo "<p>Total Questions: 0</p>";
+    echo "<p>Total Questions: </p><h2>0</h2>";
 }
 
 ?>

@@ -323,8 +323,7 @@ $currentTime = date("g:i:s A");
 
         @media (max-width: 850px) {
             .topbar,
-            .h
-           }
+            .hero,
 
             .topbar-meta {
                 text-align: left;
@@ -338,7 +337,8 @@ $currentTime = date("g:i:s A");
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-        }
+}
+
     </style>
 </head>
 <body>
