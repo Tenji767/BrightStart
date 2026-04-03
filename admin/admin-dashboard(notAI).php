@@ -1,12 +1,12 @@
 <?php
-session_start();
+// session_start();
 
-include("../db_connect.php");
+// include("../db_connect.php");
 
-if(!isset($_SESSION['user_id']) && $_SESSION['role'] != "teacher"){
-    header("Location: ../login.php");
-    exit();
-}
+// if(!isset($_SESSION['user_id']) && $_SESSION['role'] != "teacher"){
+//     header("Location: ../login.php");
+//     exit();
+// }
 
 ?>
 
@@ -21,7 +21,14 @@ if(!isset($_SESSION['user_id']) && $_SESSION['role'] != "teacher"){
 <div class="dashboard-stats">
     <div id="lesson-count" class="stat-box">
 
-<?php
+<?php 
+
+$conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");//log in
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);//check forc connection
+
+  
+}
 $stmt = $conn->prepare("SELECT COUNT(lesson_id) FROM Lesson");
 $stmt->execute();
 $result = $stmt->get_result();
