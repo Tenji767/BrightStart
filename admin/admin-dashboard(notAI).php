@@ -21,7 +21,7 @@
 </head>
 
 <div class="admin-header">
-    <h1 id="pagename">BrightStart Admin Dashboard</h1>
+    <h1 class="pagename">BrightStart Admin Dashboard</h1>
 </div>
 <h2>
     <?php

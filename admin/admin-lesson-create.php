@@ -14,12 +14,22 @@ ini_set('display_startup_errors', 1);
 
 <body>
 
-<a href="admin-dashboard(notAI).php"></a><button>To Dashboard</button></a>
 
-<h1>Create Lesson</h1>
+
+<div class="admin-header">
+<h1 class="pagename">Create Lesson</h1>
+</div>
+
+
+<div class="returnBox">
+<a href="admin-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+
+
+</div>
+
 <!-- text box to insert name of lesson -->
 <input id="lessonTitle" placeholder="Lesson Title">
-
+<br>
 <!-- dropdown to select grade -->
 <label for="grade-select">Select a grade</label>
 <select id="grade-select">
@@ -47,19 +57,22 @@ while($row = $result->fetch_assoc()){
 </select>
 
 <!-- lesson builder buttons that will call respective functions  -->
-<div id="lessonBuilder"></div>
-
+<div id="lessonBuilder">
 <button onclick="addText()">Add Text</button>
 <button onclick="addImage()">Add Image</button>
 <button onclick="addDiagram()">Add Diagram</button>
 <!-- save lessson button -->
 <button type="button" onclick="saveLesson()">Save Lesson</button>
-
+</div>
 <!-- script for inserting blocks and saving lesson -->
 <script>
 
 // blocks will be added by appending to the lesson builder div and will have html inside them allowing for insertion
 const builder = document.getElementById("lessonBuilder");
+
+function deleteBlock(button) {
+    button.parentElement.remove();
+}
 
 function addText(){
 
@@ -68,6 +81,7 @@ const block = document.createElement("div");
 block.innerHTML = `
 <h3>Text</h3>
 <textarea class="blockContent"></textarea>
+<button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
 `;
 
 builder.appendChild(block);
@@ -81,6 +95,7 @@ const block = document.createElement("div");
 block.innerHTML = `
 <h3>Image</h3>
 <input type="file" class="blockImage">
+<button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
 `;
 
 builder.appendChild(block);
@@ -94,6 +109,7 @@ const block = document.createElement("div");
 block.innerHTML = `
 <h3>Diagram</h3>
 <input type="file" class="blockDiagram">
+<button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
 `;
 
 builder.appendChild(block);
