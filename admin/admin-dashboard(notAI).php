@@ -20,7 +20,9 @@
     <link rel="stylesheet" href="admin-style.css">
 </head>
 
-<h1>BrightStart Admin Dashboard</h1>
+<div class="admin-header">
+    <h1 id="pagename">BrightStart Admin Dashboard</h1>
+</div>
 <h2>
     <?php
     if(isset($_SESSION['school_id'])){

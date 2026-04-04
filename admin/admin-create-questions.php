@@ -134,6 +134,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 </head>
 
 <body>
+<a href="admin-dashboard(notAI).php"></a><button>To Dashboard</button></a>
 
     <main>
 
