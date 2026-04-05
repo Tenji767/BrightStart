@@ -12,7 +12,7 @@
 
 <!DOCTYPE html>
 <html>
-
+<!-- standard head -->
 <head>
     <title>BrightStart Control Panel</title>
     <meta charset="utf-8">
@@ -30,17 +30,19 @@
     if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);//check for connection 
 }
-        $stmt = $conn->prepare("SELECT school_name FROM School WHERE school_id=?");
+        $stmt = $conn->prepare("SELECT school_name FROM School WHERE school_id=?");//get the school name based off of the school id of the teacher acccessing the dashboard
         $stmt->bind_param("i", $_SESSION['school_id']);
         $stmt->execute();
         $result = $stmt->get_result();
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
-            echo $row['school_name'];
+            echo $row['school_name'];//spit out the school name in the h2 header
         }
     }
     ?>
 </h2>
+
+<!-- overview of number of lessons and questions in the database -->
 <div class="dashboard-stats">
     <div id="lesson-count" class="stat-box">
 

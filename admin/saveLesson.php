@@ -62,6 +62,6 @@ if(!$stmt->execute()){//runs statement execute and checks if it worked or not
 }
 
 echo "Lesson saved";//confirmation
-?>
 
-<!-- lines 1-67 by Benjamin Nguyen -->
+//lines 1-67 by Benjamin Nguyen
+
