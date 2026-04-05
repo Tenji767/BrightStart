@@ -74,112 +74,98 @@ function deleteBlock(button) {
     button.parentElement.remove();
 }
 
-function addText(){
-
-const block = document.createElement("div");
-
-block.innerHTML = `
-<h3>Text</h3>
-<textarea class="blockContent"></textarea>
-<button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
-`;
-
-builder.appendChild(block);
-
+function addText() {
+    const block = document.createElement("div");
+    block.className = "lesson-block";  // Add class for easy removal
+    block.innerHTML = `
+        <h3>Text</h3>
+        <textarea class="blockContent"></textarea>
+        <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
+    `;
+    builder.appendChild(block);
 }
 
-function addImage(){
-
-const block = document.createElement("div");
-
-block.innerHTML = `
-<h3>Image</h3>
-<input type="file" class="blockImage">
-<button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
-`;
-
-builder.appendChild(block);
-
+function addImage() {
+    const block = document.createElement("div");
+    block.className = "lesson-block";  // Add class for easy removal
+    block.innerHTML = `
+        <h3>Image</h3>
+        <input type="file" class="blockImage">
+        <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
+    `;
+    builder.appendChild(block);
 }
 
-function addDiagram(){
-
-const block = document.createElement("div");
-
-block.innerHTML = `
-<h3>Diagram</h3>
-<input type="file" class="blockDiagram">
-<button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
-`;
-
-builder.appendChild(block);
-
+function addDiagram() {
+    const block = document.createElement("div");
+    block.className = "lesson-block";  // Add class for easy removal
+    block.innerHTML = `
+        <h3>Diagram</h3>
+        <input type="file" class="blockDiagram">
+        <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
+    `;
+    builder.appendChild(block);
 }
+
 // the lesson will be saved by gathering the content from the blocks and turning it into html and will be saved via the savelesson php
-function saveLesson(){
+function saveLesson() {
+    const title = document.getElementById("lessonTitle").value;
+    const grade = document.getElementById("grade-select").value;
 
-const title = document.getElementById("lessonTitle").value;
-const grade = document.getElementById("grade-select").value;
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("grade", grade);
 
-const formData = new FormData();//artificial form data object
+    let lessonHTML = "";
 
-formData.append("title", title);
-formData.append("grade", grade);
+    // Handle TEXT blocks
+    document.querySelectorAll(".blockContent").forEach(textarea => {
+        const text = textarea.value.trim();
+        if (text !== "") {
+            lessonHTML += `<p>${text}</p>`;
+        }
+    });
 
-let lessonHTML = "";
+    // Handle IMAGE blocks
+    document.querySelectorAll(".blockImage").forEach((img, index) => {
+        if (img.files[0]) {
+            const filename = img.files[0].name;
+            formData.append("image" + index, img.files[0]);
+            lessonHTML += `<img src="admin/uploads/${filename}" class="lesson-image">`;
+        }
+    });
 
-// handle TEXT blocks
-document.querySelectorAll(".blockContent").forEach(textarea => {//run through each text block and turn it into an html block
+    // Handle DIAGRAM blocks
+    document.querySelectorAll(".blockDiagram").forEach((diagram, index) => {
+        if (diagram.files[0]) {
+            const filename = diagram.files[0].name;
+            formData.append("diagram" + index, diagram.files[0]);
+            lessonHTML += `<img src="admin/uploads/${filename}" class="lesson-diagram">`;
+        }
+    });
 
-const text = textarea.value.trim();
+    formData.append("html", lessonHTML);
 
-if(text !== ""){
-lessonHTML += `<p>${text}</p>`;
+    fetch("saveLesson.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);  // Show the response message
+        // Reset the form only if save was successful (assuming success message contains "success" or similar)
+        if (data.toLowerCase().includes("success")) {
+            // Clear the lesson title
+            document.getElementById("lessonTitle").value = "";
+            // Reset the grade select to the first option
+            document.getElementById("grade-select").selectedIndex = 0;
+            // Remove all lesson blocks (preserves the static buttons)
+            document.querySelectorAll('.lesson-block').forEach(block => block.remove());
+        }
+    })
+    .catch(err => console.error(err));
 }
 
-});
-
-// handle IMAGE blocks
-document.querySelectorAll(".blockImage").forEach((img, index)=>{//takes the image and adds it to the formdata and adds a link to the image in the html
-
-if(img.files[0]){
-
-const filename = img.files[0].name;
-
-formData.append("image"+index, img.files[0]);
-
-lessonHTML += `<img src="admin/uploads/${filename}" class="lesson-image">`;
-
-}
-
-});
-
-// handle DIAGRAM blocks
-document.querySelectorAll(".blockDiagram").forEach((diagram, index)=>{//basically same as image
-
-if(diagram.files[0]){
-
-const filename = diagram.files[0].name;
-
-formData.append("diagram"+index, diagram.files[0]);
-
-lessonHTML += `<img src="admin/uploads/${filename}" class="lesson-diagram">`;
-
-}
-
-});
-
-formData.append("html", lessonHTML);
-
-fetch("saveLesson.php",{///runs the save lkesson php file with the data accumulatred
-method:"POST",
-body:formData
-})
-.then(response => response.text())//then sends a message regarding the data sent from the save lesson end any errors
-.then(data => alert(data))
-.catch(err => console.error(err));
-
-}
 </script>
 
 </body>
