@@ -7,9 +7,14 @@ include "db_connect.php";
 <head>
 <title>Create Account</title>
 <style>
+
+ * {
+    box-sizing: border-box;
+}
+
 body{
     font-family: Arial;
-    background:#f4f4f4;
+    background: linear-gradient(to right, #2563eb, #0891b2);
 }
 
 .container{
@@ -33,6 +38,13 @@ button{
     background:#007BFF;
     color:white;
     border:none;
+}
+
+a{
+    font-size: small;
+    padding-top:20px;
+    color:#007BFF;
+    text-decoration:none;
 }
 </style>
 </head>
@@ -68,7 +80,7 @@ button{
 <button type="submit">Create Account</button>
 
 </form>
-
+<a href="login.php">Already have an account? Login</a>
 </div>
 
 </body>

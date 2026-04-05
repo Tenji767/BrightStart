@@ -21,9 +21,8 @@ if($result->num_rows > 0){
 
         $_SESSION['user_id'] = $teacher['teacher_id'];
         $_SESSION['role'] = "teacher";
-        $_SESSION['school_id'] = $teacher['school_id'];
 
-        header("Location: admin/admin-dashboard(notAI).php");
+        header("Location: admin.php");
         exit();
     }
 }
@@ -51,6 +50,4 @@ if($result->num_rows > 0){
 }
 
 echo "Invalid email or password.";
-echo "<br><a href='login.php'>Try again</a>"; //written by Benjamin Nguyen
 ?>
-<!-- lines 1-54 written by Nicholas Deblock -->

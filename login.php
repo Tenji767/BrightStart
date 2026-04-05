@@ -4,9 +4,13 @@
 <title>Login</title>
 
 <style>
+ * {
+    box-sizing: border-box;
+}
+
 body{
     font-family:Arial;
-    background:#f4f4f4;
+    background: linear-gradient(to right, #2563eb, #0891b2);
 }
 
 .container{
@@ -31,6 +35,12 @@ button{
     color:white;
     border:none;
 }
+a{
+    font-size: small;
+    margin-top:25;
+    color:#007BFF;
+    text-decoration:none;
+}
 </style>
 
 </head>
@@ -51,8 +61,9 @@ button{
 
 </form>
 
+<a href="register.php">Make an account</a>
+
 </div>
 
 </body>
 </html>
-<!-- lines 1-57 written by Nicholas Deblock -->
