@@ -83,7 +83,7 @@ nav ul {
     list-style: none;
     display: flex;
     gap: 2rem;
-    justify-content: center;
+    justify-content: flex-end;
     flex-wrap: wrap;
 }
 
