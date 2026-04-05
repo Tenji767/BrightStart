@@ -18,6 +18,6 @@ $navProfilePicture = $_SESSION['profile_picture'] ?? 'pfp.png';
         </ul>
         
     </nav>
-    <a href="account.php"><img src="<?php echo htmlspecialchars($navProfilePicture); ?>" alt="Profile Picture"/></a>
+    <a href="account.php">Account</a>
 </header>
 <!-- nav updated to include only two links (lines 7-9) by Benjamin Nguyen -->
