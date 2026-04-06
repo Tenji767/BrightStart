@@ -45,14 +45,43 @@ if (isset($_POST['action']) && $_POST['action'] === 'ai_help') {
     $history        = json_decode($_POST['conversation'] ?? '[]', true);
     if (!is_array($history)) $history = [];
 
-    // TODO: Nick plug in your chatbot here
-    // Available variables:
-    //   $question_text  — the question the student got wrong
-    //   $options        — array with keys 'a','b','c','d'
-    //   $correct_option — the correct letter (e.g. 'B')
-    //   $user_message   — the student's latest message
-    //   $history        — prior conversation turns [['role'=>'user'/'assistant','content'=>'...']]
-    $reply = 'Chatbot not connected yet.';
+    // Build a system prompt with the full question context so the AI can guide the student
+    $opts_text     = "A: {$options['a']}\nB: {$options['b']}\nC: {$options['c']}\nD: {$options['d']}";
+    $system_prompt = "You are a helpful math tutor for elementary school students. "
+        . "The student answered the following question incorrectly:\n\n"
+        . "Question: {$question_text}\n{$opts_text}\n"
+        . "Correct answer: {$correct_option}\n\n"
+        . "Guide the student step-by-step without revealing the correct answer directly. "
+        . "Ask guiding questions to help them reason through the problem. "
+        . "Keep explanations simple, patient, and encouraging.";
+
+    // Assemble the messages array: system prompt + prior conversation + latest student message
+    $messages = [['role' => 'system', 'content' => $system_prompt]];
+    foreach ($history as $turn) {
+        if (isset($turn['role'], $turn['content'])) {
+            $messages[] = ['role' => $turn['role'], 'content' => $turn['content']];
+        }
+    }
+    $messages[] = ['role' => 'user', 'content' => $user_message];
+
+    // Call the OpenAI API
+    $apiKey = getenv('OPENAI_API_KEY');
+    $payload = ['model' => 'gpt-3.5-turbo', 'messages' => $messages];
+
+    $ch = curl_init('https://api.openai.com/v1/chat/completions');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        "Authorization: Bearer $apiKey",
+    ]);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
+    $raw      = curl_exec($ch);
+    curl_close($ch);
+
+    $response = json_decode($raw, true);
+    $reply    = $response['choices'][0]['message']['content'] ?? 'Sorry, I could not process that.';
     echo json_encode(['reply' => $reply]);
     exit;
 }
