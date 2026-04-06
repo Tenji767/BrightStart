@@ -5,23 +5,26 @@ const form = document.getElementById('chat-form');
 const chatBox = document.getElementById('chat-box');
 const helpBtn = document.getElementById("help-btn");
 
-helpBtn.addEventListener("click", async () => {
-    const question = "Solve for x: 2x + 3 = 7"; // Example math problem
-    const prePrompt = `You are a helpful math tutor.Rules:- Guide the student step-by-step.- Do NOT give the final answer immediately. - Ask the student questions to help them think. Problem:
-${question}
-`;
-    // Send structured tutoring prompt
-    const response = await fetch('chat.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: prePrompt })
+
+if (helpBtn) {
+    helpBtn.addEventListener("click", async () => {
+        const question = "Solve for x: 2x + 3 = 7"; // Example math problem
+        const prePrompt = `You are a helpful math tutor.Rules:- Guide the student step-by-step.- Do NOT give the final answer immediately. - Ask the student questions to help them think. Problem:
+    ${question}
+    `;
+        // Send structured tutoring prompt
+        const response = await fetch('chat.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: prePrompt })
+        });
+
+        const data = await response.json();
+
+        chatBox.innerHTML += `<div class="bot-msg">${data.reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
     });
-
-    const data = await response.json();
-
-    chatBox.innerHTML += `<div class="bot-msg">${data.reply}</div>`;
-    chatBox.scrollTop = chatBox.scrollHeight;
-});
+}
 
 //  event listener for form submission 
 form.addEventListener('submit', async (e) => {
