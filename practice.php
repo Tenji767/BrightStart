@@ -490,5 +490,5 @@ if ($quiz['done']) {
     </script>
 
 </body>
-<!-- lines 1-465 written by Caleb McHaney -->
+<!-- lines 1-494 written by Caleb McHaney, AI chat bot created by Nick Deblock -->
 </html>
