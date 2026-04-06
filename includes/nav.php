@@ -16,7 +16,7 @@ $navProfilePicture = $_SESSION['profile_picture'] ?? 'pfp.png';
   
             <li><a href="helper2.php">Helper</a></li>
 
-            <li><a href="account.php">Account</a></li>
+            <li><a href="account.php"><img src="<?php echo htmlspecialchars($navProfilePicture); ?>" alt="Profile Picture"/</a></li>
         </ul>
         
     </nav>
