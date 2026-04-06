@@ -1,0 +1,181 @@
+/* Admin Create Questions page styles */
+/* Created for admin-create-questions.php */
+/* Author: Caleb McHaney */
+
+/* Page layout */
+main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+/* Section cards */
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px 5px rgb(228, 228, 228);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+}
+.card h2 {
+    margin-top: 0;
+    font-size: 1.4em;
+    border-bottom: 2px solid rgb(255, 247, 216);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Status message */
+.msg {
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 1em;
+}
+.msg.success { background: #d4edda; color: #155724; }
+.msg.error   { background: #f8d7da; color: #721c24; }
+
+/* Form layout */
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 180px;
+}
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 0.95em;
+}
+.form-group select,
+.form-group input[type="text"],
+.form-group textarea {
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    background: #fafafa;
+    transition: border-color 0.2s;
+}
+.form-group select:focus,
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #aaa;
+    background: #fff;
+}
+.form-group textarea {
+    resize: vertical;
+}
+
+/* Options grid */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+/* Submit button */
+.btn-submit {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+}
+.btn-submit:hover {
+    box-shadow: 0 0 5px 8px rgb(252, 255, 58);
+}
+
+/* Filter bar */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.filter-bar label { font-weight: bold; }
+.filter-bar select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+}
+.filter-bar a {
+    color: #555;
+    font-size: 0.9em;
+}
+
+/* Question cards */
+.question-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 8px 3px rgb(228, 228, 228);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+.question-card .breadcrumb {
+    font-size: 0.82em;
+    color: #888;
+    margin-bottom: 8px;
+}
+.question-card .question-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+.question-card .options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.question-card .options-list li {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgb(255, 247, 216);
+    font-size: 0.95em;
+}
+.question-card .options-list li.correct {
+    background: #d4edda;
+    font-weight: bold;
+    color: #155724;
+}
+.btn-delete {
+    padding: 7px 20px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-delete:hover { background-color: #96281b; }
+
+.empty-state {
+    text-align: center;
+    color: #888;
+    padding: 30px 0;
+    font-size: 1em;
+}
+/* lines 1-180 written by Caleb McHaney */

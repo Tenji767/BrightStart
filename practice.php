@@ -183,6 +183,7 @@ if ($quiz['done']) {
 <head>
     <?php include('includes/header.php'); ?>
     <title>Practice – <?= htmlspecialchars($quiz['lesson_title']) ?></title>
+    <link rel="stylesheet" href="practice.css"/>
 </head>
 <body>
     <?php include('includes/nav.php'); ?>
@@ -190,13 +191,17 @@ if ($quiz['done']) {
     <main>
 
         <?php if ($quiz['done']): ?>
-        <!--RESULTS SCREEN-->
-        <h2>Quiz Complete!</h2>
-        <p>You scored <strong><?= $score ?> / <?= $total ?></strong>
-           (<?= round(($score / max($total, 1)) * 100) ?>%)</p>
+        <!-- ── RESULTS SCREEN ── -->
 
-        <h3>Question Review</h3>
+        <div class="results-hero">
+            <h2>Quiz Complete!</h2>
+            <div class="score-big"><?= $score ?> / <?= $total ?></div>
+            <div class="score-pct"><?= round(($score / max($total, 1)) * 100) ?>% correct</div>
+        </div>
 
+        <h3 style="margin-bottom:1rem; color:var(--text-primary);">Question Review</h3>
+
+        <div class="review-list">
         <?php foreach ($quiz['questions'] as $i => $q):
             $ans        = $quiz['answers'][$q['question_id']] ?? null;
             $is_correct = $ans && $ans['is_correct'];
@@ -206,87 +211,104 @@ if ($quiz['done']) {
             $options    = ['A' => $q['option_a'], 'B' => $q['option_b'],
                            'C' => $q['option_c'], 'D' => $q['option_d']];
         ?>
-            <div>
-                <p>
-                    <strong>Q<?= $i + 1 ?>:</strong> <?= htmlspecialchars($q['question_text']) ?>
-                    <?php if ($used_ai): ?>(Used AI Help)<?php endif; ?>
-                    — <?= $is_correct ? 'Correct' : 'Incorrect' ?>
-                </p>
-                <ul>
+            <div class="review-item <?= $is_correct ? 'correct' : 'incorrect' ?>">
+                <div class="review-item-header">
+                    <span class="review-q-text">Q<?= $i + 1 ?>: <?= htmlspecialchars($q['question_text']) ?></span>
+                    <span>
+                        <span class="review-badge <?= $is_correct ? 'badge-correct' : 'badge-incorrect' ?>">
+                            <?= $is_correct ? '✓ Correct' : '✗ Incorrect' ?>
+                        </span>
+                        <?php if ($used_ai): ?>
+                            <span class="review-badge badge-ai">AI Help</span>
+                        <?php endif; ?>
+                    </span>
+                </div>
+                <ul class="review-options">
                     <?php foreach ($options as $letter => $text): ?>
-                        <li>
-                            <?= $letter ?>: <?= htmlspecialchars($text) ?>
-                            <?php if ($letter === $correct): ?> ✓ Correct answer<?php endif; ?>
-                            <?php if ($letter === $chosen && !$is_correct): ?> ✗ Your answer<?php endif; ?>
+                        <?php
+                            $cls = '';
+                            if ($letter === $correct) $cls = 'opt-correct';
+                            elseif ($letter === $chosen && !$is_correct) $cls = 'opt-wrong-chosen';
+                        ?>
+                        <li class="<?= $cls ?>">
+                            <strong><?= $letter ?>:</strong> <?= htmlspecialchars($text) ?>
+                            <?php if ($letter === $correct): ?> — Correct answer<?php endif; ?>
+                            <?php if ($letter === $chosen && !$is_correct): ?> — Your answer<?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <hr>
         <?php endforeach; ?>
+        </div>
 
-        <a href="practice.php?lesson_id=<?= $lesson_id ?>&reset=1">
-            <button type="button">Retry This Lesson</button>
-        </a>
-        &nbsp;
-        <a href="lesson.php?lesson_id=<?= $lesson_id ?>">
-            <button type="button">Back to Lesson</button>
-        </a>
+        <div class="btn-row">
+            <a href="practice.php?lesson_id=<?= $lesson_id ?>&reset=1" class="btn-primary">Retry This Lesson</a>
+            <a href="lesson.php?lesson_id=<?= $lesson_id ?>" class="btn-secondary">Back to Lesson</a>
+        </div>
 
 
         <?php elseif ($show_wrong_prompt): ?>
-        <!--WRONG ANSWER — help prompt + chatbot-->
+        <!-- ── WRONG ANSWER SCREEN ── -->
         <?php $wq = $quiz['questions'][$wrong_idx]; ?>
 
-        <h2>Not quite!</h2>
-        <p>That answer wasn't correct. Would you like some help working through it?</p>
-
-        <button type="button" id="btn-get-help">Yes, help me understand</button>
-
-        &nbsp;
-
-        <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>" style="display:inline;">
-            <input type="hidden" name="question_index" value="<?= $wrong_idx ?>">
-            <input type="hidden" name="last_chosen"
-                   value="<?= htmlspecialchars($quiz['answers'][$wq['question_id']]['chosen'] ?? '') ?>">
-            <button type="submit" name="skip_to_next">No thanks, move on</button>
-        </form>
-
-        <!--Chatbot panel — hidden until student clicks "Yes"-->
-        <div id="chatbot-panel" style="display:none;">
-            <h3>Tutor Chat</h3>
-            <p><em><?= htmlspecialchars($wq['question_text']) ?></em></p>
-
-            <div id="chat-messages"></div>
-
-            <textarea id="chat-input" rows="2" cols="50"
-                placeholder="Ask a question or describe what you're confused about..."></textarea>
-            <br>
-            <button type="button" id="btn-send-chat">Send</button>
-
-            <br><br>
-
-            <!--Retry form — shown inside the chatbot panel-->
-            <h4>Try the question again:</h4>
-            <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>">
-                <input type="hidden" name="question_index" value="<?= $wrong_idx ?>">
-                <input type="hidden" name="used_ai" value="1">
-
-                <p><strong><?= htmlspecialchars($wq['question_text']) ?></strong></p>
-
-                <?php foreach (['a'=>'A','b'=>'B','c'=>'C','d'=>'D'] as $key => $letter): ?>
-                    <label>
-                        <input type="radio" name="chosen_option" value="<?= $letter ?>" required>
-                        <?= $letter ?>: <?= htmlspecialchars($wq["option_{$key}"]) ?>
-                    </label><br>
-                <?php endforeach; ?>
-
-                <br>
-                <button type="submit" name="submit_answer">Submit Answer</button>
-            </form>
+        <div class="wrong-card">
+            <h2>Not quite!</h2>
+            <p>That answer wasn't correct. Would you like some help working through it?</p>
+            <div class="btn-row">
+                <button type="button" id="btn-get-help" class="btn-primary">Yes, help me understand</button>
+                <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>" style="display:contents;">
+                    <input type="hidden" name="question_index" value="<?= $wrong_idx ?>">
+                    <input type="hidden" name="last_chosen"
+                           value="<?= htmlspecialchars($quiz['answers'][$wq['question_id']]['chosen'] ?? '') ?>">
+                    <button type="submit" name="skip_to_next" class="btn-secondary">No thanks, move on</button>
+                </form>
+            </div>
         </div>
 
-        <!--Hidden span that stores question data for the JavaScript chatbot to read-->
+        <!-- Chatbot panel — hidden until student clicks "Yes" -->
+        <div id="chatbot-panel" style="display:none;">
+            <div class="chatbot-card">
+                <h3>Tutor Chat</h3>
+                <div class="chatbot-context"><?= htmlspecialchars($wq['question_text']) ?></div>
+
+                <div id="chat-messages"></div>
+
+                <div class="chat-input-row">
+                    <textarea id="chat-input" rows="2"
+                        placeholder="Ask a question or describe what you're confused about..."></textarea>
+                    <button type="button" id="btn-send-chat" class="btn-primary">Send</button>
+                </div>
+
+                <hr class="chatbot-divider">
+
+                <!-- Retry form — shown inside the chatbot panel -->
+                <h4 style="margin-bottom:1rem; color:var(--text-primary);">Try the question again:</h4>
+                <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>">
+                    <input type="hidden" name="question_index" value="<?= $wrong_idx ?>">
+                    <input type="hidden" name="used_ai" value="1">
+
+                    <p class="question-text"><?= htmlspecialchars($wq['question_text']) ?></p>
+
+                    <ul class="options-list">
+                    <?php foreach (['a'=>'A','b'=>'B','c'=>'C','d'=>'D'] as $key => $letter): ?>
+                        <li>
+                            <label class="option-label">
+                                <input type="radio" name="chosen_option" value="<?= $letter ?>" required>
+                                <span class="option-letter"><?= $letter ?></span>
+                                <?= htmlspecialchars($wq["option_{$key}"]) ?>
+                            </label>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+
+                    <div class="btn-row">
+                        <button type="submit" name="submit_answer" class="btn-primary">Submit Answer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Hidden span that stores question data for the JavaScript chatbot to read -->
         <span id="js-question-data"
               data-text="<?= htmlspecialchars($wq['question_text']) ?>"
               data-a="<?= htmlspecialchars($wq['option_a']) ?>"
@@ -299,34 +321,60 @@ if ($quiz['done']) {
 
 
         <?php else: ?>
-        <!--NORMAL QUESTION VIEW-->
-        <h2><?= htmlspecialchars($quiz['lesson_title']) ?> — Practice</h2>
-        <p>Question <?= $current_idx + 1 ?> of <?= $total ?></p>
+        <!-- ── NORMAL QUESTION VIEW ── -->
+
+        <div class="practice-header">
+            <h2><?= htmlspecialchars($quiz['lesson_title']) ?> — Practice</h2>
+            <p>Question <?= $current_idx + 1 ?> of <?= $total ?></p>
+        </div>
+
+        <div class="progress-wrap">
+            <div class="progress-label">
+                <span>Progress</span>
+                <span><?= $current_idx ?> / <?= $total ?> completed</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-bar-fill"
+                     style="width:<?= round(($current_idx / max($total, 1)) * 100) ?>%"></div>
+            </div>
+        </div>
 
         <?php if ($current_q): ?>
-        <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>">
-            <input type="hidden" name="question_index" value="<?= $current_idx ?>">
-            <input type="hidden" name="used_ai" value="0">
+        <div class="question-card">
+            <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>">
+                <input type="hidden" name="question_index" value="<?= $current_idx ?>">
+                <input type="hidden" name="used_ai" value="0">
 
-            <p><strong><?= htmlspecialchars($current_q['question_text']) ?></strong></p>
+                <p class="question-text"><?= htmlspecialchars($current_q['question_text']) ?></p>
 
-            <?php foreach (['a'=>'A','b'=>'B','c'=>'C','d'=>'D'] as $key => $letter): ?>
-                <label>
-                    <input type="radio" name="chosen_option" value="<?= $letter ?>" required>
-                    <?= $letter ?>: <?= htmlspecialchars($current_q["option_{$key}"]) ?>
-                </label><br>
-            <?php endforeach; ?>
+                <ul class="options-list">
+                <?php foreach (['a'=>'A','b'=>'B','c'=>'C','d'=>'D'] as $key => $letter): ?>
+                    <li>
+                        <label class="option-label">
+                            <input type="radio" name="chosen_option" value="<?= $letter ?>" required>
+                            <span class="option-letter"><?= $letter ?></span>
+                            <?= htmlspecialchars($current_q["option_{$key}"]) ?>
+                        </label>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
 
-            <br>
-            <button type="submit" name="submit_answer">Submit Answer</button>
-        </form>
+                <div class="btn-row">
+                    <button type="submit" name="submit_answer" class="btn-primary">Submit Answer</button>
+                </div>
+            </form>
+        </div>
         <?php endif; ?>
 
         <?php endif; ?>
 
     </main>
 
-    <!--JavaScript that handles the chatbot chat panel-->
+    <footer>
+        <p>&copy; 2025 BrightStart Math Tutoring. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript that handles the chatbot chat panel -->
     <script>
     (function () {
         const panel      = document.getElementById('chatbot-panel');
@@ -346,6 +394,7 @@ if ($quiz['done']) {
         btnHelp.addEventListener('click', function () {
             panel.style.display = 'block';
             btnHelp.disabled    = true;
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
             sendToAI("Hello! I got this question wrong and need some help understanding it.");
         });
 
@@ -357,7 +406,7 @@ if ($quiz['done']) {
         function sendMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
-            appendMessage('You', text);
+            appendMessage('You', text, 'user');
             chatInput.value = '';
             sendToAI(text);
         }
@@ -369,7 +418,7 @@ if ($quiz['done']) {
             btnSend.disabled   = true;
             chatInput.disabled = true;
 
-            const typingNode = appendMessage('Tutor', '...');
+            const typingNode = appendMessage('Tutor', '...', 'tutor');
 
             const fd = new FormData();
             fd.append('action',         'ai_help');
@@ -400,18 +449,17 @@ if ($quiz['done']) {
         }
 
         //creates a chat bubble and returns the text node so it can be updated
-        function appendMessage(sender, text) {
-            const div  = document.createElement('div');
-            const span = document.createElement('span');
-            div.innerHTML = '<strong>' + sender + ':</strong> ';
-            span.textContent = text;
-            div.appendChild(span);
+        function appendMessage(sender, text, role) {
+            const div = document.createElement('div');
+            div.className = 'chat-bubble ' + (role === 'user' ? 'user' : 'tutor');
+            div.textContent = text;
             chatMsgs.appendChild(div);
             chatMsgs.scrollTop = chatMsgs.scrollHeight;
-            return span;
+            return div;
         }
     })();
     </script>
 
 </body>
+<!-- lines 1-465 written by Caleb McHaney -->
 </html>

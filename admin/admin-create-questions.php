@@ -129,143 +129,155 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('../includes/header.php'); ?>
-    <!-- Stylesheets need to be added still 3/24/26 CM -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Questions – BrightStart Admin</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="admin-create-questions.css">
 </head>
 
 <body>
-<a href="admin-dashboard(notAI).php"></a><button>To Dashboard</button></a>
 
-    <main>
+<div class="admin-header">
+    <h1 class="pagename">Create Questions</h1>
+</div>
 
-        <h2>Add Question</h2>
+<div class="returnBox">
+    <a href="admin-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+</div>
 
-        <!-- Status message -->
-        <?php if ($msg): ?>
-            <p style="color: <?= $msg_type === 'error' ? 'red' : 'green' ?>;">
-                <?= htmlspecialchars($msg) ?>
-            </p>
-        <?php endif; ?>
+<main>
 
-        <!-- Create Question Form -->
+    <!-- Status message -->
+    <?php if ($msg): ?>
+        <div class="msg <?= $msg_type ?>">
+            <?= htmlspecialchars($msg) ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- ── Create Question Form ── -->
+    <div class="card">
+        <h2>Add a New Question</h2>
         <form method="POST" action="admin-create-questions.php">
 
-            <!-- Grade dropdown — lessons load based on this selection -->
-            <label for="grade_id">Grade:
-                <select name="grade_id" id="grade_id" required>
-                    <option value="">-- Select a Grade --</option>
-                    <?php foreach ($grades as $grade): ?>
-                        <option value="<?= $grade['grade_id'] ?>">
-                            <?= htmlspecialchars($grade['grade_name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
+            <!-- Grade + Lesson dropdowns -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="grade_id">Grade</label>
+                    <select name="grade_id" id="grade_id" required>
+                        <option value="">-- Select a Grade --</option>
+                        <?php foreach ($grades as $grade): ?>
+                            <option value="<?= $grade['grade_id'] ?>">
+                                <?= htmlspecialchars($grade['grade_name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lesson_id">Lesson</label>
+                    <select name="lesson_id" id="lesson_id" required>
+                        <option value="">-- Select a Grade First --</option>
+                    </select>
+                </div>
+            </div>
 
-            &nbsp;
+            <!-- Question text -->
+            <div class="form-group" style="margin-bottom:18px;">
+                <label for="question_text">Question</label>
+                <textarea name="question_text" id="question_text" rows="3"
+                    placeholder="Enter the question text here..." required></textarea>
+            </div>
 
-            <!-- Lesson dropdown — populated by JS when grade is picked -->
-            <label for="lesson_id">Lesson:
-                <select name="lesson_id" id="lesson_id" required>
-                    <option value="">-- Select a Grade First --</option>
-                </select>
-            </label>
+            <!-- Answer options A–D -->
+            <div class="options-grid">
+                <div class="form-group">
+                    <label>Option A</label>
+                    <input type="text" name="option_a" placeholder="Enter option A" required>
+                </div>
+                <div class="form-group">
+                    <label>Option B</label>
+                    <input type="text" name="option_b" placeholder="Enter option B" required>
+                </div>
+                <div class="form-group">
+                    <label>Option C</label>
+                    <input type="text" name="option_c" placeholder="Enter option C" required>
+                </div>
+                <div class="form-group">
+                    <label>Option D</label>
+                    <input type="text" name="option_d" placeholder="Enter option D" required>
+                </div>
+            </div>
 
-            <br><br>
-
-            <label for="question_text">Question:<br>
-                <textarea name="question_text" id="question_text" rows="3" cols="60"
-                    placeholder="Enter question text..." required></textarea>
-            </label>
-
-            <br><br>
-
-            <label>A: <input type="text" name="option_a" placeholder="Option A" size="40" required></label><br>
-            <label>B: <input type="text" name="option_b" placeholder="Option B" size="40" required></label><br>
-            <label>C: <input type="text" name="option_c" placeholder="Option C" size="40" required></label><br>
-            <label>D: <input type="text" name="option_d" placeholder="Option D" size="40" required></label>
-
-            <br><br>
-
-            <label for="correct_option">Correct Answer:
+            <!-- Correct answer -->
+            <div class="form-group" style="max-width:200px; margin-bottom:22px;">
+                <label for="correct_option">Correct Answer</label>
                 <select name="correct_option" id="correct_option" required>
-                    <option value="">--</option>
+                    <option value="">-- Select --</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
                     <option value="D">D</option>
                 </select>
-            </label>
+            </div>
 
-            <br><br>
-
-            <button type="submit" name="create_question">Add Question</button>
+            <button type="submit" name="create_question" class="btn-submit">Add Question</button>
 
         </form>
+    </div>
 
-        <hr>
-
-        <!-- All Question View -->
+    <!-- ── Question List ── -->
+    <div class="card">
         <h2>All Questions</h2>
 
         <!-- Filter by lesson -->
-        <form method="GET" action="admin-create-questions.php">
-            <label for="filter_lesson_id">Filter by Lesson:
-                <select name="filter_lesson_id" id="filter_lesson_id" onchange="this.form.submit()">
-                    <option value="">-- All Lessons --</option>
-                    <?php foreach ($all_lessons as $lesson): ?>
-                        <option value="<?= $lesson['lesson_id'] ?>"
-                            <?= ($filter_lesson_id === $lesson['lesson_id']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($lesson['lesson_title']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
+        <form method="GET" action="admin-create-questions.php" class="filter-bar">
+            <label for="filter_lesson_id">Filter by Lesson:</label>
+            <select name="filter_lesson_id" id="filter_lesson_id" onchange="this.form.submit()">
+                <option value="">-- All Lessons --</option>
+                <?php foreach ($all_lessons as $lesson): ?>
+                    <option value="<?= $lesson['lesson_id'] ?>"
+                        <?= ($filter_lesson_id === $lesson['lesson_id']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($lesson['lesson_title']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
             <?php if ($filter_lesson_id): ?>
-                &nbsp;<a href="admin-create-questions.php">Clear filter</a>
+                <a href="admin-create-questions.php">Clear filter</a>
             <?php endif; ?>
         </form>
 
-        <br>
-
         <?php if (empty($all_questions)): ?>
-            <p>No questions found.</p>
+            <p class="empty-state">No questions found.</p>
         <?php else: ?>
             <?php foreach ($all_questions as $row): ?>
-                <div class="question">
-                    <p><small><?= htmlspecialchars($row['grade_name']) ?> &rsaquo; <?= htmlspecialchars($row['lesson_title']) ?></small></p>
-                    <p><strong><?= htmlspecialchars($row['question_text']) ?></strong></p>
-                    <ul>
-                        <li <?= $row['correct_option'] === 'A' ? 'style="font-weight:bold;"' : '' ?>>
-                            A: <?= htmlspecialchars($row['option_a']) ?>
-                            <?= $row['correct_option'] === 'A' ? ' ✓' : '' ?>
-                        </li>
-                        <li <?= $row['correct_option'] === 'B' ? 'style="font-weight:bold;"' : '' ?>>
-                            B: <?= htmlspecialchars($row['option_b']) ?>
-                            <?= $row['correct_option'] === 'B' ? ' ✓' : '' ?>
-                        </li>
-                        <li <?= $row['correct_option'] === 'C' ? 'style="font-weight:bold;"' : '' ?>>
-                            C: <?= htmlspecialchars($row['option_c']) ?>
-                            <?= $row['correct_option'] === 'C' ? ' ✓' : '' ?>
-                        </li>
-                        <li <?= $row['correct_option'] === 'D' ? 'style="font-weight:bold;"' : '' ?>>
-                            D: <?= htmlspecialchars($row['option_d']) ?>
-                            <?= $row['correct_option'] === 'D' ? ' ✓' : '' ?>
-                        </li>
+                <div class="question-card">
+                    <p class="breadcrumb">
+                        <?= htmlspecialchars($row['grade_name']) ?> &rsaquo;
+                        <?= htmlspecialchars($row['lesson_title']) ?>
+                    </p>
+                    <p class="question-text"><?= htmlspecialchars($row['question_text']) ?></p>
+                    <ul class="options-list">
+                        <?php foreach (['A','B','C','D'] as $opt): ?>
+                            <li class="<?= $row['correct_option'] === $opt ? 'correct' : '' ?>">
+                                <strong><?= $opt ?>:</strong>
+                                <?= htmlspecialchars($row['option_' . strtolower($opt)]) ?>
+                                <?= $row['correct_option'] === $opt ? ' &#10003;' : '' ?>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                     <form method="POST" action="admin-create-questions.php"
                           onsubmit="return confirm('Delete this question?');">
                         <input type="hidden" name="question_id" value="<?= $row['question_id'] ?>">
-                        <!-- Preserve the current filter after delete -->
                         <input type="hidden" name="filter_lesson_id" value="<?= $filter_lesson_id ?>">
-                        <button type="submit" name="delete_question">Delete</button>
+                        <button type="submit" name="delete_question" class="btn-delete">Delete</button>
                     </form>
                 </div>
-                <hr>
             <?php endforeach; ?>
         <?php endif; ?>
 
-    </main>
+    </div>
+
+</main>
 
 </body>
 
@@ -299,5 +311,5 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
             .catch(() => lessonSelect.innerHTML = '<option value="">Error loading lessons</option>');
     });
 </script>
-
+<!-- lines 1-315 written by Caleb McHaney -->
 </html>

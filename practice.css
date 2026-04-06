@@ -1,0 +1,377 @@
+/* Practice page styles */
+/* Created for practice.php */
+/* Author: Caleb McHaney */
+
+/* Page header banner */
+.practice-header {
+    background: linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(8,145,178,0.08) 100%);
+    border-left: 5px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+.practice-header h2 {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+.practice-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Progress bar */
+.progress-wrap {
+    margin-bottom: 1.5rem;
+}
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0.4rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: var(--border-color);
+    border-radius: 99px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+/* Question card */
+.question-card {
+    background: white;
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 1.5rem;
+}
+.question-text {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* Answer options */
+.options-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+}
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fafafa;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+.option-label:hover {
+    border-color: var(--primary-color);
+    background: rgba(37,99,235,0.05);
+}
+.option-label input[type="radio"] {
+    accent-color: var(--primary-color);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+.option-label input[type="radio"]:checked + .option-letter {
+    background: var(--primary-color);
+    color: white;
+}
+.option-label:has(input:checked) {
+    border-color: var(--primary-color);
+    background: rgba(37,99,235,0.06);
+}
+.option-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--border-color);
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* Shared buttons */
+.btn-primary {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow);
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37,99,235,0.35);
+}
+.btn-secondary {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow);
+}
+.btn-secondary:hover {
+    background: rgba(37,99,235,0.07);
+    transform: translateY(-2px);
+}
+.btn-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+/* Wrong-answer card */
+.wrong-card {
+    background: white;
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #ef4444;
+}
+.wrong-card h2 {
+    font-size: 1.5rem;
+    color: #ef4444;
+    margin-bottom: 0.5rem;
+}
+.wrong-card p {
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* Chatbot panel */
+.chatbot-card {
+    background: white;
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    margin-top: 1.5rem;
+}
+.chatbot-card h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+.chatbot-context {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--light-bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--secondary-color);
+}
+#chat-messages {
+    height: 260px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.chat-bubble {
+    max-width: 85%;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+.chat-bubble.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    color: white;
+    border-bottom-right-radius: 3px;
+}
+.chat-bubble.tutor {
+    align-self: flex-start;
+    background: #e2e8f0;
+    color: var(--text-primary);
+    border-bottom-left-radius: 3px;
+}
+.chat-input-row {
+    display: flex;
+    gap: 0.75rem;
+}
+#chat-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    resize: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+#chat-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+.chatbot-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1.5rem 0;
+}
+
+/* Results screen */
+.results-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border-radius: 14px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-lg);
+}
+.results-hero h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.results-hero .score-big {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.results-hero .score-pct {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    margin-top: 0.25rem;
+}
+
+/* Review cards */
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.review-item {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--border-color);
+}
+.review-item.correct {
+    border-left-color: #22c55e;
+}
+.review-item.incorrect {
+    border-left-color: #ef4444;
+}
+.review-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+.review-q-text {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+.review-badge {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.badge-correct {
+    background: #dcfce7;
+    color: #166534;
+}
+.badge-incorrect {
+    background: #fee2e2;
+    color: #991b1b;
+}
+.badge-ai {
+    background: #ede9fe;
+    color: #5b21b6;
+    margin-left: 0.4rem;
+}
+.review-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+.review-options li {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+}
+.review-options li.opt-correct {
+    background: #dcfce7;
+    color: #166534;
+    font-weight: 600;
+}
+.review-options li.opt-wrong-chosen {
+    background: #fee2e2;
+    color: #991b1b;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .question-card,
+    .chatbot-card,
+    .wrong-card,
+    .results-hero {
+        padding: 1.25rem;
+    }
+    .results-hero .score-big {
+        font-size: 2.5rem;
+    }
+}
+/* lines 1-377 written by Caleb McHaney */
