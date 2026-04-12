@@ -53,7 +53,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'ai_help') {
         . "Correct answer: {$correct_option}\n\n"
         . "Guide the student step-by-step without revealing the correct answer directly. "
         . "Ask guiding questions to help them reason through the problem. "
-        . "Keep explanations simple, patient, and encouraging.";
+        . "Keep explanations simple, patient, and encouraging. Use visuals for assistance and ask for interests or hobbies that can be incorporated into examples to make it more engaging.";
 
     // Assemble the messages array: system prompt + prior conversation + latest student message
     $messages = [['role' => 'system', 'content' => $system_prompt]];
