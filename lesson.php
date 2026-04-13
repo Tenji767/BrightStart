@@ -24,6 +24,14 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 $row = $result->fetch_assoc();
+
+// Block access if the lesson has been disabled by an admin
+if (!$row || (isset($row['is_enabled']) && (int)$row['is_enabled'] === 0)) {
+    echo "<a href='concepts.php?grade_id={$grade}'><div><p>Select Lesson</p></div></a>";
+    echo "<p>This lesson is not currently available.</p>";
+    exit;
+}
+
 //a button to go back to the lesssons select page for convenience
 echo "<a href='concepts.php?grade_id={$grade}'>";
 echo "<div><p>Select Lesson</p></div>";
