@@ -36,6 +36,8 @@ if($result->num_rows > 0){
         echo "<td>" . $row['school_name'] . "</td>";
         echo "<td>" . $row['student_join_code'] . "</td>";
         echo "<td>" . $row['teacher_join_code'] . "</td>";
+        echo "<td><a href='edit-school.php?school_id=" . $row['school_id'] . "'><button>Edit</button></a></td>";
+        echo "<td><a href='delete-school.php?school_id=" . $row['school_id'] . "'><button>Delete</button></a></td>";
         echo "</tr>";
     }
 } else {
