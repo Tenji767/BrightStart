@@ -25,4 +25,7 @@ if (isset($_POST['lesson_id']) && isset($_POST['is_enabled'])) {
 }
 
 header("Location: admin-manage-lessons.php");
+// this file handles the toggling of lessons
+// Author: Caleb McHaney
+// lines 1-31 written by Caleb McHaney
 exit;

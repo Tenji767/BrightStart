@@ -51,6 +51,7 @@ $stmt = $conn->prepare("SELECT lesson_title, lesson_id, grade_id, teacher_name, 
 $stmt->execute();
 $result = $stmt->get_result();
 
+// lesson toggling buttons and status indicators
 while($row = $result->fetch_assoc()) {
     $isEnabled = (int)($row['is_enabled'] ?? 1);
     $statusLabel = $isEnabled ? "Enabled" : "Disabled";
