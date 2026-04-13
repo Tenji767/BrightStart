@@ -36,7 +36,7 @@ if (!isset($_GET['grade_id'])) {//if accessed outside of from practice page, ere
 
 $grade_id = $_GET['grade_id'];//gets the grade that was selected into a variable
 
-$stmt = $conn->prepare("SELECT * FROM Lesson WHERE grade_id = ? AND is_enabled = 1");//loads that grade_id variable into the query, disabled lessons are excluded
+$stmt = $conn->prepare("SELECT * FROM Lesson WHERE grade_id = ?");//loads that grade_id variable into the query to get all related concepts
 $stmt->bind_param("i", $grade_id);
 $stmt->execute();
 
