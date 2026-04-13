@@ -36,7 +36,14 @@ if (!isset($_GET['grade_id'])) {//if accessed outside of from practice page, ere
 
 $grade_id = $_GET['grade_id'];//gets the grade that was selected into a variable
 
-$stmt = $conn->prepare("SELECT * FROM Lesson WHERE grade_id = ?");//loads that grade_id variable into the query to get all related concepts
+// checks for concepts assigned to that grade, and whether they have content and questions, to determine how to display them on the page
+$stmt = $conn->prepare(
+    "SELECT l.lesson_id, l.lesson_title,
+            (l.lesson_content_html IS NOT NULL AND l.lesson_content_html != '') AS has_lesson,
+            (SELECT COUNT(*) FROM Questions q WHERE q.lesson_id = l.lesson_id) > 0 AS has_questions
+     FROM Lesson l
+     WHERE l.grade_id = ?"
+);//loads that grade_id variable into the query to get all related concepts, plus whether each has content and questions
 $stmt->bind_param("i", $grade_id);
 $stmt->execute();
 
@@ -52,13 +59,11 @@ echo "</a>";
 
 
 while ($row = $result->fetch_assoc()) {//puts the results into an array that can be referenced by the name of the column
-    $grade = isset($_GET['grade_id']) ? urlencode($_GET['grade_id']) : '';//gets the grade id
-    $concept = urlencode($row['lesson_id']);//gets the concept id
+    $hasLesson    = $row['has_lesson']    ? 'true' : 'false';
+    $hasQuestions = $row['has_questions'] ? 'true' : 'false';
 
     echo "<div>";
-    // echo "<a href='learnconcept.php?grade_id=$grade&concept_id=$concept'><p>Learn " . htmlspecialchars($row['conceptDesc']) . "</p></a>";
-    // echo "<a href='quizes.php?grade_id=$grade&concept_id=$concept'><p>" . htmlspecialchars($row['conceptDesc']) . "</p></a>";//will open the quiz section that will pull questions templates from the database REDO THE QUIZES TO PULL FROM DATABASE INSTEAD OF GENERATE
-    echo '<button class="concept-btn" data-concept="' . $row['lesson_id'] . '">' . $row['lesson_title'] . '</button>';
+    echo '<button class="concept-btn" data-concept="' . $row['lesson_id'] . '" data-has-lesson="' . $hasLesson . '" data-has-questions="' . $hasQuestions . '">' . htmlspecialchars($row['lesson_title']) . '</button>';
     echo "</div>";
 
 }
@@ -84,6 +89,12 @@ const practiceBtn = document.getElementById("practiceBtn");
 
             document.getElementById("concept-action-menu").style.display="block";
             document.getElementById("selectedConceptText").textContent = "Selected: " + button.textContent;
+
+            const hasLesson    = button.dataset.hasLesson    === 'true';
+            const hasQuestions = button.dataset.hasQuestions === 'true';
+
+            learnBtn.disabled    = !hasLesson;
+            practiceBtn.disabled = !hasQuestions;
         });
     });
 
