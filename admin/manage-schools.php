@@ -16,6 +16,20 @@ include("../db_connect.php");
     <p>Manage participating schools</p>
 
 
+    <h3>Add New School</h3>
+    <form action="add-school.php" method="post">
+        <label for="school_name">School Name:</label><br>
+        <input type="text" id="school_name" name="school_name" required><br><br>
+
+        <label for="student_join_code">Student Join Code:</label><br>
+        <input type="text" id="student_join_code" name="student_join_code" required><br><br>
+
+        <label for="teacher_join_code">Teacher Join Code:</label><br>
+        <input type="text" id="teacher_join_code" name="teacher_join_code" required><br><br>
+
+        <input type="submit" value="Add School">    
+    </form>
+
 <table id="school-list">
 <tr>
     <th>School ID</th>
