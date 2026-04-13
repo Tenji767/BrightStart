@@ -27,9 +27,12 @@ include("../db_connect.php");
         <label for="teacher_join_code">Teacher Join Code:</label><br>
         <input type="text" id="teacher_join_code" name="teacher_join_code" required><br><br>
 
-        <input type="submit" value="Add School">    
+        <button type="submit">Add School</button> 
     </form>
 
+    <br>
+    <hr>
+    <br>
 <table id="school-list">
 <tr>
     <th>School ID</th>
