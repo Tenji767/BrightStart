@@ -38,18 +38,29 @@ if ($conn->connect_error) {
 }
 
 // log in and check to see if the query worked
-$result = $conn->query("SELECT * FROM Grade");
+$result = $conn->query("SELECT grade_id, grade_name FROM Grade WHERE grade_id BETWEEN 1 AND 12 ORDER BY grade_id ASC");
 if (!$result) {
     die("Query failed: " . $conn->error);
 }
 // loops through the list of grades and the database and displays a link to the concepts related to that grade
 while ($row = $result->fetch_assoc()) {
-    if (trim((string)$row['grade_name']) === '') {
+    $gradeName = trim((string)$row['grade_name']);
+    $gradeNameLower = strtolower($gradeName);
+
+    if ($gradeName === '') {
+        continue;
+    }
+
+    if (
+        strcasecmp($gradeName, 'List of grades') === 0 ||
+        strpos($gradeNameLower, 'hidden') !== false ||
+        strpos($gradeNameLower, 'button') !== false
+    ) {
         continue;
     }
 
     echo "<a href='concepts.php?grade_id={$row['grade_id']}'>";
-    echo "<div><p>{$row['grade_name']}</p></div>";
+    echo "<div><p>" . htmlspecialchars($gradeName, ENT_QUOTES, 'UTF-8') . "</p></div>";
     echo "</a>";
 }
 

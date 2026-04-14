@@ -186,7 +186,7 @@ main {
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: white;
+    color: black;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: var(--shadow);
@@ -393,6 +393,10 @@ a:focus {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-auto-rows: 1fr;
     gap: 1rem;
+}
+
+.grade-list > a:not(:has(> div)) {
+    display: none;
 }
 
 .grade-list > a {
