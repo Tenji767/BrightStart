@@ -42,6 +42,7 @@ a{
     text-decoration:none;
     display: flex;  
     flex-direction: column;
+    padding-top: 5px;
 }
 </style>
 
