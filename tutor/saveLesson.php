@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);//error reporting
 ini_set('display_errors', 1);
 
@@ -13,6 +14,7 @@ if ($conn->connect_error) {
 $title = $_POST['title'] ?? '';//gets the stuff from the form (submitted from the create lesson)
 $grade = $_POST['grade'] ?? '';
 $html = $_POST['html'] ?? '';
+$school_id = intval($_SESSION['school_id'] ?? 0);
 
 if (!empty($_FILES)) {
     foreach ($_FILES as $file) {
@@ -46,16 +48,16 @@ foreach($_FILES as $file){//goes through each file and uploads it (files are ima
     }
 }
 
-$stmt = $conn->prepare(//inserts the lesson title, grade, and html content into database
-"INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html)
-VALUES (?, ?, ?)"
+$stmt = $conn->prepare(//inserts the lesson title, grade, html content, and school into database
+"INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html, school_id)
+VALUES (?, ?, ?, ?)"
 );
 
 if(!$stmt){
     die("Prepare failed: " . $conn->error);
 }//failure statement
 
-$stmt->bind_param("sis", $title, $grade, $html);//binds the actual values to the statement
+$stmt->bind_param("sisi", $title, $grade, $html, $school_id);//binds the actual values to the statement
 
 if(!$stmt->execute()){//runs statement execute and checks if it worked or not
     die("Execute failed: " . $stmt->error);

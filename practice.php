@@ -24,11 +24,12 @@ if (!$lesson_id) {
     exit;
 }
 
-//look up the grade that this lesson belongs to
+//look up the grade that this lesson belongs to, also verify the lesson belongs to the student's school
 $grade_id = 0;
+$school_id = intval($_SESSION['school_id'] ?? 0);
 
-$stmt = $conn->prepare("SELECT grade_id FROM Lesson WHERE lesson_id = ?");
-$stmt->bind_param("i", $lesson_id);
+$stmt = $conn->prepare("SELECT grade_id FROM Lesson WHERE lesson_id = ? AND school_id = ?");
+$stmt->bind_param("ii", $lesson_id, $school_id);
 $stmt->execute();
 $lesson = $stmt->get_result()->fetch_assoc();
 

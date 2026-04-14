@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);//development error checking
@@ -35,16 +36,17 @@ if (!isset($_GET['grade_id'])) {//if accessed outside of from practice page, ere
 }
 
 $grade_id = $_GET['grade_id'];//gets the grade that was selected into a variable
+$school_id = intval($_SESSION['school_id'] ?? 0);
 
-// checks for concepts assigned to that grade, and whether they have content and questions, to determine how to display them on the page
+// checks for concepts assigned to that grade and school, and whether they have content and questions
 $stmt = $conn->prepare(
     "SELECT l.lesson_id, l.lesson_title,
             (l.lesson_content_html IS NOT NULL AND l.lesson_content_html != '') AS has_lesson,
             (SELECT COUNT(*) FROM Questions q WHERE q.lesson_id = l.lesson_id) > 0 AS has_questions
      FROM Lesson l
-     WHERE l.grade_id = ?"
-);//loads that grade_id variable into the query to get all related concepts, plus whether each has content and questions
-$stmt->bind_param("i", $grade_id);
+     WHERE l.grade_id = ? AND l.school_id = ?"
+);//loads grade_id and school_id to only return concepts belonging to this school
+$stmt->bind_param("ii", $grade_id, $school_id);
 $stmt->execute();
 
 $result = $stmt->get_result();//puts results intovariable
