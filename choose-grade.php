@@ -23,6 +23,7 @@
         <!--loop through grade levels
         Add functionality to put the last practiced or viewed grade on top-->
         <p>List of grades</p>
+        <div class="grade-list">
  <?php
 
 
@@ -49,6 +50,9 @@ while ($row = $result->fetch_assoc()) {
 }
 
 ?>
+
+
+        </div>
 
 
     </div>
