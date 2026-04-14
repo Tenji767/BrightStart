@@ -143,7 +143,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 </div>
 
 <div class="returnBox">
-    <a href="admin-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+    <a href="tutor-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
 </div>
 
 <main>
