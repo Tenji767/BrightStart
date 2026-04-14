@@ -207,7 +207,7 @@ $students = $_SESSION["students"];
 <br>
 <!-- These are where the two buttons are located one being for removing a student account and another for creating a new student account. The Create Student Account button will take the admin to a page where they can type in the information of the student to be created. -->
 <div class ="student-account-list">
-    <a href="admin-student-account-create.php"><button type="button">+ Create Student Account</button></a>
+    <a href="tutor-student-account-create.php"><button type="button">+ Create Student Account</button></a>
 
 
     <button type="submit" name="remove" form="removeForm" id="removeBtn">- Remove Student Account</button>

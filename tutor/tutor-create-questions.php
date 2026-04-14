@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_question'])) {
 
         if ($stmt->execute()) {
             // Redirect after POST to prevent duplicate submission on refresh
-            header("Location: admin-create-questions.php?success=1");
+            header("Location: tutor-create-questions.php?success=1");
             exit;
         } else {
             $msg      = "Error creating question: " . $stmt->error;
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_question'])) {
         $back = isset($_POST['filter_lesson_id']) && intval($_POST['filter_lesson_id'])
             ? '&filter_lesson_id=' . intval($_POST['filter_lesson_id'])
             : '';
-        header("Location: admin-create-questions.php?deleted=1" . $back);
+        header("Location: tutor-create-questions.php?deleted=1" . $back);
         exit;
     } else {
         $msg      = "Error deleting question: " . $stmt->error;
@@ -150,7 +150,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 </div>
 
 <div class="returnBox">
-    <a href="admin-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+    <a href="tutor-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
 </div>
 
 <main>
@@ -165,7 +165,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
     <!-- ── Create Question Form ── -->
     <div class="card">
         <h2>Add a New Question</h2>
-        <form method="POST" action="admin-create-questions.php">
+        <form method="POST" action="tutor-create-questions.php">
 
             <!-- Grade + Lesson dropdowns -->
             <div class="form-row">
@@ -237,7 +237,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
         <h2>All Questions</h2>
 
         <!-- Filter by lesson -->
-        <form method="GET" action="admin-create-questions.php" class="filter-bar">
+        <form method="GET" action="tutor-create-questions.php" class="filter-bar">
             <label for="filter_lesson_id">Filter by Lesson:</label>
             <select name="filter_lesson_id" id="filter_lesson_id" onchange="this.form.submit()">
                 <option value="">-- All Lessons --</option>
@@ -249,7 +249,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
                 <?php endforeach; ?>
             </select>
             <?php if ($filter_lesson_id): ?>
-                <a href="admin-create-questions.php">Clear filter</a>
+                <a href="tutor-create-questions.php">Clear filter</a>
             <?php endif; ?>
         </form>
 
@@ -272,7 +272,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                    <form method="POST" action="admin-create-questions.php"
+                    <form method="POST" action="tutor-create-questions.php"
                           onsubmit="return confirm('Delete this question?');">
                         <input type="hidden" name="question_id" value="<?= $row['question_id'] ?>">
                         <input type="hidden" name="filter_lesson_id" value="<?= $filter_lesson_id ?>">
@@ -300,7 +300,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
             return;
         }
 
-        fetch(`admin-create-questions.php?action=get_lessons&grade_id=${gradeId}`)
+        fetch(`tutor-create-questions.php?action=get_lessons&grade_id=${gradeId}`)
             .then(r => r.json())
             .then(lessons => {
                 lessonSelect.innerHTML = '<option value="">-- Select a Lesson --</option>';

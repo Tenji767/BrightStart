@@ -25,7 +25,7 @@ if($result->num_rows > 0){
         $_SESSION['school_id'] = $teacher['school_id'];
         $_SESSION['email'] = $teacher['email'];
 
-        header("Location: admin/admin-dashboard(notAI).php");
+        header("Location: tutor/tutor-dashboard(notAI).php");
         exit();
     }
 }

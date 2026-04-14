@@ -22,7 +22,7 @@ ini_set('display_startup_errors', 1);
 </div>
 
 <div class="returnBox">
-<a href="admin-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+<a href="tutor-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
 
 
 </div>
@@ -61,7 +61,7 @@ while($row = $result->fetch_assoc()) {
     echo "<td>" . htmlspecialchars($row['teacher_name'] ?? '') . "</td>";
     // Add a link to a copy of the create lesson page, but have it save the lesson the same way while also deleting the old lesson. Make sure to transfer/upload the old lesson too
     //add a delete button that asks for confirmation before deleting the lesson from the table
-    // echo "<td><a href=\"admin-lesson-create.php?lesson_id=" . htmlspecialchars($row['lesson_id']) . "\">Edit</a></td>";
+    // echo "<td><a href=\"tutor-lesson-create.php?lesson_id=" . htmlspecialchars($row['lesson_id']) . "\">Edit</a></td>";
     echo "<td>
     <form method=\"POST\" action=\"delete-lesson.php\" onsubmit=\"return confirm('Delete this lesson?');\">
             <input type=\"hidden\" name=\"lesson_id\" value=\"" . htmlspecialchars($row['lesson_id'] ?? '') . "\">

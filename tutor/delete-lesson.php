@@ -23,5 +23,5 @@ if (isset($_POST['lesson_id'])) {
 }
 
 // redirect back
-header("Location: admin-manage-lessons.php");
+header("Location: tutor-manage-lessons.php");
 exit;
