@@ -41,6 +41,7 @@ body > a[href='choose-grade.php'] > div {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 .concept-btn::before,
@@ -94,24 +95,24 @@ body > a[href='choose-grade.php'] > div {
   display: grid;
   place-items: center;
   padding: 0.55rem 0.9rem;
-  background: linear-gradient(145deg, #2563eb, #1d4ed8);
-  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+  background: linear-gradient(145deg, #bfd9ff, #9dc4f2);
+  box-shadow: 0 10px 24px rgba(127, 160, 214, 0.3);
 }
 
 body > a[href='choose-grade.php'] > div p {
   margin: 0;
-  color: #ffffff;
+  color: #20314f;
   font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  text-shadow: 0 2px 10px rgba(15, 23, 42, 0.35);
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.35);
 }
 
 body > a[href='choose-grade.php']:hover > div,
 body > a[href='choose-grade.php']:focus-visible > div {
   transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.34);
+  box-shadow: 0 14px 30px rgba(127, 160, 214, 0.38);
 }
 
 .concept-btn {
@@ -124,46 +125,46 @@ body > a[href='choose-grade.php']:focus-visible > div {
   font-weight: 800;
   letter-spacing: 0.3px;
   text-transform: uppercase;
-  color: #ffffff;
-  background: linear-gradient(145deg, #0ea5e9, #0369a1);
-  box-shadow: 0 12px 24px rgba(14, 165, 233, 0.26);
+  color: #22324a;
+  background: linear-gradient(145deg, #d9f3ff, #bfe7fb);
+  box-shadow: 0 12px 24px rgba(126, 174, 201, 0.3);
 }
 
 .concept-btn:hover,
 .concept-btn:focus-visible {
   transform: translateY(-6px);
-  box-shadow: 0 18px 34px rgba(14, 165, 233, 0.34);
+  box-shadow: 0 16px 30px rgba(126, 174, 201, 0.36);
   filter: saturate(1.06);
 }
 
 body > div:nth-of-type(2n) > .concept-btn {
-  background: linear-gradient(145deg, #10b981, #047857);
-  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.22);
+  background: linear-gradient(145deg, #dcf8ea, #c5ecd9);
+  box-shadow: 0 12px 24px rgba(123, 176, 153, 0.28);
 }
 
 body > div:nth-of-type(2n) > .concept-btn:hover,
 body > div:nth-of-type(2n) > .concept-btn:focus-visible {
-  box-shadow: 0 18px 34px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 16px 30px rgba(123, 176, 153, 0.34);
 }
 
 body > div:nth-of-type(3n) > .concept-btn {
-  background: linear-gradient(145deg, #f59e0b, #b45309);
-  box-shadow: 0 12px 24px rgba(245, 158, 11, 0.22);
+  background: linear-gradient(145deg, #ffeecf, #f7ddb0);
+  box-shadow: 0 12px 24px rgba(201, 166, 112, 0.28);
 }
 
 body > div:nth-of-type(3n) > .concept-btn:hover,
 body > div:nth-of-type(3n) > .concept-btn:focus-visible {
-  box-shadow: 0 18px 34px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 16px 30px rgba(201, 166, 112, 0.34);
 }
 
 body > div:nth-of-type(4n) > .concept-btn {
-  background: linear-gradient(145deg, #ef4444, #b91c1c);
-  box-shadow: 0 12px 24px rgba(239, 68, 68, 0.22);
+  background: linear-gradient(145deg, #ffd9de, #f3bfc8);
+  box-shadow: 0 12px 24px rgba(194, 130, 145, 0.28);
 }
 
 body > div:nth-of-type(4n) > .concept-btn:hover,
 body > div:nth-of-type(4n) > .concept-btn:focus-visible {
-  box-shadow: 0 18px 34px rgba(239, 68, 68, 0.3);
+  box-shadow: 0 16px 30px rgba(194, 130, 145, 0.34);
 }
 
 body > div:first-of-type > .concept-btn {
@@ -175,7 +176,7 @@ body > div:first-of-type > .concept-btn {
   flex: 1 1 180px;
   min-height: 56px;
   padding: 0.9rem 1.2rem;
-  color: #ffffff;
+  color: #22324a;
   font-size: 1rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -183,25 +184,25 @@ body > div:first-of-type > .concept-btn {
 }
 
 #learnBtn {
-  background: linear-gradient(145deg, #2563eb, #1d4ed8);
-  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.28);
+  background: linear-gradient(145deg, #d6e7ff, #bad5fb);
+  box-shadow: 0 10px 22px rgba(126, 160, 205, 0.32);
 }
 
 #practiceBtn {
-  background: linear-gradient(145deg, #8b5cf6, #6d28d9);
-  box-shadow: 0 10px 22px rgba(139, 92, 246, 0.28);
+  background: linear-gradient(145deg, #eadbff, #d5c0f4);
+  box-shadow: 0 10px 22px rgba(151, 127, 192, 0.32);
 }
 
 #learnBtn:hover,
 #learnBtn:focus-visible {
   transform: translateY(-4px);
-  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.34);
+  box-shadow: 0 14px 28px rgba(126, 160, 205, 0.38);
 }
 
 #practiceBtn:hover,
 #practiceBtn:focus-visible {
   transform: translateY(-4px);
-  box-shadow: 0 16px 30px rgba(139, 92, 246, 0.34);
+  box-shadow: 0 14px 28px rgba(151, 127, 192, 0.38);
 }
 
 #learnBtn:disabled,
