@@ -454,14 +454,14 @@ a:focus {
 
 .grade-list > a p {
     margin: 0;
-    color: #111111;
+    color: #ffffff;
     font-size: 1.08rem;
     font-weight: 700;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     letter-spacing: 0.3px;
     text-align: center;
     text-transform: uppercase;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.35);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
 }
 
 /* Color cycle so each grade card gets a distinct visual identity */
