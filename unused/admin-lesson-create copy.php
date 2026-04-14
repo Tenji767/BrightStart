@@ -17,7 +17,7 @@
         <p><strong><?php echo htmlspecialchars($message); ?></strong></p>
     <?php endif; ?>
 
-    <form action="admin-lesson-create.php" method="post" enctype="multipart/form-data">
+    <form action="tutor-lesson-create.php" method="post" enctype="multipart/form-data">
 
         <h2>Create a Lesson File</h2>
         <p><em>This is just a Simple prototype. Tools are just placeholders for now.</em></p>
@@ -94,7 +94,7 @@
         
         <!-- Simple Buttons that will lead allow for easy navigation back to previous pages -->
         <div class="admin-menu">
-            <a href="admin-lesson-manage.php">
+            <a href="tutor-lesson-manage.php">
                 <button type="button" class="admin-menu-item">Back to Lesson Management page</button>
             </a>    
             

@@ -16,8 +16,8 @@
 
 <div class="manage-menu-select"><!--For selecting create lesson from scratch or upload text from pdf-->
     <!-- Link these buttons to their corresponding pages -->
-    <a href="admin-lesson-create.php"><button>Create Lesson</button></a>
-    <a href="admin-lesson-upload.php"><button>Upload Lesson</button></a>
+    <a href="tutor-lesson-create.php"><button>Create Lesson</button></a>
+    <a href="tutor-lesson-upload.php"><button>Upload Lesson</button></a>
     <a href="admin-dashboard.php"><button>Back to Dashboard</button></a>
 </div>
 <br>

@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['go_create_lesson'])) {
         $grade = isset($_POST['grade_level']) ? trim($_POST['grade_level']) : '';
-        header("Location: admin-lesson-create(textonly).php?grade=" . urlencode($grade));//only uses text for now, switch to normal when images work
+        header("Location: tutor-lesson-create(textonly).php?grade=" . urlencode($grade));//only uses text for now, switch to normal when images work
         exit();
     }
 

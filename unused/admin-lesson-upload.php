@@ -82,7 +82,7 @@
         <p><strong><?php echo htmlspecialchars($message); ?></strong></p>
     <?php endif; ?>
 
-    <form action="admin-lesson-create.php" method="post" enctype="multipart/form-data">
+    <form action="tutor-lesson-create.php" method="post" enctype="multipart/form-data">
 
 
         <h2>Create uploaded lesson</h2>
