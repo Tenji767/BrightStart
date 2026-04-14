@@ -1,4 +1,5 @@
 <!-- 1-468 by Noah Reynolds -->
+<!-- Account page functionality and integration with the database created by Nick DeBlock -->
 <?php
 session_start();
 
@@ -10,12 +11,12 @@ if (!isset($_SESSION['user_id'])) {
 
 // Default user data from session
 $user = [
-    'name' => $_SESSION['user_name'] ?? 'John Doe',
-    'email' => $_SESSION['user_email'] ?? 'john.doe@example.com',
-    'student_id' => $_SESSION['student_id'] ?? '123456',
-    'grade' => $_SESSION['grade'] ?? 'Grade Not Set',
+    'name' => $_SESSION['student_name'],
+    'email' => $_SESSION['email'],
+    'student_id' => $_SESSION['role'],
+    'grade' => $_SESSION['grade'] ,
     'school' => $_SESSION['school'] ?? 'BrightStart School',
-    'profile_picture' => $_SESSION['profile_picture'] ?? 'default-avatar.png'
+    'profile_picture' => $_SESSION['profile_picture'] ?? 'pfp.png'
 ];
 
 $uploadMessage = '';
@@ -432,7 +433,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                     </div>
 
                     <div class="info-box">
-                        <span class="info-label">Student ID</span>
+                        <span class="info-label">Account Type</span>
                         <span class="info-value"><?php echo htmlspecialchars($user['student_id']); ?></span>
                     </div>
 
@@ -441,15 +442,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                         <span class="info-value"><?php echo htmlspecialchars($user['grade']); ?></span>
                     </div>
 
-                    <div class="info-box">
-                        <span class="info-label">School</span>
-                        <span class="info-value"><?php echo htmlspecialchars($user['school']); ?></span>
-                    </div>
-
-                    <div class="info-box">
-                        <span class="info-label">Account Status</span>
-                        <span class="info-value">Active</span>
-                    </div>
+                                       
                 </div>
 
                 <div class="actions">

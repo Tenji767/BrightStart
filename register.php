@@ -1,11 +1,5 @@
 <?php
-session_start();
 include "db_connect.php";
-
-// Generate a CSRF token for this session if one doesn't exist
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +7,14 @@ if (empty($_SESSION['csrf_token'])) {
 <head>
 <title>Create Account</title>
 <style>
+
+ * {
+    box-sizing: border-box;
+}
+
 body{
     font-family: Arial;
-    background:#f4f4f4;
+    background: linear-gradient(to right, #2563eb, #0891b2);
 }
 
 .container{
@@ -40,6 +39,13 @@ button{
     color:white;
     border:none;
 }
+
+a{
+    font-size: small;
+    padding-top:20px;
+    color:#007BFF;
+    text-decoration:none;
+}
 </style>
 </head>
 
@@ -51,9 +57,6 @@ button{
 
 <form action="create_account.php" method="POST">
 
-<!-- CSRF token: hidden field validated server-side -->
-<input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
-
 <select name="account_type" required>
 <option value="">Select Account Type</option>
 <option value="student">Student</option>
@@ -64,7 +67,7 @@ button{
 
 <input type="email" name="email" placeholder="Email" required>
 
-<input type="password" name="password" placeholder="Password (min 8 characters)" required minlength="8">
+<input type="password" name="password" placeholder="Password" required>
 
 <input type="text" name="join_code" placeholder="School Join Code" required>
 
@@ -77,7 +80,7 @@ button{
 <button type="submit">Create Account</button>
 
 </form>
-
+<a href="login.php">Already have an account? Login</a>
 </div>
 
 </body>

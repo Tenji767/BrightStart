@@ -21,7 +21,9 @@ if($result->num_rows > 0){
 
         $_SESSION['user_id'] = $teacher['teacher_id'];
         $_SESSION['role'] = "teacher";
+        $_SESSION['teacher_name'] = $teacher['teacher_name'];
         $_SESSION['school_id'] = $teacher['school_id'];
+        $_SESSION['email'] = $teacher['email'];
 
         header("Location: admin/admin-dashboard(notAI).php");
         exit();
@@ -44,7 +46,9 @@ if($result->num_rows > 0){
 
         $_SESSION['user_id'] = $student['student_id'];
         $_SESSION['role'] = "student";
-
+        $_SESSION['student_name'] = $student['student_name'];
+        $_SESSION['grade'] = $student['grade_id'];
+        $_SESSION['email'] = $student['email'];
         header("Location: index.php");
         exit();
     }

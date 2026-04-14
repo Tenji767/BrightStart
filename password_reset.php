@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Password Reset</title>
 
 <style>
  * {
@@ -40,8 +40,6 @@ a{
     margin-top:25;
     color:#007BFF;
     text-decoration:none;
-    display: flex;  
-    flex-direction: column;
 }
 </style>
 
@@ -51,20 +49,17 @@ a{
 
 <div class="container">
 
-<h2>Login</h2>
+<h2>Password Reset</h2>
 
-<form action="login_process.php" method="POST">
+<form action="send_password_reset.php" method="POST">
 
-<input type="email" name="email" placeholder="Email" required>
+<input type="email" name="email" id="Email" placeholder="Email" required>
 
-<input type="password" name="password" placeholder="Password" required>
-
-<button type="submit">Login</button>
+<button type="submit">Send Reset Link</button>
 
 </form>
 
-<a href="register.php">Make an account</a>
-<a href="password_reset.php">Forgot Password?</a>
+<a href="login.php">Return to Login</a>
 
 </div>
 
