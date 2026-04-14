@@ -15,11 +15,12 @@ include "../db_connect.php";
 $msg = "";
 $msg_type = ""; // "success" or "error"
 
-//AJAX: load lessons by grade for the form dropdown
+//AJAX: load lessons by grade for the form dropdown, scoped to this tutor's school
 if (isset($_GET['action']) && $_GET['action'] === 'get_lessons') {
     $grade_id = intval($_GET['grade_id']);
-    $stmt = $conn->prepare("SELECT lesson_id, lesson_title FROM Lesson WHERE grade_id = ? ORDER BY lesson_id ASC");
-    $stmt->bind_param("i", $grade_id);
+    $school_id = intval($_SESSION['school_id'] ?? 0);
+    $stmt = $conn->prepare("SELECT lesson_id, lesson_title FROM Lesson WHERE grade_id = ? AND school_id = ? ORDER BY lesson_id ASC");
+    $stmt->bind_param("ii", $grade_id, $school_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $lessons = [];
@@ -91,9 +92,13 @@ if ($grade_result) {
     while ($row = $grade_result->fetch_assoc()) $grades[] = $row;
 }
 
-// Load ALL Lessons for the filter dropdown
+// Load lessons for the filter dropdown, scoped to this tutor's school
 $all_lessons = [];
-$all_lesson_result = $conn->query("SELECT lesson_id, lesson_title FROM Lesson ORDER BY lesson_id ASC");
+$school_id = intval($_SESSION['school_id'] ?? 0);
+$lesson_filter_stmt = $conn->prepare("SELECT lesson_id, lesson_title FROM Lesson WHERE school_id = ? ORDER BY lesson_id ASC");
+$lesson_filter_stmt->bind_param("i", $school_id);
+$lesson_filter_stmt->execute();
+$all_lesson_result = $lesson_filter_stmt->get_result();
 if ($all_lesson_result) {
     while ($row = $all_lesson_result->fetch_assoc()) $all_lessons[] = $row;
 }
@@ -108,18 +113,20 @@ if ($filter_lesson_id) {
          FROM Questions q
          JOIN Lesson l ON q.lesson_id = l.lesson_id
          JOIN Grade  g ON q.grade_id  = g.grade_id
-         WHERE q.lesson_id = ?
+         WHERE q.lesson_id = ? AND l.school_id = ?
          ORDER BY q.question_id ASC"
     );
-    $stmt->bind_param("i", $filter_lesson_id);
+    $stmt->bind_param("ii", $filter_lesson_id, $school_id);
 } else {
     $stmt = $conn->prepare(
         "SELECT q.*, l.lesson_title, g.grade_name
          FROM Questions q
          JOIN Lesson l ON q.lesson_id = l.lesson_id
          JOIN Grade  g ON q.grade_id  = g.grade_id
+         WHERE l.school_id = ?
          ORDER BY g.grade_id ASC, q.lesson_id ASC, q.question_id ASC"
     );
+    $stmt->bind_param("i", $school_id);
 }
 $stmt->execute();
 $result = $stmt->get_result();
