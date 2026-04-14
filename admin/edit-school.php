@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script>
     function doubleConfirm() {
         if (confirm("Are you sure you want to delete this school? This will permanently delete all associated lesson data and student/teacher accounts and cannot be undone.")) {
-            return confirm("Are you absolutely sure? Consult your IT person before pressing this button. This will delete everythin related to the school.")
+            return confirm("Are you absolutely sure? Consult your IT person before pressing this button. This will delete everything related to the school.")
         }
     }
 </script>

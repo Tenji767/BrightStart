@@ -56,18 +56,18 @@ include("../db_connect.php");
 </tr>
 <?php
 
-$stmt = $conn->prepare("SELECT tutor_id, tutor_name, school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id");
+$stmt = $conn->prepare("SELECT teacher_id, teacher_name, school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id");
 
 $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){
         echo "<tr>";
-        echo "<td>" . $row['tutor_id'] . "</td>";
-        echo "<td>" . $row['tutor_name'] . "</td>";
+        echo "<td>" . $row['teacher_id'] . "</td>";
+        echo "<td>" . $row['teacher_name'] . "</td>";
         echo "<td>" . $row['school_name'] . "</td>";
         echo "<td>" . $row['email'] . "</td>";
-        echo "<td><a href='edit-tutor.php?tutor=" . $row['tutor_id'] . "'><button>&#9881</button></a></td>";
+        echo "<td><a href='edit-tutor.php?tutor=" . $row['teacher_id'] . "'><button>&#9881</button></a></td>";
         echo "</tr>";
     }
 } else {

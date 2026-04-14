@@ -2,42 +2,43 @@
 session_start();
 include("../db_connect.php");
 
-$tutor_id = $_POST['tutor_id'] ?? $_GET['tutor_id'];
-if (!$tutor_id) {
-    echo "<script>alert('No tutor ID provided.')</script>";
+$teacher_id = $_POST['teacher_id'] ?? $_GET['teacher_id'];
+if (!$teacher_id) {
+    echo "<script>alert('No teacher ID provided.')</script>";
     header("Location: manage-tutors.php");
     exit();
 }
 
-$stmt = $conn->prepare("SELECT tutor_id, tutor_name, school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id WHERE tutor_id = ?");
-$stmt->bind_param("i", $tutor_id);
+$stmt = $conn->prepare("SELECT teacher_id, teacher_name, school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id WHERE teacher_id = ?");
+$stmt->bind_param("i", $teacher_id);
 
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 if (!$row) {
-    echo "<script>alert('Tutor not found.')</script>";
+    echo "<script>alert('Teacher not found.')</script>";
     header("Location: manage-tutors.php");
     exit();
 }
 
-$tutor_name = $row['tutor_name'];
+$teacher_name = $row['teacher_name'];
 $school_id = $row['school_id'];
+$school_name = $row['school_name'];
 $email = $row['email'];
 
 //AY don't touch anything, above are the variables that are going to be used as default values in the form that can be edited, and below is the code that takes whatever is in the form and updates the database with those new forms. Should technically work the same as edit-school.php. Remember to use a select dropdown for the school affiliation, with the default value being the current school, and use the school ids as values and school names as the text.
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $school_name = $_POST['school_name'];
-    $student_join_code = $_POST['student_join_code'];
-    $teacher_join_code = $_POST['teacher_join_code'];
+    $teacher_name = $_POST['teacher_name'];
+    $email = $_POST['email'];
+    $school_id = $_POST['school_id'];
 
-    $stmt = $conn->prepare("UPDATE School SET school_name = ?, student_join_code = ?, teacher_join_code = ? WHERE school_id = ?");
-    $stmt->bind_param("sssi", $school_name, $student_join_code, $teacher_join_code, $school_id);
+    $stmt = $conn->prepare("UPDATE TeacherAccount SET teacher_name = ?, email = ?, school_id = ? WHERE teacher_id = ?");
+    $stmt->bind_param("ssii", $teacher_name, $email, $school_id, $teacher_id);
 
     if ($stmt->execute()) {
-        header("Location: manage-schools.php");
-        echo "<script>alert('School updated successfully.')</script>";
+        header("Location: manage-tutors.php");
+        echo "<script>alert('Teacher updated successfully.')</script>";
         exit();
     } else {
         echo "Error: " . $stmt->error;
@@ -51,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-    <title>Edit School</title>
+    <title>Edit Tutor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -59,31 +60,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <form action="edit-school.php?school_id=<?php echo urlencode($school_id); ?>" method="post">
+    <form action="edit-tutor.php?teacher_id=<?php echo urlencode($teacher_id); ?>" method="post">
 
-        <input type="hidden" name="school_id" value="<?php echo htmlspecialchars($school_id); ?>">
+        <input type="hidden" name="teacher_id" value="<?php echo htmlspecialchars($teacher_id); ?>">
 
-        <label for="school_name">School Name:</label><br>
-        <input type="text" id="school_name" name="school_name" value="<?php echo htmlspecialchars($school_name); ?>" required><br><br>
+        <label for="teacher_name">Teacher Name:</label><br>
+        <input type="text" id="teacher_name" name="teacher_name" value="<?php echo htmlspecialchars($teacher_name); ?>" required><br><br>
 
-        <label for="student_join_code">Student Join Code:</label><br>
-        <input type="text" id="student_join_code" name="student_join_code" value="<?php echo htmlspecialchars($student_join_code); ?>" required><br><br>
+        <label for="email"> Email:</label><br>
+        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required><br><br>
 
-        <label for="teacher_join_code">Teacher Join Code:</label><br>
-        <input type="text" id="teacher_join_code" name="teacher_join_code" value="<?php echo htmlspecialchars($teacher_join_code); ?>" required><br><br>
+        <label for="school_id">Affiliated School:</label><br>
+        <select id="school_id" name="school_id" required>
+            <option value="<?php echo htmlspecialchars($school_id); ?>" selected><?php echo htmlspecialchars($school_name); ?></option>
+            <?php
+            $stmt = $conn->prepare("SELECT school_id, school_name FROM School");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                echo "<option value='" . htmlspecialchars($row['school_id']) . "'>" . htmlspecialchars($row['school_name']) . "</option>";
+            }
+            ?>
+        </select><br><br>
 
         <input type="submit" value="Save Changes">
     </form>
 
 
-    <form action="delete-school.php" method="post" onsubmit="return doubleConfirm()">
-        <input type="hidden" name="school_id" value="<?php echo htmlspecialchars($school_id); ?>">
-        <button type="submit">Delete School</button>
+    <form action="delete-tutor.php" method="post" onsubmit="return doubleConfirm()">
+        <input type="hidden" name="teacher_id" value="<?php echo htmlspecialchars($teacher_id); ?>">
+        <button type="submit">Delete Tutor</button>
     </form>
 <script>
     function doubleConfirm() {
-        if (confirm("Are you sure you want to delete this school? This will permanently delete all associated lesson data and student/teacher accounts and cannot be undone.")) {
-            return confirm("Are you absolutely sure? Consult your IT person before pressing this button. This will delete everythin related to the school.")
+        if (confirm("Are you sure you want to delete this tutor? This cannot be undone.")) {
+            return confirm("Are you absolutely sure? Consult your IT person before pressing this button. This will delete the tutor and leave all of their lessons with a non-existent tutor.")
         }
     }
 </script>
