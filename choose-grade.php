@@ -44,6 +44,10 @@ if (!$result) {
 }
 // loops through the list of grades and the database and displays a link to the concepts related to that grade
 while ($row = $result->fetch_assoc()) {
+    if (trim((string)$row['grade_name']) === '') {
+        continue;
+    }
+
     echo "<a href='concepts.php?grade_id={$row['grade_id']}'>";
     echo "<div><p>{$row['grade_name']}</p></div>";
     echo "</a>";
