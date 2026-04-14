@@ -49,6 +49,7 @@ if($result->num_rows > 0){
         $_SESSION['student_name'] = $student['student_name'];
         $_SESSION['grade'] = $student['grade_id'];
         $_SESSION['email'] = $student['email'];
+        $_SESSION['school_id'] = $student['school_id'];
         header("Location: index.php");
         exit();
     }
