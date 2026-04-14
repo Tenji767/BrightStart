@@ -384,6 +384,8 @@ a:focus {
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0.25rem;
+    text-align: center;
+    text-decoration: none;
 }
 
 .grade-list {
@@ -459,38 +461,38 @@ a:focus {
 
 /* Color cycle so each grade card gets a distinct visual identity */
 .grade-list > a:nth-of-type(6n + 1) > div {
-    --grade-start: #2563eb;
-    --grade-end: #1d4ed8;
+    --grade-start: #ff9aa2;
+    --grade-end: #cf7c83;
     --grade-shadow: rgba(37, 99, 235, 0.28);
 }
 
 .grade-list > a:nth-of-type(6n + 2) > div {
-    --grade-start: #0ea5e9;
-    --grade-end: #0369a1;
+    --grade-start: #ffccb2;
+    --grade-end: #e7b79f;
     --grade-shadow: rgba(14, 165, 233, 0.3);
 }
 
 .grade-list > a:nth-of-type(6n + 3) > div {
-    --grade-start: #10b981;
-    --grade-end: #047857;
+    --grade-start: #ffeec1;
+    --grade-end: #e6d7ae;
     --grade-shadow: rgba(16, 185, 129, 0.3);
 }
 
 .grade-list > a:nth-of-type(6n + 4) > div {
-    --grade-start: #f59e0b;
-    --grade-end: #b45309;
+    --grade-start: #e2f0cb;
+    --grade-end: #cbd7b6;
     --grade-shadow: rgba(245, 158, 11, 0.3);
 }
 
 .grade-list > a:nth-of-type(6n + 5) > div {
-    --grade-start: #ef4444;
-    --grade-end: #b91c1c;
+    --grade-start: #b5ead7;
+    --grade-end: #97c1b1;
     --grade-shadow: rgba(239, 68, 68, 0.3);
 }
 
 .grade-list > a:nth-of-type(6n) > div {
-    --grade-start: #8b5cf6;
-    --grade-end: #6d28d9;
+    --grade-start: #c7ceea;
+    --grade-end: #aaa1bf;
     --grade-shadow: rgba(139, 92, 246, 0.3);
 }
 
