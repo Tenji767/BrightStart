@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);//display errors upon starting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -44,9 +45,10 @@ if ($conn->connect_error) {
 
 }
 
-$stmt = $conn->prepare("SELECT lesson_title, lesson_id, grade_id, teacher_name FROM Lesson LEFT JOIN TeacherAccount ON Lesson.teacher_id = TeacherAccount.teacher_id;
-");
+$school_id = intval($_SESSION['school_id'] ?? 0);
 
+$stmt = $conn->prepare("SELECT lesson_title, lesson_id, grade_id, teacher_name FROM Lesson LEFT JOIN TeacherAccount ON Lesson.teacher_id = TeacherAccount.teacher_id WHERE Lesson.school_id = ?");
+$stmt->bind_param("i", $school_id);
 $stmt->execute();
 $result = $stmt->get_result();
 

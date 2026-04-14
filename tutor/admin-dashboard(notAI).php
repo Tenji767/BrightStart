@@ -54,7 +54,8 @@ if ($conn->connect_error) {
 
   
 }
-$stmt = $conn->prepare("SELECT COUNT(lesson_id) FROM Lesson");
+$stmt = $conn->prepare("SELECT COUNT(lesson_id) FROM Lesson WHERE school_id = ?");
+$stmt->bind_param("i", $_SESSION['school_id']);
 $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows > 0){
@@ -70,12 +71,13 @@ if($result->num_rows > 0){
 <div id="question-count" class="stat-box">
     
 <?php
-$stmt = $conn->prepare("SELECT COUNT(question_id) FROM Questions");
+$stmt = $conn->prepare("SELECT COUNT(q.question_id) FROM Questions q JOIN Lesson l ON q.lesson_id = l.lesson_id WHERE l.school_id = ?");
+$stmt->bind_param("i", $_SESSION['school_id']);
 $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows > 0){
     $row = $result->fetch_assoc();
-    echo "<p>Total Questions: </p><h2>" . $row['COUNT(question_id)'] . "</h2>";
+    echo "<p>Total Questions: </p><h2>" . $row['COUNT(q.question_id)'] . "</h2>";
 } else {
     echo "<p>Total Questions: </p><h2>0</h2>";
 }
