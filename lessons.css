@@ -233,6 +233,9 @@ h1 {
     margin: 2rem auto;
     padding: 2rem;
     color: var(--text-primary);
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 #lesson-content p {
