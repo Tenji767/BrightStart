@@ -191,6 +191,14 @@ main {
 /*lesson body*/
 h1{
     font-family: Verdana, Geneva, sans-serif;
+    align-items: center;
+
+}
+
+p{
+    font-family: Verdana, Geneva, sans-serif;
+    align-items: center;
+
 }
 
 
