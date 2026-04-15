@@ -56,7 +56,7 @@ include("../db_connect.php");
 </tr>
 <?php
 
-$stmt = $conn->prepare("SELECT teacher_id, teacher_name, school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id");
+$stmt = $conn->prepare("SELECT teacher_id, teacher_name, TeacherAccount.school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id");
 
 $stmt->execute();
 $result = $stmt->get_result();
