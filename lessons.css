@@ -157,6 +157,27 @@ main {
     box-shadow: 0 15px 30px rgba(219, 205, 10, 0.618);
 }
 
+/*select lesson button*/
+body > a[href*='concepts.php'] {
+  display: inline-block;
+  position: fixed;
+  top: 7.5rem;
+  left: 1rem;
+  z-index: 30;
+  text-decoration: none;
+  width: auto;
+  margin: 0;
+}
+
+body > a[href*='concepts.php'] > div {
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 0.55rem 0.9rem;
+  background: linear-gradient(145deg, #bfd9ff, #9dc4f2);
+  box-shadow: 0 10px 24px rgba(127, 160, 214, 0.3);
+}
+
 /* MENU CONTAINER */
 .menu {
     display: grid;
@@ -240,10 +261,10 @@ h1 {
 
 #lesson-content p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.05rem;
+    font-size: 2rem;
     line-height: 1.8;
     margin-bottom: 1rem;
-    color: var(--text-light);
+    color: black;
 }
 
 #lesson-content h2,
