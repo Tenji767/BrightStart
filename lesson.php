@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lessons.css">
+
+</head>
+
+<body>
+
 <?php
 session_start();
 include('includes/header.php');
