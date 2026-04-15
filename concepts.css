@@ -79,10 +79,11 @@ body > a[href='choose-grade.php']:focus-visible > div {
   outline-offset: 3px;
 }
 
+/*select grade button*/
 body > a[href='choose-grade.php'] {
   display: inline-block;
   position: fixed;
-  top: 6.75rem;
+  top: 7.5rem;
   left: 1rem;
   z-index: 30;
   text-decoration: none;
