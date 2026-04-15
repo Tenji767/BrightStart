@@ -129,6 +129,34 @@ main {
 }
 
 
+/* Individual Button Styles */
+#lesson-menu:nth-child(1) button {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+}
+
+#lesson-menu:nth-child(1) button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+}
+
+#practice-menu button {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #0e7490 100%);
+}
+
+#practice-menu button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(8, 145, 178, 0.3);
+}
+
+#lesson-menu:nth-child(3) button {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #e5d413 100%);
+}
+
+#lesson-menu:nth-child(3) button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(219, 205, 10, 0.618);
+}
+
 /* MENU CONTAINER */
 .menu {
     display: grid;
