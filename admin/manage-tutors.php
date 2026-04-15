@@ -16,14 +16,14 @@ include("../db_connect.php");
 
     <h3>Add New Tutor</h3>
     <form action="add-tutor.php" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <label for="teacher_name">Name:</label>
+        <input type="text" id="teacher_name" name="teacher_name" required><br><br>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
         <label for="school">School:</label>
-        <select id="school" name="school" required>
+        <select id="school_id" name="school_id" required>
             <option value="">Select a school</option>
             <?php
             $stmt = $conn->prepare("SELECT school_id, school_name FROM School");
@@ -67,7 +67,7 @@ if($result->num_rows > 0){
         echo "<td>" . $row['teacher_name'] . "</td>";
         echo "<td>" . $row['school_name'] . "</td>";
         echo "<td>" . $row['email'] . "</td>";
-        echo "<td><a href='edit-tutor.php?tutor=" . $row['teacher_id'] . "'><button>&#9881</button></a></td>";
+        echo "<td><a href='edit-tutor.php?teacher_id=" . $row['teacher_id'] . "'><button>&#9881</button></a></td>";
         echo "</tr>";
     }
 } else {
