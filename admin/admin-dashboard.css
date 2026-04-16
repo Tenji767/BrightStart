@@ -14,12 +14,15 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 25px 40px;
 }
 
 h1 {
   font-size: 36px;
   color: #1e293b;
+  text-align: left;
+  margin-left: 20px;
 }
 
 /* Home button */
