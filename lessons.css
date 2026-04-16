@@ -178,6 +178,22 @@ body > a[href*='concepts.php'] > div {
   box-shadow: 0 10px 24px rgba(127, 160, 214, 0.3);
 }
 
+body > a[href*='concepts.php'] > div p {
+    margin: 0;
+    color: #20314f;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.35);
+}
+
+body > a[href*='concepts.php']:hover > div,
+body > a[href*='concepts.php']:focus-visible > div {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 14px 30px rgba(127, 160, 214, 0.38);
+}
+
 /* MENU CONTAINER */
 .menu {
     display: grid;
