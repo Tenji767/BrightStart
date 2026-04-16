@@ -79,7 +79,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'ai_help') {
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
     $raw      = curl_exec($ch);
-    curl_close($ch);
 
     $response = json_decode($raw, true);
     $reply    = $response['choices'][0]['message']['content'] ?? 'Sorry, I could not process that.';
@@ -206,6 +205,39 @@ if ($quiz['done']) {
     foreach ($quiz['answers'] as $a) {
         if ($a['is_correct']) $score++;
     }
+}
+
+//save the attempt to the database the first time the results screen is shown
+if ($quiz['done'] && empty($quiz['saved'])) {
+    $user_id = intval($_SESSION['user_id']);
+
+    $save_stmt = $conn->prepare(
+        "INSERT INTO QuizAttempts (user_id, lesson_id, score, total_questions)
+         VALUES (?, ?, ?, ?)"
+    );
+    $save_stmt->bind_param("iiii", $user_id, $lesson_id, $score, $total);
+    $save_stmt->execute();
+    $attempt_id = $conn->insert_id;
+
+    foreach ($quiz['questions'] as $q) {
+        $ans = $quiz['answers'][$q['question_id']] ?? null;
+        if (!$ans) continue;
+
+        $chosen     = $ans['chosen']     ?? '';
+        $correct    = $ans['correct']    ?? $q['correct_option'];
+        $is_correct = $ans['is_correct'] ? 1 : 0;
+        $used_ai    = $ans['used_ai']    ? 1 : 0;
+
+        $ans_stmt = $conn->prepare(
+            "INSERT INTO QuizAttemptAnswers
+                (attempt_id, question_id, chosen_option, correct_option, is_correct, used_ai)
+             VALUES (?, ?, ?, ?, ?, ?)"
+        );
+        $ans_stmt->bind_param("iissii", $attempt_id, $q['question_id'], $chosen, $correct, $is_correct, $used_ai);
+        $ans_stmt->execute();
+    }
+
+    $quiz['saved'] = true;
 }
 ?>
 <!DOCTYPE html>
