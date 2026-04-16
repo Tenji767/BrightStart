@@ -1,105 +1,231 @@
 <?php
+error_reporting(E_ALL);//display errors upon starting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
-
+$editing = false;
+$lesson_id = null;
+$title = '';
+$grade = '';
+$html = '';
+$conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
+if (isset($_GET['lesson_id'])) {
+    $editing = true;
+    $lesson_id = intval($_GET['lesson_id']);
+    $stmt = $conn->prepare("SELECT lesson_title, grade_id, lesson_content_html FROM Lesson WHERE lesson_id = ?");
+    if (!$stmt) die("Prepare failed: " . $conn->error);
+    $stmt->bind_param("i", $lesson_id);
+    if (!$stmt->execute()) die("Execute failed: " . $stmt->error);
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $title = $row['lesson_title'];
+        $grade = $row['grade_id'];
+        $html = $row['lesson_content_html'];
+    } else {
+        die("Lesson not found");
+    }
+}
 ?>
-
 <!DOCTYPE HTML>
+<!-- standard head -->
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Admin Lesson Creation</title>
+<meta charset="utf-8">
+<title>Admin Lesson Creation</title>
+<link rel="stylesheet" href="admin-style.css">
 </head>
 
 <body>
-    <h1>Admin Lesson File Create</h1>
 
-    <?php if (!empty($message)): ?>
-        <p><strong><?php echo htmlspecialchars($message); ?></strong></p>
-    <?php endif; ?>
 
-    <form action="tutor-lesson-create.php" method="post" enctype="multipart/form-data">
 
-        <h2>Create a Lesson File</h2>
-        <p><em>This is just a Simple prototype. Tools are just placeholders for now.</em></p>
+<div class="admin-header">
+<h1 class="pagename"><?php echo $editing ? 'Edit Lesson' : 'Create Lesson'; ?></h1>
+</div>
 
-        <!-- Add Lesson Context and added tools beside it on the right side that text,image, and video as placeholders.  -->
-        <table>
-            <tr>
-                <td style="vertical-align: top; width: 80%;">
-                    <label for="lesson-content"><strong>Lesson Content (Text)</strong></label><br>
-                    <textarea id="lesson-content" name="lesson-content" rows="12" cols="70"
-                        placeholder="Type lesson text here..."></textarea>
-                </td>
 
-                <td style="vertical-align: top; padding-left: 12px;">
-                    <strong>Tools</strong><br><br>
-                    <button type="button">Text</button><br><br>
-                    <button type="button">Image</button><br><br>
-                    <button type="button">Video</button><br><br>
-                    <em>(placeholders)</em>
-                </td>
-            </tr>
-        </table>
+<div class="returnBox">
+<a href="tutor-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
 
-        <hr>
 
-        <!-- Able to select grade from K-12 for Lesson that is being created. -->
-        <h3>Lesson Details (Required)</h3>
+</div>
 
-        <label for="grade"><strong>Select Grade K-12:</strong></label><br>
-        <select id="grade" name="grade" required>
-            <option value="" selected disabled>Select grade</option>
-            <option value="K">K</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-        </select>
+<!-- text box to insert name of lesson -->
+<input id="lessonTitle" placeholder="Lesson Title" value="<?php echo htmlspecialchars($title); ?>">
+<br>
+<!-- dropdown to select grade -->
+<label for="grade-select">Select a grade</label>
+<select id="grade-select">
 
-<!-- Able to name your concept/lesson and add a description for it and add any prerequisites that are required to suceed at the lesson. -->
+<?php
+// connect to database and pull all grades
+$result = $conn->query("SELECT * FROM Grade");
 
-        <br><br>
+if(!$result){
+    die("Query failed: ".$conn->error);
+}
+//loop through grades as option values for the select statement
+while($row = $result->fetch_assoc()){
+    $selected = ($row['grade_id'] == $grade) ? ' selected' : '';
+    echo "<option value='". htmlspecialchars($row['grade_id'])."'$selected>".htmlspecialchars($row['grade_name'])."</option>";
+}
 
-        <label for="concept-name"><strong>Concept Name:</strong></label><br>
-        <input type="text" id="concept-name" name="concept-name" size="60" required
-               placeholder="Example: Solving Two-Step Equations">
+?>
 
-        <br><br>
+</select>
 
-        <label for="concept-description"><strong>Concept Description:</strong></label><br>
-        <textarea id="concept-description" name="concept-description" rows="4" cols="70" required
-                  placeholder="Brief explanation of what the student will learn..."></textarea>
+<!-- lesson builder buttons that will call respective functions  -->
+<div id="lessonBuilder">
+<button onclick="addText()">Add Text</button>
+<button onclick="addImage()">Add Image</button>
+<button onclick="addDiagram()">Add Diagram</button>
+<!-- save lessson button -->
+<button type="button" onclick="saveLesson()"><?php echo $editing ? 'Update Lesson' : 'Save Lesson'; ?></button>
+</div>
+<?php if ($editing): ?>
+<?php
+$dom = new DOMDocument();
+@$dom->loadHTML($html);
+$blocks = [];
+foreach ($dom->getElementsByTagName('p') as $p) {
+    $blocks[] = ['type' => 'text', 'content' => $p->textContent];
+}
+foreach ($dom->getElementsByTagName('img') as $img) {
+    $src = $img->getAttribute('src');
+    $class = $img->getAttribute('class');
+    if ($class == 'lesson-image') {
+        $blocks[] = ['type' => 'image', 'src' => $src];
+    } elseif ($class == 'lesson-diagram') {
+        $blocks[] = ['type' => 'diagram', 'src' => $src];
+    }
+}
+foreach ($blocks as $block) {
+    if ($block['type'] == 'text') {
+        echo '<div class="lesson-block"><h3>Text</h3><textarea class="blockContent">' . htmlspecialchars($block['content']) . '</textarea><button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button></div>';
+    } elseif ($block['type'] == 'image') {
+        echo '<div class="lesson-block"><h3>Image</h3><input type="hidden" class="existingImage" value="' . htmlspecialchars($block['src']) . '"><input type="file" class="blockImage"><button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button></div>';
+    } elseif ($block['type'] == 'diagram') {
+        echo '<div class="lesson-block"><h3>Diagram</h3><input type="hidden" class="existingDiagram" value="' . htmlspecialchars($block['src']) . '"><input type="file" class="blockDiagram"><button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button></div>';
+    }
+}
+?>
+<?php endif; ?>
+<!-- script for inserting blocks and saving lesson -->
+<script>
 
-        <br><br>
+// blocks will be added by appending to the lesson builder div and will have html inside them allowing for insertion
+const builder = document.getElementById("lessonBuilder");
+const editing = <?php echo $editing ? 'true' : 'false'; ?>;
+const lessonId = <?php echo json_encode($lesson_id); ?>;
 
-        <label for="prerequisites"><strong>Prerequisites:</strong></label><br>
-        <textarea id="prerequisites" name="prerequisites" rows="3" cols="70"
-                  placeholder="Example: Basic addition, subtraction, understanding variables..."></textarea>
+function deleteBlock(button) {
+    button.parentElement.remove();
+}
 
-                  <br><br>
+function addText() {
+    const block = document.createElement("div");
+    block.className = "lesson-block";  // Add class for easy removal
+    block.innerHTML = `
+        <h3>Text</h3>
+        <textarea class="blockContent"></textarea>
+        <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
+    `;
+    builder.appendChild(block);
+}
 
-        <input type="submit" value="Create Lesson">
+function addImage() {
+    const block = document.createElement("div");
+    block.className = "lesson-block";  // Add class for easy removal
+    block.innerHTML = `
+        <h3>Image</h3>
+        <input type="file" class="blockImage">
+        <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
+    `;
+    builder.appendChild(block);
+}
 
-        <br><br>
+function addDiagram() {
+    const block = document.createElement("div");
+    block.className = "lesson-block";  // Add class for easy removal
+    block.innerHTML = `
+        <h3>Diagram</h3>
+        <input type="file" class="blockDiagram">
+        <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
+    `;
+    builder.appendChild(block);
+}
 
-        <hr>
-        
-        <!-- Simple Buttons that will lead allow for easy navigation back to previous pages -->
-        <div class="admin-menu">
-            <a href="tutor-lesson-manage.php">
-                <button type="button" class="admin-menu-item">Back to Lesson Management page</button>
-            </a>    
-            
-            <a href="admin-dashboard.php">
-                <button type="button" class="admin-menu-item">Back to Dashboard page</button>
-            </a>
-        <!-- by Noah Reynolds-->
+// the lesson will be saved by gathering the content from the blocks and turning it into html and will be saved via the savelesson php
+function saveLesson() {
+    const title = document.getElementById("lessonTitle").value;
+    const grade = document.getElementById("grade-select").value;
 
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("grade", grade);
+    if (editing) formData.append("lesson_id", lessonId);
+
+    let lessonHTML = "";
+
+    // Handle TEXT blocks
+    document.querySelectorAll(".blockContent").forEach(textarea => {
+        const text = textarea.value.trim();
+        if (text !== "") {
+            lessonHTML += `<p>${text}</p>`;
+        }
+    });
+
+    // Handle IMAGE blocks
+    document.querySelectorAll(".blockImage").forEach((img, index) => {
+        const existing = img.previousElementSibling;
+        if (img.files[0]) {
+            const filename = img.files[0].name;
+            formData.append("image" + index, img.files[0]);
+            lessonHTML += `<img src="uploads/${filename}" class="lesson-image">`;
+        } else if (existing && existing.classList.contains('existingImage')) {
+            lessonHTML += `<img src="${existing.value}" class="lesson-image">`;
+        }
+    });
+
+    // Handle DIAGRAM blocks
+    document.querySelectorAll(".blockDiagram").forEach((diagram, index) => {
+        if (diagram.files[0]) {
+            const filename = diagram.files[0].name;
+            formData.append("diagram" + index, diagram.files[0]);
+            lessonHTML += `<img src="uploads/${filename}" class="lesson-diagram">`;
+        }
+    });
+
+    formData.append("html", lessonHTML);
+
+    fetch("saveLesson.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);  // Show the response message
+        // Reset the form only if save was successful (assuming success message contains "success" or similar)
+        if (data.toLowerCase().includes("success")) {
+            // Clear the lesson title
+            document.getElementById("lessonTitle").value = "";
+            // Reset the grade select to the first option
+            document.getElementById("grade-select").selectedIndex = 0;
+            // Remove all lesson blocks (preserves the static buttons)
+            document.querySelectorAll('.lesson-block').forEach(block => block.remove());
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+</script>
+
+</body>
+</html>
+
+<!--...I think most of this I learned from ChatGPT and a lot I just pasted over...this shouldn't count...-->
+
+<!-- Lines 1-168 by Benjamin Nguyen -->

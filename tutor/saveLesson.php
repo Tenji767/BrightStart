@@ -33,18 +33,38 @@ if (!empty($_FILES)) {
 
 $uploadDir = "uploads/";//pulls images from the uploads folder
 
+// Check if uploads directory exists and is writable
+if (!file_exists($uploadDir)) {
+    echo "Uploads directory does not exist.<br>";
+    exit;
+}
+if (!is_writable($uploadDir)) {
+    echo "Uploads directory is not writable.<br>";
+    exit;
+}
+
 // DEBUG FILES
 echo "<pre>";
 print_r($_FILES);
 echo "</pre>";
 
 foreach($_FILES as $file){//goes through each file and uploads it (files are images and diagrams)
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        echo "Upload error for " . $file['name'] . ": " . $file['error'] . "<br>";
+        continue;
+    }
+    // Optional: Validate file type
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (!in_array($file['type'], $allowedTypes)) {
+        echo "Invalid file type for " . $file['name'] . "<br>";
+        continue;
+    }
     $path = $uploadDir . basename($file["name"]);
 
     if(move_uploaded_file($file["tmp_name"], $path)){//message based on file upload success
         echo "Uploaded: " . $file["name"] . "<br>";
     } else {
-        echo "Failed: " . $file["name"] . "<br>";
+        echo "Failed to move: " . $file["name"] . "<br>";
     }
 }
 
