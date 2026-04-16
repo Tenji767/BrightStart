@@ -161,7 +161,7 @@ main {
 body > a[href*='concepts.php'] {
   display: inline-block;
   position: fixed;
-  top: 7.5rem;
+  top: 10rem;
   left: 1rem;
   z-index: 30;
   text-decoration: none;
