@@ -14,7 +14,7 @@ include("../db_connect.php");
 </head>
 
 <body>
-    <a href=".../admin-dashboard.php" class="home-btn">Home</a>
+    <a href="admin-dashboard.php" class="home-btn">Home</a>
     <div class="header">
         <h1>Admin Control Panel</h1>
     </div>
