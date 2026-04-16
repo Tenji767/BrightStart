@@ -14,9 +14,6 @@ include("../db_connect.php");
 </head>
 
 <body>
-<div class="container">
-  <p>Select a section to manage</p>
-
     <div class="header">
         <a href="../admin-dashboard.php"><button>Home</button></a>
         <h1>Admin Control Panel</h1>
@@ -27,7 +24,6 @@ include("../db_connect.php");
         <a href="manage-tutors.php"><button>Manage Tutors</button></a>
         <a href="manage-students.php"><button>Manage Students</button></a>
     </div>
-</div>
 </body>
 
 

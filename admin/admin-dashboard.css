@@ -7,6 +7,7 @@ body {
   margin: 0;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f4f7fb;
+  align-items: center;
 }
 
 /* Header */
@@ -39,21 +40,16 @@ h1 {
   background: #1d4ed8;
 }
 
-/* Center content */
-.container {
-  text-align: center;
-  margin-top: 40px;
-}
 
 /* Buttons */
-.button-group {
+.nav {
   display: flex;
   justify-content: center;
   gap: 20px;
   margin-top: 30px;
 }
 
-.button-group button {
+.nav {
   width: 180px;
   height: 120px;
   border: none;
@@ -67,7 +63,7 @@ h1 {
   transition: 0.3s;
 }
 
-.button-group button:hover {
+.nav button:hover {
   transform: translateY(-3px);
 }
 
