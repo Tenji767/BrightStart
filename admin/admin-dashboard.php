@@ -14,11 +14,16 @@ include("../db_connect.php");
 </head>
 
 <body>
-    <h1>Admin Control Panel</h1>
+    <div class="header">
+        <a href="admin-dashboard.php" class="home-btn">Home</a>
+        <h1>Admin Control Panel</h1>
+    </div>
 
-    <a href="manage-schools.php"><button>Manage Schools</button></a>
-    <a href="manage-tutors.php"><button>Manage Tutors</button></a>
-    <a href="manage-students.php"><button>Manage Students</button></a>
+    <div class="button-group">
+        <a href="manage-schools.php"><button>Manage Schools</button></a>
+        <a href="manage-tutors.php"><button>Manage Tutors</button></a>
+        <a href="manage-students.php"><button>Manage Students</button></a>
+    </div>
 </body>
 
 
