@@ -176,6 +176,27 @@ body > a[href*='concepts.php'] > div {
   padding: 0.55rem 0.9rem;
   background: linear-gradient(145deg, #bfd9ff, #9dc4f2);
   box-shadow: 0 10px 24px rgba(127, 160, 214, 0.3);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+body > a[href*='concepts.php'] > div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -110%;
+    width: 70%;
+    height: 180%;
+    transform: rotate(18deg);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+    transition: left 0.35s ease;
+    z-index: -1;
 }
 
 body > a[href*='concepts.php'] > div p {
@@ -192,6 +213,16 @@ body > a[href*='concepts.php']:hover > div,
 body > a[href*='concepts.php']:focus-visible > div {
   transform: translateY(-5px) scale(1.01);
   box-shadow: 0 14px 30px rgba(127, 160, 214, 0.38);
+}
+
+body > a[href*='concepts.php']:hover > div::before,
+body > a[href*='concepts.php']:focus-visible > div::before {
+    left: 140%;
+}
+
+body > a[href*='concepts.php']:focus-visible > div {
+    outline: 3px solid #cfbf06;
+    outline-offset: 3px;
 }
 
 /* MENU CONTAINER */
