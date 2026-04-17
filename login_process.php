@@ -74,7 +74,7 @@ if($result->num_rows > 0){
         $_SESSION['admin_name'] = $admin['admin_name'];
         $_SESSION['email'] = $admin['email'];
         $_SESSION['school_id'] = $admin['school_id'];
-        header("Location: index.php");
+        header("Location: admin/admin-dashboard.php");
         exit();
     }
 }
