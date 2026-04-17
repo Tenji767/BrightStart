@@ -1,7 +1,7 @@
 <?php
 include "db_connect.php";
 
-$type = $_POST['account_type'];
+// $type = $_POST['account_type'];
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -42,18 +42,18 @@ if($type == "student"){
 
 /* Create Teacher */
 
-if($type == "teacher"){
+// if($type == "teacher"){
 
-    if($join_code != $school['teacher_join_code']){
-        die("Invalid teacher join code.");
-    }
+//     if($join_code != $school['teacher_join_code']){
+//         die("Invalid teacher join code.");
+//     }
 
-    $sql = "INSERT INTO TeacherAccount
-    (school_id, teacher_name, email, password_hash)
-    VALUES
-    ('$school_id','$name','$email','$password')";
+//     $sql = "INSERT INTO TeacherAccount
+//     (school_id, teacher_name, email, password_hash)
+//     VALUES
+//     ('$school_id','$name','$email','$password')";
    
-}
+// }
 
 if($conn->query($sql)){
     echo "Account created successfully!";

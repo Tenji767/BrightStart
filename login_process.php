@@ -55,6 +55,30 @@ if($result->num_rows > 0){
     }
 }
 
+/* CHECK admin account */
+
+$sql = "SELECT * FROM AdminAccount WHERE email=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s",$email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if($result->num_rows > 0){
+
+    $admin = $result->fetch_assoc();
+
+    if(password_verify($password,$admin['password_hash'])){
+
+        $_SESSION['user_id'] = $admin['admin_id'];
+        $_SESSION['role'] = "admin";
+        $_SESSION['admin_name'] = $admin['admin_name'];
+        $_SESSION['email'] = $admin['email'];
+        $_SESSION['school_id'] = $admin['school_id'];
+        header("Location: index.php");
+        exit();
+    }
+}
+
 echo "Invalid email or password.";
 echo "<br><a href='login.php'>Try again</a>";
 ?>
