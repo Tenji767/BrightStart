@@ -448,6 +448,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                 <div class="actions">
                     <a href="edit-account.php">Edit Account</a>
                     <a href="change-password.php" class="secondary-link">Change Password</a>
+                    <a href="quiz-history.php" class="secondary-link">Quiz History</a>
                     <a action="logout.php" method="POST" href="logout.php" class="secondary-link">Logout</a>
                 </div>
             </div>
