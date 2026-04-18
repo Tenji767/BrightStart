@@ -50,6 +50,13 @@ if($result->num_rows > 0){
         $_SESSION['grade'] = $student['grade_id'];
         $_SESSION['email'] = $student['email'];
         $_SESSION['school_id'] = $student['school_id'];
+
+        $school_stmt = $conn->prepare("SELECT school_name FROM Schools WHERE school_id = ?");
+        $school_stmt->bind_param("i", $student['school_id']);
+        $school_stmt->execute();
+        $school_row = $school_stmt->get_result()->fetch_assoc();
+        $_SESSION['school'] = $school_row['school_name'] ?? '';
+
         header("Location: index.php");
         exit();
     }
