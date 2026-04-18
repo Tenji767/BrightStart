@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['user_id'])) {
+if(!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') != 'student') {
     $_SESSION['msg'] = "Log in first";
     // Incorporate the login session
             $_SESSION['msg'] = "You must log in first";
@@ -50,7 +50,7 @@ if(!isset($_SESSION['user_id'])) {
 
     <main>
         <div class="welcome-section">
-            <h2 class="welcome-text">Welcome, <span class="user-name">Student</span>!</h2>
+            <h2 class="welcome-text">Welcome, <span class="user-name"><?php echo $_SESSION['student_name']; ?></span>!</h2>
             <p class="welcome-subtitle">Ready to learn today?</p>
         </div>
 
