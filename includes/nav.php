@@ -6,10 +6,16 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 $navProfilePicture = $_SESSION['profile_picture'] ?? 'pfp.png';
-?>   
+$navSchoolName = $_SESSION['school'] ?? '';
+?>
 <header>
     <a href="index.php"><img src="logo.png" alt="Brightstart logo"/></a>
-    <h1>BrightStart Learning</h1>
+    <div>
+        <h1>BrightStart Learning</h1>
+        <?php if ($navSchoolName): ?>
+            <p class="nav-school-name"><?php echo htmlspecialchars($navSchoolName); ?></p>
+        <?php endif; ?>
+    </div>
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
