@@ -58,11 +58,11 @@ a{
 
 <form action="create_account.php" method="POST">
 
-<select name="account_type" required>
+<!-- <select name="account_type" required>
 <option value="">Select Account Type</option>
 <option value="student">Student</option>
 <option value="teacher">Teacher</option>
-</select>
+</select> -->
 
 <input type="text" name="name" placeholder="Full Name" required>
 
@@ -74,8 +74,19 @@ a{
 
 <select name="grade_id">
 <option value="">Select Grade (Students Only)</option>
-<option value="1">Grade 9</option>
-<option value="2">Grade 10</option>
+<option value="1">1st Grade</option>
+<option value="2">2nd Grade</option>
+<option value="3">3rd Grade</option>
+<option value="4">4th Grade</option>
+<option value="5">5th Grade</option>
+<option value="6">6th Grade</option>
+<option value="7">7th Grade</option>
+<option value="8">8th Grade</option>
+<option value="9">9th Grade</option>
+<option value="10">10th Grade</option>
+<option value="11">11th Grade</option>
+<option value="12">12th Grade</option>
+
 </select>
 
 <button type="submit">Create Account</button>
