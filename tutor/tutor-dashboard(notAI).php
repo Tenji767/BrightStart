@@ -3,7 +3,8 @@ session_start();
 
 include("../db_connect.php");
 
-if(!isset($_SESSION['user_id']) && $_SESSION['role'] != "teacher"){
+$role = $_SESSION['role'] ?? '';
+if(!isset($_SESSION['user_id']) || ($role !== "teacher" && $role !== "admin")){
     header("Location: ../login.php");
     exit();
 }
