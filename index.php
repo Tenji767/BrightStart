@@ -2,11 +2,10 @@
 session_start();
 
 if(!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') != 'student') {
-    $_SESSION['msg'] = "Log in first";
-    // Incorporate the login session
-            $_SESSION['msg'] = "You must log in first";
-        header('location: login.php');
-    }
+    $_SESSION['msg'] = "You must log in first";
+    header('Location: login.php');
+    exit();
+}
     if(isset($_GET['logout'])) {
         session_destroy();
         unset($_SESSION['username']);
