@@ -9,8 +9,7 @@ ini_set('display_startup_errors', 1);
 
 include "db_connect.php";
 
-//redirect to login if the student is not logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'student') {
     header("Location: login.php");
     exit;
 }
