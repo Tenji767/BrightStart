@@ -1,5 +1,10 @@
 <?php
 session_start();
+$role = $_SESSION['role'] ?? '';
+if (!isset($_SESSION['user_id']) || ($role !== 'teacher' && $role !== 'admin')) {
+    header("Location: ../login.php");
+    exit();
+}
 error_reporting(E_ALL);//error reporting
 ini_set('display_errors', 1);
 
