@@ -3,8 +3,7 @@
 <?php
 session_start();
 
-$role = $_SESSION['role'] ?? '';
-if (!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' && $role !== 'admin')) {
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'student') {
     header("Location: login.php");
     exit();
 }
@@ -366,9 +365,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                 flex-wrap: wrap;
             }
         }
+        /* style for the support popup */
+        #supportPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            font-size: 15px;
+            color: #333;
+            white-space: nowrap;
+            z-index: 1000;
+            text-align: center;
+            position: fixed; /* ensures centering works */
+        }
+
+        #supportPopup.visible {
+            display: block;
+        }
+
     </style>
+   
 </head>
 <body>
+    <script>
+        function togglePopup() {
+            var popup = document.getElementById('supportPopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+    
     <header class="site-header">
         <div class="header-inner">
             <div class="brand-wrap">
@@ -447,10 +478,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
 
                 <div class="actions">
                     <a href="edit-account.php">Edit Account</a>
-                    <a href="change-password.php" class="secondary-link">Change Password</a>
+                    <a href="change_password.php" class="secondary-link">Change Password</a>
                     <a href="quiz-history.php" class="secondary-link">Quiz History</a>
                     <a action="logout.php" method="POST" href="logout.php" class="secondary-link">Logout</a>
+                    <a id="openBtn" class="secondary-link" onclick="event.stopPropagation(); document.getElementById('supportPopup').style.display = document.getElementById('supportPopup').style.display === 'block' ? 'none' : 'block';">Help</a>
                 </div>
+
+                <div id="supportPopup">
+                    <button onclick="document.getElementById('supportPopup').style.display='none'" style="position:absolute; top:10px; right:12px; background:none; border:none; font-size:18px; cursor:pointer; color:#888; line-height:1;">✕</button>
+                    <p style="margin: 0 0 8px 0; font-weight: bold; font-size: 17px; color: #1f2f45;">Need Help?</p>
+                    <p style="margin: 0; color: #5c7189;">For help, contact us at:</p>
+                    <p style="margin: 10px 0 16px 0; font-weight: bold; color: #2f67df;">support@brightstart.space</p>
+                    <button id="copyBtn" onclick="navigator.clipboard.writeText('support@brightstart.space').then(() => { document.getElementById('copyBtn').textContent = '✓ Copied!'; setTimeout(() => { document.getElementById('copyBtn').textContent = 'Copy Email'; }, 2000); })" style="background-color:#2f67df; color:white; border:none; border-radius:8px; padding:8px 18px; font-size:14px; font-weight:bold; cursor:pointer;">Copy Email</button>
+                </div>
+
+
             </div>
         </div>
     </div>
