@@ -16,6 +16,7 @@ include("../db_connect.php");
 </head>
 
 <body>
+    <a href="admin-dashboard.php" class="home-btn">Home</a>
     <h1>Schools</h1>
     <p>Manage participating schools</p>
 

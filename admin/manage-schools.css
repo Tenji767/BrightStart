@@ -1,0 +1,41 @@
+/*manage-schools.php stylesheet
+created by Jordan Munster*/
+
+/*General Styles*/
+body {
+  margin: 0;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7fb;
+  align-items: center !important;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 25px 40px;
+}
+
+h1 {
+  font-size: 36px;
+  color: #1e293b;
+  text-align: left;
+}
+
+/* Home button */
+.home-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  top: 10px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.home-btn:hover {
+  background: #1d4ed8;
+}
