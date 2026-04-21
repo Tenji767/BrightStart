@@ -1,5 +1,10 @@
 <?php
 session_start();
+$role = $_SESSION['role'] ?? '';
+if (!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' && $role !== 'admin')) {
+    header("Location: login.php");
+    exit();
+}
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);//development error checking

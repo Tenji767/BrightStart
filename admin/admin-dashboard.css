@@ -7,7 +7,7 @@ body {
   margin: 0;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f4f7fb;
-  align-items: center;
+  align-items: center !important;
 }
 
 /* Header */
