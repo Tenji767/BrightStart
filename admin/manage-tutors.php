@@ -254,45 +254,6 @@ include("../db_connect.php");
                     $stmt->execute();
                     $result = $stmt->get_result();
 
-<<<<<<< HEAD
-<tr>
-    <th>Tutor ID</th>
-    <th>Tutor Name</th>
-    <th>School Affiliation</th>
-    <th>Email</th>
-    <th></th>
-</tr>
-<?php
-
-$stmt = $conn->prepare("SELECT teacher_id, teacher_name, TeacherAccount.school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id");
-
-$stmt->execute();
-$result = $stmt->get_result();
-if($result->num_rows > 0){
-    while($row = $result->fetch_assoc()){
-        echo "<tr>";
-        echo "<td>" . $row['teacher_id'] . "</td>";
-        echo "<td>" . $row['teacher_name'] . "</td>";
-        echo "<td>" . $row['school_name'] . "</td>";
-        echo "<td>" . $row['email'] . "</td>";
-        echo "<td><a href='edit-tutor.php?teacher_id=" . $row['teacher_id'] . "'><button>&#9881</button></a></td>";
-        echo "</tr>";
-    }
-} else {
-    echo "<tr><td colspan='4'>No tutors found</td></tr>";
-}
-
-?>
-
-
-
-
-
-</table>
-
-
-
-=======
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
@@ -311,6 +272,5 @@ if($result->num_rows > 0){
             </div>
         </div>
     </div>
->>>>>>> 8fceb66d7218643e6663a33e90ded4411499e35b
 </body>
 </html>
