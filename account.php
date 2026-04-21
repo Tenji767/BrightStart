@@ -381,7 +381,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
 
             <nav class="header-links">
                 <a href="index.php">Home</a>
-                <a href="helper.php">Helper</a>
+                <a href="helper2.php">Helper</a>
                 <a href="account.php">Account</a>
             </nav>
         </div>
@@ -447,7 +447,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
 
                 <div class="actions">
                     <a href="edit-account.php">Edit Account</a>
-                    <a href="change-password.php" class="secondary-link">Change Password</a>
+                    <a href="password_reset.php" class="secondary-link">Change Password</a>
                     <a href="quiz-history.php" class="secondary-link">Quiz History</a>
                     <a action="logout.php" method="POST" href="logout.php" class="secondary-link">Logout</a>
                 </div>
