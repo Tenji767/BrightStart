@@ -16,7 +16,7 @@ $navSchoolName = $_SESSION['school'] ?? '';
     display: none;
     position: absolute;
     right: 0;
-    top: calc(100% + 0.4rem);
+    top: 100%;
     background: white;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
