@@ -1,4 +1,4 @@
-<!-- 1-468 by Jordan Munster -->
+<!-- 1-498 by Jordan Munster -->
 <!-- Account page functionality and integration with the database created by Nick DeBlock -->
 <?php
 session_start();
