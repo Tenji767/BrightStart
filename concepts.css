@@ -221,21 +221,21 @@ body > div:first-of-type > .concept-btn {
   display: none;
 }
 
-#learnBtn.viewed::after {
-  content: '✓ Viewed';
+.viewed-badge {
   position: absolute;
-  top: 0.3rem;
-  right: 0.45rem;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
   background: rgba(22, 163, 74, 0.9);
   color: #fff;
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   padding: 0.15rem 0.45rem;
   border-radius: 20px;
-  z-index: 1;
   pointer-events: none;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {

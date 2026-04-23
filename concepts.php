@@ -94,7 +94,7 @@ while ($row = $result->fetch_assoc()) {//puts the results into an array that can
 <div id="concept-action-menu">
     <p id="selectedConceptText"></p>
     <div id="concept-action-btns">
-        <button id="learnBtn">Learn</button>
+        <button id="learnBtn">Learn<span id="learnViewedBadge" class="viewed-badge" style="display:none;">&#10003;</span></button>
         <button id="practiceBtn">Practice</button>
     </div>
 </div>
@@ -118,7 +118,7 @@ const practiceBtn = document.getElementById("practiceBtn");
 
             learnBtn.disabled    = !hasLesson;
             practiceBtn.disabled = !hasQuestions;
-            learnBtn.classList.toggle('viewed', hasViewed);
+            document.getElementById('learnViewedBadge').style.display = hasViewed ? 'inline-block' : 'none';
         });
     });
 
