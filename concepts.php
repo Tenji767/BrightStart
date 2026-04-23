@@ -114,9 +114,11 @@ const practiceBtn = document.getElementById("practiceBtn");
 
             const hasLesson    = button.dataset.hasLesson    === 'true';
             const hasQuestions = button.dataset.hasQuestions === 'true';
+            const hasViewed    = button.dataset.viewed       === 'true';
 
             learnBtn.disabled    = !hasLesson;
             practiceBtn.disabled = !hasQuestions;
+            learnBtn.classList.toggle('viewed', hasViewed);
         });
     });
 
