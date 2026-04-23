@@ -161,6 +161,64 @@
     margin-top: 1.5rem;
 }
 
+/* Skip button — subtle text-style button below the question card */
+.btn-skip {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.btn-skip:hover {
+    color: var(--primary-color);
+}
+.skip-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
+/* Warning button for submit-anyway */
+.btn-warning {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow);
+}
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245,158,11,0.35);
+}
+.submit-anyway-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+}
+
+/* Skipped question banner shown when revisiting a skipped question */
+.skipped-banner {
+    background: #fef3c7;
+    border-left: 5px solid #f59e0b;
+    border-radius: 10px;
+    padding: 0.9rem 1.25rem;
+    margin-bottom: 1rem;
+    color: #92400e;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
 /* Wrong-answer card */
 .wrong-card {
     background: white;
@@ -282,6 +340,14 @@
     opacity: 0.85;
     margin-top: 0.25rem;
 }
+.results-hero .score-skipped {
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    background: rgba(255,255,255,0.2);
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    border-radius: 99px;
+}
 
 /* Review cards */
 .review-list {
@@ -302,6 +368,9 @@
 }
 .review-item.incorrect {
     border-left-color: #ef4444;
+}
+.review-item.skipped {
+    border-left-color: #f59e0b;
 }
 .review-item-header {
     display: flex;
@@ -335,6 +404,11 @@
 .badge-ai {
     background: #ede9fe;
     color: #5b21b6;
+    margin-left: 0.4rem;
+}
+.badge-skipped {
+    background: #fef3c7;
+    color: #92400e;
     margin-left: 0.4rem;
 }
 .review-options {

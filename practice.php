@@ -126,6 +126,7 @@ if ($reset || !isset($_SESSION['practice']) || $_SESSION['practice']['lesson_id'
         'current'      => 0,
         'answers'      => [],
         'done'         => false,
+        'skipped'      => [],
     ];
     $_SESSION['practice_lesson_id'] = $lesson_id;
 }
@@ -192,6 +193,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skip_to_next'])) {
     exit;
 }
 
+//handles when the student skips a question to come back to at the end
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skip_question'])) {
+    $idx = intval($_POST['question_index'] ?? $quiz['current']);
+    $q   = $quiz['questions'][$idx];
+    $qid = $q['question_id'];
+
+    if (!in_array($qid, $quiz['skipped'] ?? [])) {
+        $quiz['skipped'][] = $qid;
+        array_splice($quiz['questions'], $idx, 1);
+        $quiz['questions'][] = $q;
+        if ($quiz['current'] >= count($quiz['questions'])) {
+            $quiz['current'] = count($quiz['questions']) - 1;
+        }
+    }
+
+    header("Location: practice.php?lesson_id={$lesson_id}");
+    exit;
+}
+
+//handles when the student chooses to submit the quiz with skipped questions unanswered
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_anyway'])) {
+    foreach ($quiz['questions'] as $q) {
+        if (!isset($quiz['answers'][$q['question_id']])) {
+            $quiz['answers'][$q['question_id']] = [
+                'chosen'     => '',
+                'correct'    => $q['correct_option'],
+                'is_correct' => false,
+                'used_ai'    => false,
+                'skipped'    => true,
+            ];
+        }
+    }
+    $quiz['done'] = true;
+    header("Location: practice.php?lesson_id={$lesson_id}");
+    exit;
+}
+
 //determine which screen to show based on the current state
 $show_wrong_prompt = isset($_GET['wrong']) && isset($_GET['idx']);
 $wrong_idx         = intval($_GET['idx'] ?? $quiz['current']);
@@ -199,11 +237,13 @@ $current_idx       = $quiz['current'];
 $total             = count($quiz['questions']);
 $current_q         = $quiz['questions'][$current_idx] ?? null;
 
-//calculate the score once the quiz is finished
-$score = 0;
+//calculate the score and skipped count once the quiz is finished
+$score         = 0;
+$skipped_count = 0;
 if ($quiz['done']) {
     foreach ($quiz['answers'] as $a) {
-        if ($a['is_correct']) $score++;
+        if ($a['is_correct'])      $score++;
+        if (!empty($a['skipped'])) $skipped_count++;
     }
 }
 
@@ -223,17 +263,18 @@ if ($quiz['done'] && empty($quiz['saved'])) {
         $ans = $quiz['answers'][$q['question_id']] ?? null;
         if (!$ans) continue;
 
-        $chosen     = $ans['chosen']     ?? '';
-        $correct    = $ans['correct']    ?? $q['correct_option'];
-        $is_correct = $ans['is_correct'] ? 1 : 0;
-        $used_ai    = $ans['used_ai']    ? 1 : 0;
+        $chosen       = $ans['chosen']     ?? '';
+        $correct      = $ans['correct']    ?? $q['correct_option'];
+        $is_correct   = $ans['is_correct'] ? 1 : 0;
+        $used_ai      = $ans['used_ai']    ? 1 : 0;
+        $skipped_flag = !empty($ans['skipped']) ? 1 : 0;
 
         $ans_stmt = $conn->prepare(
             "INSERT INTO QuizAttemptAnswers
-                (attempt_id, question_id, chosen_option, correct_option, is_correct, used_ai)
-             VALUES (?, ?, ?, ?, ?, ?)"
+                (attempt_id, question_id, chosen_option, correct_option, is_correct, used_ai, skipped)
+             VALUES (?, ?, ?, ?, ?, ?, ?)"
         );
-        $ans_stmt->bind_param("iissii", $attempt_id, $q['question_id'], $chosen, $correct, $is_correct, $used_ai);
+        $ans_stmt->bind_param("iissiii", $attempt_id, $q['question_id'], $chosen, $correct, $is_correct, $used_ai, $skipped_flag);
         $ans_stmt->execute();
     }
 
@@ -259,6 +300,9 @@ if ($quiz['done'] && empty($quiz['saved'])) {
             <h2>Quiz Complete!</h2>
             <div class="score-big"><?= $score ?> / <?= $total ?></div>
             <div class="score-pct"><?= round(($score / max($total, 1)) * 100) ?>% correct</div>
+            <?php if ($skipped_count > 0): ?>
+            <div class="score-skipped"><?= $skipped_count ?> question<?= $skipped_count > 1 ? 's' : '' ?> skipped</div>
+            <?php endif; ?>
         </div>
 
         <h3 style="margin-bottom:1rem; color:var(--text-primary);">Question Review</h3>
@@ -267,19 +311,25 @@ if ($quiz['done'] && empty($quiz['saved'])) {
         <?php foreach ($quiz['questions'] as $i => $q):
             $ans        = $quiz['answers'][$q['question_id']] ?? null;
             $is_correct = $ans && $ans['is_correct'];
+            $was_skipped = $ans && !empty($ans['skipped']);
             $chosen     = $ans['chosen']  ?? '—';
             $correct    = $ans['correct'] ?? $q['correct_option'];
             $used_ai    = $ans['used_ai'] ?? false;
             $options    = ['A' => $q['option_a'], 'B' => $q['option_b'],
                            'C' => $q['option_c'], 'D' => $q['option_d']];
+            $item_class = $is_correct ? 'correct' : ($was_skipped ? 'skipped' : 'incorrect');
         ?>
-            <div class="review-item <?= $is_correct ? 'correct' : 'incorrect' ?>">
+            <div class="review-item <?= $item_class ?>">
                 <div class="review-item-header">
                     <span class="review-q-text">Q<?= $i + 1 ?>: <?= htmlspecialchars($q['question_text']) ?></span>
                     <span>
+                        <?php if ($was_skipped): ?>
+                            <span class="review-badge badge-skipped">Skipped</span>
+                        <?php else: ?>
                         <span class="review-badge <?= $is_correct ? 'badge-correct' : 'badge-incorrect' ?>">
                             <?= $is_correct ? '✓ Correct' : '✗ Incorrect' ?>
                         </span>
+                        <?php endif; ?>
                         <?php if ($used_ai): ?>
                             <span class="review-badge badge-ai">AI Help</span>
                         <?php endif; ?>
@@ -401,7 +451,16 @@ if ($quiz['done'] && empty($quiz['saved'])) {
             </div>
         </div>
 
-        <?php if ($current_q): ?>
+        <?php if ($current_q):
+            $already_skipped = in_array($current_q['question_id'], $quiz['skipped'] ?? []);
+        ?>
+
+        <?php if ($already_skipped): ?>
+        <div class="skipped-banner">
+            You skipped this question earlier — answer it now or submit the quiz without it.
+        </div>
+        <?php endif; ?>
+
         <div class="question-card">
             <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>">
                 <input type="hidden" name="question_index" value="<?= $current_idx ?>">
@@ -426,6 +485,24 @@ if ($quiz['done'] && empty($quiz['saved'])) {
                 </div>
             </form>
         </div>
+
+        <?php if (!$already_skipped): ?>
+        <div class="skip-row">
+            <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>">
+                <input type="hidden" name="question_index" value="<?= $current_idx ?>">
+                <button type="submit" name="skip_question" class="btn-skip">Skip this question</button>
+            </form>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($already_skipped): ?>
+        <div class="submit-anyway-row">
+            <form method="POST" action="practice.php?lesson_id=<?= $lesson_id ?>">
+                <button type="submit" name="submit_anyway" class="btn-warning">Submit Quiz Without Remaining Questions</button>
+            </form>
+        </div>
+        <?php endif; ?>
+
         <?php endif; ?>
 
         <?php endif; ?>

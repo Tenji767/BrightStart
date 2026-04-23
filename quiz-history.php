@@ -41,7 +41,7 @@ if ($attempt_id) {
     }
 
     $ans_stmt = $conn->prepare(
-        "SELECT qaa.chosen_option, qaa.correct_option, qaa.is_correct, qaa.used_ai,
+        "SELECT qaa.chosen_option, qaa.correct_option, qaa.is_correct, qaa.used_ai, qaa.skipped,
                 q.question_id, q.question_text, q.option_a, q.option_b, q.option_c, q.option_d
          FROM QuizAttemptAnswers qaa
          JOIN Questions q ON q.question_id = qaa.question_id
@@ -100,24 +100,30 @@ $all_attempts = $list_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         <div class="review-list">
         <?php foreach ($answers as $i => $ans):
-            $is_correct = (bool)$ans['is_correct'];
-            $chosen     = $ans['chosen_option']  ?? '';
-            $correct    = $ans['correct_option'];
-            $used_ai    = (bool)$ans['used_ai'];
-            $options    = [
+            $is_correct  = (bool)$ans['is_correct'];
+            $was_skipped = (bool)($ans['skipped'] ?? false);
+            $chosen      = $ans['chosen_option']  ?? '';
+            $correct     = $ans['correct_option'];
+            $used_ai     = (bool)$ans['used_ai'];
+            $options     = [
                 'A' => $ans['option_a'],
                 'B' => $ans['option_b'],
                 'C' => $ans['option_c'],
                 'D' => $ans['option_d'],
             ];
+            $item_class  = $is_correct ? 'correct' : ($was_skipped ? 'skipped' : 'incorrect');
         ?>
-            <div class="review-item <?= $is_correct ? 'correct' : 'incorrect' ?>">
+            <div class="review-item <?= $item_class ?>">
                 <div class="review-item-header">
                     <span class="review-q-text">Q<?= $i + 1 ?>: <?= htmlspecialchars($ans['question_text']) ?></span>
                     <span>
+                        <?php if ($was_skipped): ?>
+                            <span class="review-badge badge-skipped">Skipped</span>
+                        <?php else: ?>
                         <span class="review-badge <?= $is_correct ? 'badge-correct' : 'badge-incorrect' ?>">
                             <?= $is_correct ? '&#10003; Correct' : '&#10007; Incorrect' ?>
                         </span>
+                        <?php endif; ?>
                         <?php if ($used_ai): ?>
                             <span class="review-badge badge-ai">AI Help</span>
                         <?php endif; ?>
