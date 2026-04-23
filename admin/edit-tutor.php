@@ -4,8 +4,12 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
     header("Location: ../login.php");
     exit();
 }
-include("../db_connect.php");
+$conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");//log in
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);//check for connection
 
+  
+}
 $teacher_id = $_POST['teacher_id'] ?? $_GET['teacher_id'];
 if (!$teacher_id) {
     echo "<script>alert('No teacher ID provided.')</script>";
@@ -13,7 +17,7 @@ if (!$teacher_id) {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT teacher_id, teacher_name, school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id WHERE teacher_id = ?");
+$stmt = $conn->prepare("SELECT teacher_id, teacher_name, TeacherAccount.school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id WHERE teacher_id = ?");
 $stmt->bind_param("i", $teacher_id);
 
 $stmt->execute();
@@ -104,11 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </script>
 
 </body>
-
-<?php 
-
-
-?>
 
 
 

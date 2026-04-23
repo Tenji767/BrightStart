@@ -13,7 +13,7 @@ if (!$student_id) {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT student_id, student_name, grade_id, school_id, email, school_name FROM StudentAccount JOIN School ON StudentAccount.school_id = School.school_id WHERE student_id = ?");
+$stmt = $conn->prepare("SELECT student_id, student_name, grade_id, StudentAccount.school_id, email, school_name FROM StudentAccount JOIN School ON StudentAccount.school_id = School.school_id WHERE student_id = ?");
 $stmt->bind_param("i", $student_id);
 
 $stmt->execute();
