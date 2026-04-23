@@ -221,6 +221,23 @@ body > div:first-of-type > .concept-btn {
   display: none;
 }
 
+.concept-btn[data-viewed="true"]::after {
+  content: '✓ Viewed';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.65rem;
+  background: rgba(22, 163, 74, 0.88);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 0.18rem 0.5rem;
+  border-radius: 20px;
+  z-index: 1;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   #concept-action-menu {
     width: calc(100% - 1rem);
