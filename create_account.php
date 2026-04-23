@@ -1,19 +1,12 @@
 <?php
-// include "db_connect.php";
-$conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");//log in
-if ($conn->connect_error) {
-    die("Database connection failed: " . $conn->connect_error);//check for connection
-
-  
-}
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Error reporting is turned on for debugging purposes. Remove or comment out these lines in production.
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 include "db_connect.php";
 
 // $type = $_POST['account_type'];
-$type = "student";
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -38,7 +31,7 @@ $school_id = $school['school_id'];
 
 /* Create Student */
 
-if($type == "student"){
+// if($type == "student"){
 
     if($join_code != $school['student_join_code']){
         die("Invalid student join code.");
@@ -49,10 +42,10 @@ if($type == "student"){
     VALUES
     ('$school_id','$grade_id','$name','$email','$password')";
     
-}
+// }
 
 
-/* Create Teacher */
+// /* Create Teacher */
 
 // if($type == "teacher"){
 
@@ -66,6 +59,15 @@ if($type == "student"){
 //     ('$school_id','$name','$email','$password')";
    
 // }
+
+$stmt = $conn->prepare("SELECT id FROM StudentAccount WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    die("An account with this email already exists.");
+}
 
 if($conn->query($sql)){
     echo "Account created successfully!";
