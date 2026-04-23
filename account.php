@@ -477,12 +477,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                 </div>
 
                 <div class="actions">
-                    <a href="edit-account.php">Edit Account</a>
-<<<<<<< HEAD
+                    <!-- <a href="edit-account.php">Edit Account</a> -->
                     <a href="password_reset.php" class="secondary-link">Change Password</a>
-=======
-                    <a href="change_password.php" class="secondary-link">Change Password</a>
->>>>>>> 8fceb66d7218643e6663a33e90ded4411499e35b
                     <a href="quiz-history.php" class="secondary-link">Quiz History</a>
                     <a action="logout.php" method="POST" href="logout.php" class="secondary-link">Logout</a>
                     <a id="openBtn" class="secondary-link" onclick="event.stopPropagation(); document.getElementById('supportPopup').style.display = document.getElementById('supportPopup').style.display === 'block' ? 'none' : 'block';">Help</a>

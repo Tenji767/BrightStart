@@ -73,7 +73,7 @@ a{
 <input type="text" name="join_code" placeholder="School Join Code" required>
 
 <select name="grade_id">
-<option value="">Select Grade (Students Only)</option>
+<option value="">Select Grade</option>
 <option value="1">1st Grade</option>
 <option value="2">2nd Grade</option>
 <option value="3">3rd Grade</option>

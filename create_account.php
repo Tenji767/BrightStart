@@ -1,7 +1,14 @@
 <?php
-include "db_connect.php";
+// include "db_connect.php";
+$conn = new mysqli( "localhost", "brights1_adminuser", "agileninjascapstone2025", "brights1_dbprimary");//log in
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);//check for connection
+
+  
+}
 
 // $type = $_POST['account_type'];
+$type = "student";
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
