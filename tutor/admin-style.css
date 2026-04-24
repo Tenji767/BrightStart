@@ -47,6 +47,11 @@ html {
     text-decoration: none;
 }
 
+.admin-header h2 a:hover{
+    color:grey !important;
+    text-decoration: none;
+}
+
 .pagename {
     margin: 20px;
     font-size: 2em;
