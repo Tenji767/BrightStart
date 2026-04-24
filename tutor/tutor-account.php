@@ -410,9 +410,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
             </div>
 
             <nav class="header-links">
-                <a href="index.php">Home</a>
+                <a href="tutor-dashboard(notAI).php">Home</a>
                 <a href="helper2.php">Helper</a>
-                <a href="account.php">Account</a>
+                <a href="tutor-account.php">Account</a>
             </nav>
         </div>
     </header>

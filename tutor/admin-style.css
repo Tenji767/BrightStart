@@ -32,7 +32,7 @@ html {
     color: white;
 }
 
-.admin-header h2 a{
+.admin-header h2{
     display: flex;
     width: 100%;
     margin: 10px;
@@ -40,6 +40,11 @@ html {
     border-radius: 20px;
     background-color: black;
     color: white; 
+}
+
+.admin-header h2 a{
+    color:white;
+    text-decoration: none;
 }
 
 .pagename {
