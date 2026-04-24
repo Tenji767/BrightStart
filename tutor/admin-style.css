@@ -39,11 +39,11 @@ html {
     padding: 50px;
     border-radius: 20px;
     background-color: black;
-    color: white; 
+    color: white !important; 
 }
 
 .admin-header h2 a{
-    color:white;
+    color:white !important;
     text-decoration: none;
 }
 
