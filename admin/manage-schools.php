@@ -219,7 +219,19 @@ include("../db_connect.php");
                 <button type="submit" class="primary-btn">Add School</button>
             </form>
         </div>
+<input type="text" id="search" placeholder="Search...">
 
+<script>
+document.getElementById("search").addEventListener("keyup", function () {
+    let value = this.value.toLowerCase();
+    let rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+        row.style.display = text.includes(value) ? "" : "none";
+    });
+});
+</script>
         <div class="card">
             <h2>Existing Schools</h2>
 
