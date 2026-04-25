@@ -78,7 +78,7 @@ if(!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' &
 </body>
 
 <footer>
-    <p>&copy; 2025 BrightStart Math Tutoring. All rights reserved.</p>
+    <p>&copy; 2026 BrightStart Math Tutoring. All rights reserved.</p>
 </footer>
 
 </html>
