@@ -43,6 +43,20 @@ if (!isset($_GET['grade_id'])) {//if accessed outside of from practice page, ere
 $grade_id = $_GET['grade_id'];//gets the grade that was selected into a variable
 $school_id = intval($_SESSION['school_id'] ?? 0);
 
+// checks the database if the lesson has been viewed by the student before if so it will show an indicator for that lesson 
+$viewed = [];
+if ($role === 'student') {
+    $student_id = intval($_SESSION['user_id']);
+    $vStmt = $conn->prepare("SELECT lesson_id FROM LessonHistory WHERE student_id = ?");
+    $vStmt->bind_param("i", $student_id);
+    $vStmt->execute();
+    $vResult = $vStmt->get_result();
+    while ($vRow = $vResult->fetch_assoc()) {
+        $viewed[$vRow['lesson_id']] = true;
+    }
+    $vStmt->close();
+}
+
 // checks for concepts assigned to that grade and school, and whether they have content and questions
 $stmt = $conn->prepare(
     "SELECT l.lesson_id, l.lesson_title,
@@ -68,9 +82,10 @@ echo "</a>";
 while ($row = $result->fetch_assoc()) {//puts the results into an array that can be referenced by the name of the column
     $hasLesson    = $row['has_lesson']    ? 'true' : 'false';
     $hasQuestions = $row['has_questions'] ? 'true' : 'false';
+    $hasViewed    = isset($viewed[$row['lesson_id']]) ? 'true' : 'false';
 
     echo "<div>";
-    echo '<button class="concept-btn" data-concept="' . $row['lesson_id'] . '" data-has-lesson="' . $hasLesson . '" data-has-questions="' . $hasQuestions . '">' . htmlspecialchars($row['lesson_title']) . '</button>';
+    echo '<button class="concept-btn" data-concept="' . $row['lesson_id'] . '" data-has-lesson="' . $hasLesson . '" data-has-questions="' . $hasQuestions . '" data-viewed="' . $hasViewed . '">' . htmlspecialchars($row['lesson_title']) . '</button>';
     echo "</div>";
 
 }
@@ -79,7 +94,7 @@ while ($row = $result->fetch_assoc()) {//puts the results into an array that can
 <div id="concept-action-menu">
     <p id="selectedConceptText"></p>
     <div id="concept-action-btns">
-        <button id="learnBtn">Learn</button>
+        <button id="learnBtn">Learn<span id="learnViewedBadge" class="viewed-badge" style="display:none;">&#10003;</span></button>
         <button id="practiceBtn">Practice</button>
     </div>
 </div>
@@ -99,9 +114,11 @@ const practiceBtn = document.getElementById("practiceBtn");
 
             const hasLesson    = button.dataset.hasLesson    === 'true';
             const hasQuestions = button.dataset.hasQuestions === 'true';
+            const hasViewed    = button.dataset.viewed       === 'true';
 
             learnBtn.disabled    = !hasLesson;
             practiceBtn.disabled = !hasQuestions;
+            document.getElementById('learnViewedBadge').style.display = hasViewed ? 'inline-block' : 'none';
         });
     });
 

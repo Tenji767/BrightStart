@@ -41,7 +41,7 @@ if(isset($_GET['logout'])) {
     <script src="script.js"></script><!--Script for the bot-->
 
     <footer>
-        <p>&copy; 2025 BrightStart Math Tutoring. All rights reserved.</p>
+        <p>&copy; 2026 BrightStart Math Tutoring. All rights reserved.</p>
     </footer>
 
 </body>

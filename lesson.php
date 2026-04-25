@@ -46,6 +46,23 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 $row = $result->fetch_assoc();
+
+// lesson history tracking for students
+if ($role === 'student' && $row) {
+    $student_id = intval($_SESSION['user_id']);
+    $lesson_id  = intval($concept);
+    $hist = $conn->prepare(
+        "INSERT INTO LessonHistory (student_id, lesson_id)
+         VALUES (?, ?)
+         ON DUPLICATE KEY UPDATE
+             last_viewed_at = CURRENT_TIMESTAMP,
+             view_count = view_count + 1"
+    );
+    $hist->bind_param("ii", $student_id, $lesson_id);
+    $hist->execute();
+    $hist->close();
+}
+
 //a button to go back to the lesssons select page for convenience
 echo "<a href='concepts.php?grade_id={$grade}'>";
 echo "<div><p>Select Lesson</p></div>";

@@ -510,7 +510,7 @@ if ($quiz['done'] && empty($quiz['saved'])) {
     </main>
 
     <footer>
-        <p>&copy; 2025 BrightStart Math Tutoring. All rights reserved.</p>
+        <p>&copy; 2026 BrightStart Math Tutoring. All rights reserved.</p>
     </footer>
 
     <!-- JavaScript that handles the chatbot chat panel -->
