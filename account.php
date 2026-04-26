@@ -480,6 +480,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                     <!-- <a href="edit-account.php">Edit Account</a> -->
                     <a href="password_reset.php" class="secondary-link">Change Password</a>
                     <a href="quiz-history.php" class="secondary-link">Quiz History</a>
+                    <a href="lesson-history.php" class="secondary-link">Lesson History</a>
                     <a action="logout.php" method="POST" href="logout.php" class="secondary-link">Logout</a>
                     <a id="openBtn" class="secondary-link" onclick="event.stopPropagation(); document.getElementById('supportPopup').style.display = document.getElementById('supportPopup').style.display === 'block' ? 'none' : 'block';">Help</a>
                 </div>
