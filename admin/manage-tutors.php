@@ -256,6 +256,39 @@ document.getElementById("search").addEventListener("keyup", function () {
 });
 </script>
 
+<div id="filters">
+<form action="manage-tutors.php" method="post">
+<select id="filterschool" name="filterschool">
+    <option value="" selected hidden>Select a school</option>
+    <option value="">-</option>
+    <?php
+         $stmt = $conn->prepare("SELECT school_id, school_name FROM School");
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['school_id'] . "'>" . htmlspecialchars($row['school_name']) . "</option>";
+                            }
+                        }
+    ?>
+</select>
+<button type="submit">Filter</button>
+</form>
+
+</div>
+
+<?php
+    if($_POST['filterschool'] != ""){
+        $stmt = $conn->prepare("SELECT teacher_id, teacher_name, TeacherAccount.school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id WHERE TeacherAccount.school_id = ?");
+        $stmt->bind_param("s", $_POST['filterschool']);
+
+    }
+    else {
+        $stmt = $conn->prepare("SELECT teacher_id, teacher_name, TeacherAccount.school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id");
+
+    }
+?>
+
         <div class="card">
             <h2>Existing Tutors</h2>
 
@@ -270,7 +303,6 @@ document.getElementById("search").addEventListener("keyup", function () {
                     </tr>
 
                     <?php
-                    $stmt = $conn->prepare("SELECT teacher_id, teacher_name, TeacherAccount.school_id, email, school_name FROM TeacherAccount JOIN School ON TeacherAccount.school_id = School.school_id");
                     $stmt->execute();
                     $result = $stmt->get_result();
 

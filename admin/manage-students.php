@@ -269,6 +269,39 @@ document.getElementById("search").addEventListener("keyup", function () {
 });
 </script>
 
+<div id="filters">
+<form action="manage-students.php" method="post">
+<select id="filterschool" name="filterschool">
+    <option value="" selected hidden>Select a school</option>
+    <option value="">-</option>
+    <?php
+         $stmt = $conn->prepare("SELECT school_id, school_name FROM School");
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['school_id'] . "'>" . htmlspecialchars($row['school_name']) . "</option>";
+                            }
+                        }
+    ?>
+</select>
+<button type="submit">Filter</button>
+</form>
+
+</div>
+
+<?php
+    if($_POST['filterschool'] != ""){
+        $stmt = $conn->prepare("SELECT student_id, student_name, StudentAccount.school_id, email, school_name, grade_id FROM StudentAccount JOIN School ON StudentAccount.school_id = School.school_id WHERE StudentAccount.school_id = ?");
+        $stmt->bind_param("s", $_POST['filterschool']);
+
+    }
+    else {
+        $stmt = $conn->prepare("SELECT student_id, student_name, StudentAccount.school_id, email, school_name, grade_id FROM StudentAccount JOIN School ON StudentAccount.school_id = School.school_id");
+
+    }
+?>
+
         <div class="card">
             <h2>Existing Students</h2>
 
@@ -284,7 +317,6 @@ document.getElementById("search").addEventListener("keyup", function () {
                     </tr>
 
                     <?php
-                    $stmt = $conn->prepare("SELECT student_id, student_name, grade_id, StudentAccount.school_id, email, school_name FROM StudentAccount JOIN School ON StudentAccount.school_id = School.school_id");
                     $stmt->execute();
                     $result = $stmt->get_result();
 
