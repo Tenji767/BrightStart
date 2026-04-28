@@ -339,6 +339,37 @@ h1 {
     display: block;
     margin: 1rem auto;
     border-radius: 6px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#lesson-content img:hover {
+    opacity: 0.85;
+    transform: scale(1.01);
+}
+
+/* Lightbox */
+#img-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+#img-lightbox.active {
+    display: flex;
+}
+
+#img-lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    cursor: default;
 }
 
 /*select grade button*/

@@ -70,6 +70,29 @@ echo "<div id='lesson-content'>";
 echo $row['lesson_content_html'];
 echo "</div>";
 ?>
+
+<div id="img-lightbox" onclick="closeLightbox()">
+    <img id="img-lightbox-img" src="" alt="Enlarged image">
+</div>
+
+<script>
+document.querySelectorAll('#lesson-content img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+        document.getElementById('img-lightbox-img').src = img.src;
+        document.getElementById('img-lightbox').classList.add('active');
+    });
+});
+
+function closeLightbox() {
+    document.getElementById('img-lightbox').classList.remove('active');
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+});
+</script>
+
 </body>
 </html>
 <!-- lines 1-36 written by Benjamin Nguyen -->
