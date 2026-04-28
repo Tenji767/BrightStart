@@ -473,7 +473,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                 <div class="actions">
                     <a href="../password_reset.php" class="secondary-link">Change Password</a>
                    
-                    <a action="../logout.php" method="POST" href="logout.php" class="secondary-link">Logout</a>
+                    <a href="../logout.php" class="secondary-link">Logout</a>
                     <a id="openBtn" class="secondary-link" onclick="event.stopPropagation(); document.getElementById('supportPopup').style.display = document.getElementById('supportPopup').style.display === 'block' ? 'none' : 'block';">Help</a>
                 </div>
 
