@@ -2,6 +2,7 @@
 <!-- Account page functionality and integration with the database created by Nick DeBlock -->
 <?php
 session_start();
+include_once "../db_connect.php";
 
 if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'teacher') {
     header("Location: login.php");
@@ -10,7 +11,7 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'teacher') {
 
 // Default user data from session
 $user = [
-    'name' => $_SESSION['tutor_name'],
+    'name' => $_SESSION['teacher_name'],
     'email' => $_SESSION['email'],
     'id' => $_SESSION['role'],
     'school' => $_SESSION['school'] ?? 'BrightStart School',
@@ -49,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
             if (move_uploaded_file($fileTmpPath, $destination)) {
                 $_SESSION['profile_picture'] = $destination;
                 $user['profile_picture'] = $destination;
+                $updateStmt = $conn->prepare("UPDATE TeacherAccount SET profile_picture = ? WHERE teacher_id = ?");
+                $updateStmt->bind_param("si", $destination, $_SESSION['user_id']);
+                $updateStmt->execute();
                 $uploadMessage = 'Profile picture updated successfully.';
             } else {
                 $uploadError = 'There was a problem uploading the image.';
