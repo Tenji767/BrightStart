@@ -36,59 +36,49 @@ if (!empty($_FILES)) {
     }
 }//this if block was recommended by copilot
 
-$uploadDir = "uploads/";//pulls images from the uploads folder
+$uploadDir = "uploads/";
 
-// Check if uploads directory exists and is writable
-if (!file_exists($uploadDir)) {
-    echo "Uploads directory does not exist.<br>";
-    exit;
-}
-if (!is_writable($uploadDir)) {
-    echo "Uploads directory is not writable.<br>";
-    exit;
-}
-
-// DEBUG FILES
-echo "<pre>";
-print_r($_FILES);
-echo "</pre>";
-
-foreach($_FILES as $file){//goes through each file and uploads it (files are images and diagrams)
-    if ($file['error'] !== UPLOAD_ERR_OK) {
-        echo "Upload error for " . $file['name'] . ": " . $file['error'] . "<br>";
-        continue;
+if (!empty($_FILES)) {
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
     }
-    // Optional: Validate file type
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    if (!in_array($file['type'], $allowedTypes)) {
-        echo "Invalid file type for " . $file['name'] . "<br>";
-        continue;
+    if (!is_writable($uploadDir)) {
+        die("Uploads directory is not writable.");
     }
-    $path = $uploadDir . basename($file["name"]);
-
-    if(move_uploaded_file($file["tmp_name"], $path)){//message based on file upload success
-        echo "Uploaded: " . $file["name"] . "<br>";
-    } else {
-        echo "Failed to move: " . $file["name"] . "<br>";
+    foreach ($_FILES as $file) {
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            echo "Upload error for " . $file['name'] . ": " . $file['error'] . "<br>";
+            continue;
+        }
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($file['type'], $allowedTypes)) {
+            echo "Invalid file type for " . $file['name'] . "<br>";
+            continue;
+        }
+        $path = $uploadDir . basename($file['name']);
+        if (!move_uploaded_file($file['tmp_name'], $path)) {
+            echo "Failed to move: " . $file['name'] . "<br>";
+        }
     }
 }
 
-$stmt = $conn->prepare(//inserts the lesson title, grade, html content, and school into database
-"INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html, school_id, teacher_id)
-VALUES (?, ?, ?, ?, ?)"
-);
+$lesson_id = isset($_POST['lesson_id']) ? intval($_POST['lesson_id']) : null;
 
-if(!$stmt){
-    die("Prepare failed: " . $conn->error);
-}//failure statement
+if ($lesson_id) {
+    $stmt = $conn->prepare("UPDATE Lesson SET lesson_title = ?, grade_id = ?, lesson_content_html = ? WHERE lesson_id = ?");
+    if (!$stmt) die("Prepare failed: " . $conn->error);
+    $stmt->bind_param("sisi", $title, $grade, $html, $lesson_id);
+} else {
+    $stmt = $conn->prepare("INSERT INTO Lesson (lesson_title, grade_id, lesson_content_html, school_id, teacher_id) VALUES (?, ?, ?, ?, ?)");
+    if (!$stmt) die("Prepare failed: " . $conn->error);
+    $stmt->bind_param("sisii", $title, $grade, $html, $school_id, $_SESSION['user_id']);
+}
 
-$stmt->bind_param("sisi", $title, $grade, $html, $school_id, $_SESSION['user_id']);//binds the actual values to the statement
-
-if(!$stmt->execute()){//runs statement execute and checks if it worked or not
+if (!$stmt->execute()) {
     die("Execute failed: " . $stmt->error);
 }
 
-echo "Lesson saved";//confirmation
+echo $lesson_id ? "Lesson updated successfully" : "Lesson saved successfully";
 
-//lines 1-67 by Benjamin Nguyen
+//lines 1-84 by Benjamin Nguyen
 
