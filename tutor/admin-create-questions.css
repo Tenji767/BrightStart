@@ -1,0 +1,221 @@
+/* admin-create-questions.css — tutor question create/manage page */
+/* Author: Caleb McHaney */
+
+main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+/* ── Status messages ── */
+.msg {
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 1em;
+}
+.msg.success {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+.msg.error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+/* ── Section cards ── */
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    border: 1px solid #e2e8f0;
+}
+.card h2 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* ── Form layout ── */
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 180px;
+}
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 0.95em;
+    color: #475569;
+}
+.form-group select,
+.form-group input[type="text"],
+.form-group textarea {
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    background: #f8fafc;
+    color: #1e293b;
+    transition: border-color 0.2s;
+}
+.form-group select:focus,
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+.form-group textarea {
+    resize: vertical;
+}
+
+/* ── Options grid ── */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+/* ── Submit button ── */
+.btn-submit {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.btn-submit:hover {
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+/* ── Filter bar ── */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.filter-bar label {
+    font-weight: bold;
+    color: #1e293b;
+}
+.filter-bar select {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    background: #f8fafc;
+    color: #1e293b;
+}
+.filter-bar a {
+    color: #2563eb;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-decoration: none;
+}
+.filter-bar a:hover {
+    text-decoration: underline;
+}
+
+/* ── Question cards ── */
+.question-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+.question-card .breadcrumb {
+    font-size: 0.82em;
+    color: #64748b;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+.question-card .question-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #1e293b;
+    margin-bottom: 14px;
+}
+.question-card .options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.question-card .options-list li {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    font-size: 0.95em;
+    color: #334155;
+}
+.question-card .options-list li.correct {
+    background: #ecfdf5;
+    border-color: #6ee7b7;
+    font-weight: bold;
+    color: #065f46;
+}
+
+/* ── Delete button ── */
+.btn-delete {
+    padding: 7px 20px;
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-delete:hover {
+    background-color: #b91c1c;
+}
+
+.empty-state {
+    text-align: center;
+    color: #64748b;
+    padding: 30px 0;
+    font-size: 1em;
+}
+
+@media (max-width: 640px) {
+    .options-grid,
+    .question-card .options-list {
+        grid-template-columns: 1fr;
+    }
+}
+/* lines 1-130 written by Caleb McHaney */

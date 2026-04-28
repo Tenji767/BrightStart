@@ -1,0 +1,321 @@
+html {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
+body {
+    background-color: #f4f7fb;
+    margin: 0;
+    color: #1e293b;
+}
+
+/* ── Header ── */
+.admin-header {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+    color: white;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+}
+
+.admin-header h2 {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    padding: 8px 18px;
+    background: transparent;
+    color: white !important;
+    font-size: 1em;
+}
+
+.admin-header h2 a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.admin-header h2 a:hover {
+    color: rgba(255, 255, 255, 0.75) !important;
+    text-decoration: underline;
+}
+
+.pagename {
+    margin: 8px 10px;
+    font-size: 1.8em;
+    color: white;
+    flex: 1;
+}
+
+/* ── Dashboard stat boxes ── */
+.dashboard-stats {
+    display: flex;
+    width: 420px;
+    height: 110px;
+    margin: 24px;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+}
+
+.stat-box {
+    display: block;
+    width: 175px;
+    height: 100px;
+    font-size: 1.1em;
+    text-align: center;
+    color: #1e293b;
+}
+
+/* ── Dashboard nav buttons ── */
+.dashboard-pages button, #lessonBuilder button {
+    display: inline-block;
+    width: 180px;
+    height: 50px;
+    margin: 16px;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    font-weight: 600;
+    color: #1e293b;
+    transition: all 0.2s ease;
+}
+
+.dashboard-pages button:hover, #lessonBuilder button:hover {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    transform: translateY(-2px);
+}
+
+/* ── Return button ── */
+.returnBox {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 160px;
+    text-align: center;
+    background-color: #2563eb;
+    height: 38px;
+    margin: 16px 20px;
+    border-radius: 8px;
+}
+
+.returnBox::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 0;
+    background-color: #93c5fd;
+    transition: width 0.35s ease;
+}
+
+.returnBox:hover::after {
+    width: 100%;
+}
+
+.returnBtn {
+    display: block;
+    margin: 0;
+    height: 38px;
+    line-height: 38px;
+    width: 160px;
+    text-align: center;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.returnBox:hover .returnBtn {
+    background-color: #1d4ed8;
+}
+
+/* ── Lesson builder delete block button ── */
+#lessonBuilder button.deleteBlockBtn {
+    margin: 10px;
+    height: 24px;
+    width: 60px;
+    text-align: center;
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+    font-size: 9px;
+    padding: 2px;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+#lessonBuilder button.deleteBlockBtn:hover {
+    background-color: #b91c1c;
+    color: white;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(185, 28, 28, 0.4);
+    border-color: transparent;
+}
+
+/* ── Lesson management table ── */
+#lessonTable {
+    width: calc(100% - 40px);
+    margin: 8px 20px 24px;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+#lessonTable th {
+    background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#lessonTable td {
+    padding: 11px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #1e293b;
+    font-size: 14px;
+}
+
+#lessonTable tr:last-child td {
+    border-bottom: none;
+}
+
+#lessonTable tr:hover td {
+    background-color: #eff6ff;
+}
+
+#lessonTable button {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    box-shadow: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+#lessonTable button:hover {
+    background-color: #b91c1c;
+    color: white;
+    box-shadow: none;
+    transform: none;
+    border-color: transparent;
+}
+
+/* ── Filter / sort section ── */
+#filter-sort-search {
+    margin: 16px 20px 8px;
+    padding: 18px 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+}
+
+#filter-sort-search label {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 14px;
+}
+
+#filter-sort-search input,
+#filter-sort-search select {
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1e293b;
+    background: #f8fafc;
+}
+
+#filter-sort-search button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    width: auto;
+    height: auto;
+    margin: 4px 2px;
+    box-shadow: none;
+    transition: background-color 0.2s;
+}
+
+#filter-sort-search button:hover {
+    background-color: #1d4ed8;
+    box-shadow: none;
+    color: white;
+    transform: none;
+    border-color: transparent;
+}
+
+#filter-sort-search a {
+    color: #2563eb;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#filter-sort-search a:hover {
+    text-decoration: underline;
+}
+
+/* ── Lesson title input and grade select ── */
+#lessonTitle {
+    margin: 16px 20px 8px;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+    width: calc(100% - 80px);
+    max-width: 500px;
+    color: #1e293b;
+    background: white;
+}
+
+label[for="grade-select"] {
+    margin-left: 20px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+#grade-select {
+    margin: 6px 20px 12px;
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #1e293b;
+    background: white;
+}

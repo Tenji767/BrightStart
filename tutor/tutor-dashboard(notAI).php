@@ -18,7 +18,7 @@ if(!isset($_SESSION['user_id']) || ($role !== "teacher" && $role !== "admin")){
     <title>BrightStart Control Panel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="tutor-style.css">
 </head>
 
 <div class="admin-header">

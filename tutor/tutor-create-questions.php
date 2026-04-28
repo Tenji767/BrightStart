@@ -144,7 +144,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Questions – BrightStart Admin</title>
-    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="tutor-style.css">
     <link rel="stylesheet" href="admin-create-questions.css">
 </head>
 

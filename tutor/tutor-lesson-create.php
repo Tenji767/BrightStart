@@ -41,7 +41,7 @@ if (isset($_GET['lesson_id'])) {
 <head>
 <meta charset="utf-8">
 <title>Admin Lesson Creation</title>
-<link rel="stylesheet" href="admin-style.css">
+<link rel="stylesheet" href="tutor-style.css">
 </head>
 
 <body>
