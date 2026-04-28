@@ -42,6 +42,36 @@ if (isset($_GET['lesson_id'])) {
 <meta charset="utf-8">
 <title>Admin Lesson Creation</title>
 <link rel="stylesheet" href="tutor-style.css">
+<style>
+    .lesson-block {
+        border: 1px solid #ccc;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 6px;
+        background: #fafafa;
+    }
+    .lesson-block h3 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .lesson-block textarea {
+        width: 100%;
+        min-height: 80px;
+        box-sizing: border-box;
+    }
+    .block-preview {
+        max-width: 200px;
+        max-height: 150px;
+        display: block;
+        margin-bottom: 6px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    #blocks-container { margin-top: 10px; }
+</style>
 </head>
 
 <body>
@@ -91,6 +121,8 @@ while($row = $result->fetch_assoc()){
 <!-- save lessson button -->
 <button type="button" onclick="saveLesson()"><?php echo $editing ? 'Update Lesson' : 'Save Lesson'; ?></button>
 </div>
+
+<div id="blocks-container">
 <?php if ($editing): ?>
 <?php
 $dom = new DOMDocument();
@@ -119,49 +151,49 @@ foreach ($blocks as $block) {
 }
 ?>
 <?php endif; ?>
+</div>
 <!-- script for inserting blocks and saving lesson -->
 <script>
 
-// blocks will be added by appending to the lesson builder div and will have html inside them allowing for insertion
-const builder = document.getElementById("lessonBuilder");
+const container = document.getElementById("blocks-container");
 const editing = <?php echo $editing ? 'true' : 'false'; ?>;
 const lessonId = <?php echo json_encode($lesson_id); ?>;
 
-function deleteBlock(button) {
-    button.parentElement.remove();
+function deleteBlock(btn) {
+    btn.closest(".lesson-block").remove();
 }
 
 function addText() {
     const block = document.createElement("div");
-    block.className = "lesson-block";  // Add class for easy removal
+    block.className = "lesson-block";
     block.innerHTML = `
         <h3>Text</h3>
         <textarea class="blockContent"></textarea>
         <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
     `;
-    builder.appendChild(block);
+    container.appendChild(block);
 }
 
 function addImage() {
     const block = document.createElement("div");
-    block.className = "lesson-block";  // Add class for easy removal
+    block.className = "lesson-block";
     block.innerHTML = `
         <h3>Image</h3>
         <input type="file" class="blockImage">
         <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
     `;
-    builder.appendChild(block);
+    container.appendChild(block);
 }
 
 function addDiagram() {
     const block = document.createElement("div");
-    block.className = "lesson-block";  // Add class for easy removal
+    block.className = "lesson-block";
     block.innerHTML = `
         <h3>Diagram</h3>
         <input type="file" class="blockDiagram">
         <button type="button" onclick="deleteBlock(this)" class="deleteBlockBtn">Delete Block</button>
     `;
-    builder.appendChild(block);
+    container.appendChild(block);
 }
 
 // the lesson will be saved by gathering the content from the blocks and turning it into html and will be saved via the savelesson php

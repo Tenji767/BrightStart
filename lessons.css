@@ -333,6 +333,14 @@ h1 {
     margin-bottom: 0.5rem;
 }
 
+#lesson-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 6px;
+}
+
 /*select grade button*/
 body > a[href='choose-grade.php'] {
   display: inline-block;

@@ -10,18 +10,15 @@ if (!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' 
 <html>
 <head>
     <meta charset="utf-8">
-    
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="lessons.css">
 
 </head>
-
+<?php include('includes/nav.php'); ?>
 <body>
 
 <?php
-session_start();
-include('includes/header.php');
-include('includes/nav.php');//include all the header and navs
 
 
 $grade = $_GET['grade_id'];//gets the grade and concept from url
@@ -73,4 +70,6 @@ echo "<div id='lesson-content'>";
 echo $row['lesson_content_html'];
 echo "</div>";
 ?>
+</body>
+</html>
 <!-- lines 1-36 written by Benjamin Nguyen -->

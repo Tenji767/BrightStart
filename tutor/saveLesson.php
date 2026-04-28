@@ -36,7 +36,7 @@ if (!empty($_FILES)) {
     }
 }//this if block was recommended by copilot
 
-$uploadDir = "uploads/";
+$uploadDir = __DIR__ . "/uploads/";
 
 if (!empty($_FILES)) {
     if (!file_exists($uploadDir)) {
