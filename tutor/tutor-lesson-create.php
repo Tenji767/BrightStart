@@ -190,7 +190,7 @@ function saveLesson() {
         if (img.files[0]) {
             const filename = img.files[0].name;
             formData.append("image" + index, img.files[0]);
-            lessonHTML += `<img src="uploads/${filename}" class="lesson-image">`;
+            lessonHTML += `<img src="tutor/uploads/${filename}" class="lesson-image">`;
         } else if (existing && existing.classList.contains('existingImage')) {
             lessonHTML += `<img src="${existing.value}" class="lesson-image">`;
         }
@@ -201,7 +201,7 @@ function saveLesson() {
         if (diagram.files[0]) {
             const filename = diagram.files[0].name;
             formData.append("diagram" + index, diagram.files[0]);
-            lessonHTML += `<img src="uploads/${filename}" class="lesson-diagram">`;
+            lessonHTML += `<img src="tutor/uploads/${filename}" class="lesson-diagram">`;
         }
     });
 
