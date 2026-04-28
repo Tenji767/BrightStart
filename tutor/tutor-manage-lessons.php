@@ -171,7 +171,7 @@ $lessons_result = $stmt->get_result();
         <th>Lesson ID</th>
         <th>Grade</th>
         <th>Teacher</th>
-        <!-- <th>Edit</th> -->
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
 
@@ -184,6 +184,7 @@ while($row = $lessons_result->fetch_assoc()) {
     echo "<td>" . htmlspecialchars($row['lesson_id'] ?? '') . "</td>";
     echo "<td>" . htmlspecialchars($row['grade_id'] ?? '') . "</td>";
     echo "<td>" . htmlspecialchars($row['teacher_name'] ?? '') . "</td>";
+    echo "<td><a href=\"tutor-lesson-edit.php?lesson_id=" . htmlspecialchars($row['lesson_id'] ?? '') . "\"><button type=\"button\">Edit</button></a></td>";
     echo "<td>
     <form method=\"POST\" action=\"delete-lesson.php\" onsubmit=\"return confirm('Delete this lesson?');\">
             <input type=\"hidden\" name=\"lesson_id\" value=\"" . htmlspecialchars($row['lesson_id'] ?? '') . "\">
@@ -194,7 +195,7 @@ while($row = $lessons_result->fetch_assoc()) {
 
 // Show message if no lessons found
 if ($lessons_result->num_rows === 0) {
-    echo "<tr><td colspan='5' style='text-align: center; padding: 20px;'>No lessons found</td></tr>";
+    echo "<tr><td colspan='6' style='text-align: center; padding: 20px;'>No lessons found</td></tr>";
 }
 ?>
 
