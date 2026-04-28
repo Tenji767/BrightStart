@@ -93,6 +93,7 @@ if($result->num_rows > 0){
     <a href="tutor-lesson-create.php"><button>Create Lessons</button></a>
     <a href="tutor-manage-lessons.php"><button>Manage Lessons</button></a>
     <a href="tutor-create-questions.php"><button>Create Questions</button></a>
+    <a href="tutor-student-progress.php"><button>Student Progress</button></a>
 </div>
 
 
