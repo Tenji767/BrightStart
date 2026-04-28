@@ -542,6 +542,7 @@ if ($quiz['done'] && empty($quiz['saved'])) {
             if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
         });
 
+        // Reads the chat input, appends the message to the UI, and sends it to the AI
         function sendMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
@@ -600,5 +601,5 @@ if ($quiz['done'] && empty($quiz['saved'])) {
     </script>
 
 </body>
-<!-- lines 1-494 written by Caleb McHaney, AI chat bot created by Nick Deblock -->
+<!-- lines 1-606 written by Caleb McHaney, AI chat bot created by Nick Deblock -->
 </html>
