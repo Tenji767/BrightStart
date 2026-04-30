@@ -22,7 +22,7 @@ if(!isset($_SESSION['user_id']) || ($role !== "teacher" && $role !== "admin")){
 </head>
 
 <div class="admin-header">
-    <h1 class="pagename">BrightStart Admin Dashboard</h1>
+    <h1 class="pagename">BrightStart Tutors Dashboard</h1>
     <h2><a href="tutor-account.php">My Account</a></h2>
 </div>
 <h2>
