@@ -211,7 +211,7 @@ $school_name = $sn_row['school_name'] ?? '';
 <div class="admin-header">
     <h1 class="pagename">Student Progress</h1>
     <h2><?= htmlspecialchars($school_name) ?></h2>
-    <h2><a href="tutor-dashboard(notAI).php">Dashboard</a></h2>
+    <h2><a href="tutor-dashboard.php">Dashboard</a></h2>
 </div>
 
 <div class="page-wrap">

@@ -26,7 +26,7 @@ if($result->num_rows > 0){
         $_SESSION['email'] = $teacher['email'];
         $_SESSION['profile_picture'] = $teacher['profile_picture'] ?? 'pfp.png';
 
-        header("Location: tutor/tutor-dashboard(notAI).php");
+        header("Location: tutor/tutor-dashboard.php");
         exit();
     }
 }

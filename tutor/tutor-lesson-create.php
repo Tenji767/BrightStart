@@ -84,7 +84,7 @@ if (isset($_GET['lesson_id'])) {
 
 
 <div class="returnBox">
-<a href="tutor-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+<a href="tutor-dashboard.php" class="returnBtn">To Dashboard</a>
 
 
 </div>

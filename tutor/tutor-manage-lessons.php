@@ -27,7 +27,7 @@ if (!isset($_SESSION['user_id']) || ($role !== 'teacher' && $role !== 'admin')) 
 </div>
 
 <div class="returnBox">
-<a href="tutor-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+<a href="tutor-dashboard.php" class="returnBtn">To Dashboard</a>
 
 
 </div>
