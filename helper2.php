@@ -1,15 +1,20 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['user_id'])) {
+if(!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') != 'student') {
     $_SESSION['msg'] = "You must log in first";
-    header('location: login.php');
+    header('Location: login.php');
+    exit();
 }
-if(isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header('location: login.php');
-}
+    if(isset($_GET['logout'])) {
+        session_destroy();
+        unset($_SESSION['username']);
+        header('location: login.php');
+    }
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -22,14 +27,14 @@ if(isset($_GET['logout'])) {
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="helper.css">
+    <link rel="stylesheet" href="helper2.css">
 </head>
-
-<body>
 
 <?php include('includes/nav.php');?>
 
-    <div class="chat-container">
+<body>
+
+  <div class="chat-container">
         <div id="chat-box"></div>
         <form id="chat-form">
             <input type="text" id="user-input" placeholder="Type a message..." required>
@@ -40,11 +45,12 @@ if(isset($_GET['logout'])) {
 
     <script src="script.js"></script><!--Script for the bot-->
 
-    <footer>
-        <p>&copy; 2026 BrightStart Math Tutoring. All rights reserved.</p>
-    </footer>
-
 </body>
+
+<footer>
+    <p>&copy; 2025 BrightStart Math Tutoring. All rights reserved.</p>
+</footer>
+
 </html>
 
-<!-- Written by Nick DeBlock -->
+<!-- Lines 1-85 written by Benjamin Nguyen -->
