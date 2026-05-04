@@ -21,7 +21,9 @@ if(!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== "admin"){
 <body>
     <div class="header">
         <a href="admin-dashboard.php" class="home-btn">Home</a>
+        <a href="admin-account.php" class="home-btn">My Account</a>
         <h1>Admin Control Panel</h1>
+        
     </div>
 
     <div class="button-group">

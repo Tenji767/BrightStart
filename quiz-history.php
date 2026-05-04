@@ -9,6 +9,7 @@ ini_set('display_startup_errors', 1);
 
 include "db_connect.php";
 
+// Redirect if the user is not logged in or does not have an allowed role
 $role = $_SESSION['role'] ?? '';
 if (!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' && $role !== 'admin')) {
     header("Location: login.php");
@@ -40,6 +41,7 @@ if ($attempt_id) {
         exit;
     }
 
+    // Fetch the per-question breakdown for the selected attempt
     $ans_stmt = $conn->prepare(
         "SELECT qaa.chosen_option, qaa.correct_option, qaa.is_correct, qaa.used_ai, qaa.skipped,
                 q.question_id, q.question_text, q.option_a, q.option_b, q.option_c, q.option_d
@@ -201,5 +203,5 @@ $all_attempts = $list_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </footer>
 
 </body>
-<!-- lines 1-199 written by Caleb McHaney -->
+<!-- lines 1-208 written by Caleb McHaney -->
 </html>

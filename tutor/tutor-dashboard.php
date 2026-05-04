@@ -18,11 +18,11 @@ if(!isset($_SESSION['user_id']) || ($role !== "teacher" && $role !== "admin")){
     <title>BrightStart Control Panel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="tutor-style.css">
 </head>
 
 <div class="admin-header">
-    <h1 class="pagename">BrightStart Admin Dashboard</h1>
+    <h1 class="pagename">BrightStart Tutors Dashboard</h1>
     <h2><a href="tutor-account.php">My Account</a></h2>
 </div>
 <h2>
@@ -93,6 +93,7 @@ if($result->num_rows > 0){
     <a href="tutor-lesson-create.php"><button>Create Lessons</button></a>
     <a href="tutor-manage-lessons.php"><button>Manage Lessons</button></a>
     <a href="tutor-create-questions.php"><button>Create Questions</button></a>
+    <a href="tutor-student-progress.php"><button>Student Progress</button></a>
 </div>
 
 

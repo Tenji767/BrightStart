@@ -24,8 +24,9 @@ if($result->num_rows > 0){
         $_SESSION['teacher_name'] = $teacher['teacher_name'];
         $_SESSION['school_id'] = $teacher['school_id'];
         $_SESSION['email'] = $teacher['email'];
+        $_SESSION['profile_picture'] = $teacher['profile_picture'] ?? 'pfp.png';
 
-        header("Location: tutor/tutor-dashboard(notAI).php");
+        header("Location: tutor/tutor-dashboard.php");
         exit();
     }
 }
@@ -50,6 +51,7 @@ if($result->num_rows > 0){
         $_SESSION['grade'] = $student['grade_id'];
         $_SESSION['email'] = $student['email'];
         $_SESSION['school_id'] = $student['school_id'];
+        $_SESSION['profile_picture'] = $student['profile_picture'] ?? 'pfp.png';
 
         $school_stmt = $conn->prepare("SELECT school_name FROM School WHERE school_id = ?");
         $school_stmt->bind_param("i", $student['school_id']);

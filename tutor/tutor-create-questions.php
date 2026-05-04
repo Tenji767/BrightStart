@@ -144,7 +144,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Questions – BrightStart Admin</title>
-    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="tutor-style.css">
     <link rel="stylesheet" href="admin-create-questions.css">
 </head>
 
@@ -155,7 +155,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
 </div>
 
 <div class="returnBox">
-    <a href="tutor-dashboard(notAI).php" class="returnBtn">To Dashboard</a>
+    <a href="tutor-dashboard.php" class="returnBtn">To Dashboard</a>
 </div>
 
 <main>
@@ -305,6 +305,7 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
             return;
         }
 
+        // Fetch lessons for the selected grade and populate the lesson dropdown
         fetch(`tutor-create-questions.php?action=get_lessons&grade_id=${gradeId}`)
             .then(r => r.json())
             .then(lessons => {
@@ -323,5 +324,5 @@ while ($row = $result->fetch_assoc()) $all_questions[] = $row;
             .catch(() => lessonSelect.innerHTML = '<option value="">Error loading lessons</option>');
     });
 </script>
-<!-- lines 1-315 written by Caleb McHaney -->
+<!-- lines 1-329 written by Caleb McHaney -->
 </html>

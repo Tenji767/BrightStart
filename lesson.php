@@ -10,18 +10,15 @@ if (!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' 
 <html>
 <head>
     <meta charset="utf-8">
-    
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="lessons.css">
 
 </head>
-
+<?php include('includes/nav.php'); ?>
 <body>
 
 <?php
-session_start();
-include('includes/header.php');
-include('includes/nav.php');//include all the header and navs
 
 
 $grade = $_GET['grade_id'];//gets the grade and concept from url
@@ -73,4 +70,29 @@ echo "<div id='lesson-content'>";
 echo $row['lesson_content_html'];
 echo "</div>";
 ?>
-<!-- lines 1-58, 66-75 written by Benjamin Nguyen , 59-65 by Benjamin N-->
+
+<div id="img-lightbox" onclick="closeLightbox()">
+    <img id="img-lightbox-img" src="" alt="Enlarged image">
+</div>
+
+<script>
+document.querySelectorAll('#lesson-content img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+        document.getElementById('img-lightbox-img').src = img.src;
+        document.getElementById('img-lightbox').classList.add('active');
+    });
+});
+
+function closeLightbox() {
+    document.getElementById('img-lightbox').classList.remove('active');
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+});
+</script>
+
+</body>
+</html>
+<!-- lines 1-48, 63-76 written by Benjamin Nguyen -->

@@ -2,16 +2,15 @@
 <!-- Account page functionality and integration with the database created by Nick DeBlock -->
 <?php
 session_start();
-include_once "../db_connect.php";
 
-if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'teacher') {
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
     header("Location: login.php");
     exit();
 }
 
 // Default user data from session
 $user = [
-    'name' => $_SESSION['teacher_name'],
+    'name' => $_SESSION['admin_name'],
     'email' => $_SESSION['email'],
     'id' => $_SESSION['role'],
     'school' => $_SESSION['school'] ?? 'BrightStart School',
@@ -50,9 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
             if (move_uploaded_file($fileTmpPath, $destination)) {
                 $_SESSION['profile_picture'] = $destination;
                 $user['profile_picture'] = $destination;
-                $updateStmt = $conn->prepare("UPDATE TeacherAccount SET profile_picture = ? WHERE teacher_id = ?");
-                $updateStmt->bind_param("si", $destination, $_SESSION['user_id']);
-                $updateStmt->execute();
                 $uploadMessage = 'Profile picture updated successfully.';
             } else {
                 $uploadError = 'There was a problem uploading the image.';
@@ -69,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutor Account</title>
+    <title>Admin Account</title>
     <style>
         * {
             box-sizing: border-box;
@@ -409,21 +405,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
                 <div class="brand-badge"></div>
                 <div>
                     <h1 class="brand-title">BrightStart Learning</h1>
-                    <p class="brand-subtitle">Tutor Account Portal</p>
+                    <p class="brand-subtitle">Admin Account Portal</p>
                 </div>
             </div>
 
             <nav class="header-links">
-                <a href="tutor-dashboard.php">Home</a>
+                <a href="admin-dashboard.php">Home</a>
                 <a href="helper2.php">Helper</a>
-                <a href="tutor-account.php">Account</a>
+                <a href="admin-account.php">Account</a>
             </nav>
         </div>
     </header>
 
     <div class="page-container">
         <section class="welcome-panel">
-            <h1>Tutor Account</h1>
+            <h1>Admin Account</h1>
             <p>View your account details and manage your profile picture.</p>
         </section>
 
@@ -453,7 +449,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
 
             <div class="card">
                 <h2 class="section-title">Account Information</h2>
-                <p class="section-subtitle">Your current tutor account details are shown below.</p>
+                <p class="section-subtitle">Your current admin account details are shown below.</p>
 
                 <div class="info-grid">
                     <div class="info-box">
@@ -476,6 +472,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
 
                 <div class="actions">
                     <a href="../password_reset.php" class="secondary-link">Change Password</a>
+                   
                     <a href="../logout.php" class="secondary-link">Logout</a>
                     <a id="openBtn" class="secondary-link" onclick="event.stopPropagation(); document.getElementById('supportPopup').style.display = document.getElementById('supportPopup').style.display === 'block' ? 'none' : 'block';">Help</a>
                 </div>

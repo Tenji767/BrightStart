@@ -9,6 +9,7 @@ ini_set('display_startup_errors', 1);
 
 include "db_connect.php";
 
+// Redirect if the user is not logged in or does not have an allowed role
 $role = $_SESSION['role'] ?? '';
 if (!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' && $role !== 'admin')) {
     header("Location: login.php");
@@ -17,6 +18,7 @@ if (!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' 
 
 $user_id = intval($_SESSION['user_id']);
 
+// Fetch all lessons this student has viewed, most recently viewed first
 $stmt = $conn->prepare(
     "SELECT lh.first_viewed_at, lh.last_viewed_at, lh.view_count,
             l.lesson_id, l.lesson_title, l.grade_id
@@ -88,5 +90,5 @@ $history = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </footer>
 
 </body>
-<!-- lines 1-92 written by Caleb McHaney -->
+<!-- lines 1-94 written by Caleb McHaney -->
 </html>

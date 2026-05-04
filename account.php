@@ -2,6 +2,7 @@
 <!-- Account page functionality and integration with the database created by Nick DeBlock -->
 <?php
 session_start();
+include_once "db_connect.php";
 
 if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'student') {
     header("Location: login.php");
@@ -50,6 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
             if (move_uploaded_file($fileTmpPath, $destination)) {
                 $_SESSION['profile_picture'] = $destination;
                 $user['profile_picture'] = $destination;
+                $updateStmt = $conn->prepare("UPDATE StudentAccount SET profile_picture = ? WHERE student_id = ?");
+                $updateStmt->bind_param("si", $destination, $_SESSION['user_id']);
+                $updateStmt->execute();
                 $uploadMessage = 'Profile picture updated successfully.';
             } else {
                 $uploadError = 'There was a problem uploading the image.';
