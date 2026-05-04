@@ -209,3 +209,6 @@ if ($lessons_result->num_rows === 0) {
 
 </body>
 </html>
+<!-- lines 2-7, 18, 42, 174, 187, 198 written by Caleb McHaney -->
+<!-- lines 30 written by Reba Ponniah -->
+<!-- lines 1, 8-17, 19-29, 31-41, 43-173, 175-186, 188-197, 199-211 written by Benjamin Nguyen -->

@@ -112,3 +112,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 </html>
+<!-- lines 3-6 written by Caleb McHaney -->
+<!-- lines 1-2, 7-114 written by Benjamin Nguyen -->

@@ -1,5 +1,6 @@
 <?php
 // Author: Caleb McHaney
+// Author: Caleb McHaney
 // Allows tutors to view lesson and quiz history for students at their school
 session_start();
 include "../db_connect.php";
@@ -438,3 +439,4 @@ gradeSelect?.addEventListener('change', filterStudents);
 </body>
 <!-- Lines 1-440 by Caleb McHaney -->
 </html>
+<!-- lines 1-440 written by Caleb McHaney -->

@@ -1,4 +1,5 @@
 <?php
+// Author: Caleb McHaney
 session_start();
 $role = $_SESSION['role'] ?? '';
 if (!isset($_SESSION['user_id']) || ($role !== 'teacher' && $role !== 'admin')) {
@@ -278,3 +279,4 @@ function saveLesson() {
 
 </body>
 </html>
+<!-- lines 1-280 written by Caleb McHaney -->

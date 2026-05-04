@@ -495,3 +495,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile_pictur
     </footer>
 </body>
 </html>
+<!-- lines 476 written by Caleb McHaney -->
+<!-- lines 1-475, 477-497 written by Jordan Munster -->

@@ -33,3 +33,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
+// lines 2-6 written by Caleb McHaney
+// lines 1, 7-35 written by Benjamin Nguyen

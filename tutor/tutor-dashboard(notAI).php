@@ -98,3 +98,8 @@ if($result->num_rows > 0){
 
 
 </html>  
+<!-- lines 6-7, 21, 59-60, 76-77, 82, 96 written by Caleb McHaney -->
+<!-- lines 26 written by Jordan Munster -->
+<!-- lines 93-94 written by Reba Ponniah -->
+<!-- lines 2, 4, 8-10, 16-20, 22, 24-25, 27, 31-42, 46-47, 65, 67, 84, 95, 99-100 written by Benjamin Nguyen -->
+<!-- lines 1, 3, 5, 11-15, 23, 28-30, 43-45, 48-58, 61-64, 66, 68-75, 78-81, 83, 85-92, 97-98 written by Benjamin Nguyen -->

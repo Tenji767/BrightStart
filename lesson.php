@@ -96,3 +96,7 @@ document.addEventListener('keydown', e => {
 </body>
 </html>
 <!-- lines 1-36 written by Benjamin Nguyen -->
+<!-- lines 1-8, 13, 18, 26, 35, 40-41, 46-62, 73-97 written by Caleb McHaney -->
+<!-- lines 9-12, 14-17, 19-20 written by Jordan Munster -->
+<!-- lines 21-23, 25, 27-34, 36-39, 42-45, 64-66, 68-71 written by Benjamin Nguyen -->
+<!-- lines 24, 63, 67, 72, 98 written by Benjamin Nguyen -->

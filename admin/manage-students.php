@@ -341,3 +341,6 @@ document.getElementById("search").addEventListener("keyup", function () {
     </div>
 </body>
 </html>
+<!-- lines 3-6 written by Caleb McHaney -->
+<!-- lines 11, 13, 17-23, 25-29, 31-36, 38-42, 44-48, 50-60, 62-64, 66-72, 74-78, 80-82, 84-86, 88-92, 94-104, 106-124, 126-129, 131-133, 135-138, 140-185, 187-257, 305-343 written by Jordan Munster -->
+<!-- lines 1-2, 7-10, 12, 14-16, 24, 30, 37, 43, 49, 61, 65, 73, 79, 83, 87, 93, 105, 125, 130, 134, 139, 186, 258-304 written by Benjamin Nguyen -->

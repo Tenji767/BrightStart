@@ -103,4 +103,6 @@ h1 {
 
 
 </html>
-
+<!-- lines 5-9 written by Caleb McHaney -->
+<!-- lines 18, 22-99 written by Jordan Munster -->
+<!-- lines 1-4, 10-17, 19-21, 100-106 written by Benjamin Nguyen -->

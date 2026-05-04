@@ -61,3 +61,8 @@ $navSchoolName = $_SESSION['school'] ?? '';
     
 </header>
 <!-- nav updated to include only two links (lines 7-9) by Benjamin Nguyen -->
+// lines 9-37, 40-45, 52-57 written by Caleb McHaney
+// lines 39, 46-47, 58-60 written by Jordan Munster
+// lines 3, 50-51, 61, 63 written by Nick DeBlock
+// lines 1-2, 4-8, 62 written by Noah Reynolds
+// lines 38, 48-49 written by Benjamin Nguyen

@@ -31,3 +31,7 @@ if (isset($_POST['lesson_id'])) {
 // redirect back
 header("Location: tutor-manage-lessons.php");
 exit;
+// lines 2-7 written by Caleb McHaney
+// lines 32 written by Reba Ponniah
+// lines 1, 10-19, 25, 29-31 written by Benjamin Nguyen
+// lines 8-9, 20-24, 26-28, 33 written by Ben Nguyen

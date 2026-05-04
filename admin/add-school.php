@@ -21,3 +21,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $stmt->error;
     }
 }
+// lines 2-6 written by Caleb McHaney
+// lines 1, 7-23 written by Benjamin Nguyen

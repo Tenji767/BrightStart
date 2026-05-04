@@ -91,3 +91,7 @@ if($result->num_rows > 0){
 echo "Invalid email or password.";
 echo "<br><a href='login.php'>Try again</a>";
 ?>
+// lines 27, 53-61 written by Caleb McHaney
+// lines 1-24, 26, 28, 30-52, 63-66, 91, 93 written by Nick DeBlock
+// lines 29 written by Reba Ponniah
+// lines 25, 62, 67-90, 92 written by Benjamin Nguyen

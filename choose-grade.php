@@ -83,3 +83,7 @@ while ($row = $result->fetch_assoc()) {
 
 </html>
 <!-- Lines 1-56 written by Benjamin Nguyen -->
+<!-- lines 1-8 written by Caleb McHaney -->
+<!-- lines 20, 22, 34, 49, 55-69, 71, 78-80 written by Jordan Munster -->
+<!-- lines 9-19, 21, 23-24, 26-33, 35-42, 44-48, 50-54, 70, 72-77, 81-85 written by Benjamin Nguyen -->
+<!-- lines 25, 43 written by Benjamin Nguyen -->

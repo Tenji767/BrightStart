@@ -146,4 +146,6 @@ practiceBtn.addEventListener("click", () => {
 </body>
 
 </html>
-<!-- lines 1-112 written by Benjamin Nguyen -->
+<!-- lines 1, 8-17, 19, 21-43, 45, 69-82, 86-87, 89-96, 98-113, 122-140, 142-149 written by Benjamin Nguyen -->
+<!-- lines 2-7, 44, 46-68, 83-85, 88, 97, 114-121, 141 written by Caleb McHaney -->
+<!-- lines 18, 20 written by Jordan Munster -->

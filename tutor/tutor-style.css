@@ -1,3 +1,4 @@
+/* Author: Caleb McHaney */
 html {
     font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
@@ -320,3 +321,4 @@ label[for="grade-select"] {
     color: #1e293b;
     background: white;
 }
+/* lines 1-322 written by Caleb McHaney */

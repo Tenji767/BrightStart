@@ -9,3 +9,6 @@ if ($conn->connect_error) {
 }
 // lines 1-11 created by Benjamin Nguyen, file introduced by Nicholas Deblock
 ?>
+// lines 10-11 written by Caleb McHaney
+// lines 1-3, 9 written by Nick DeBlock
+// lines 4-8 written by Benjamin Nguyen

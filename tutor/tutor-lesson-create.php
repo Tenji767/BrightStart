@@ -267,3 +267,8 @@ function saveLesson() {
 <!--...I think most of this I learned from ChatGPT and a lot I just pasted over...this shouldn't count...-->
 
 <!-- Lines 230 by Benjamin Nguyen -->
+<!-- lines 2-7, 44-74, 124-125, 154, 158, 162-163, 168, 174, 179, 185, 190, 196, 225, 236 written by Caleb McHaney -->
+<!-- lines 38, 40-41, 75-77 written by Noah Reynolds -->
+<!-- lines 87 written by Reba Ponniah -->
+<!-- lines 1, 9-10, 37, 42-43, 78-81, 83-86, 88-91, 94, 96-99, 101-105, 107, 110-115, 117-120, 123, 156-157, 161, 164-165, 175-176, 186-187, 197-198, 260-266, 269 written by Benjamin Nguyen -->
+<!-- lines 8, 11-36, 39, 82, 92-93, 95, 100, 106, 108-109, 116, 121-122, 126-153, 155, 159-160, 166-167, 169-173, 177-178, 180-184, 188-189, 191-195, 199-224, 226-235, 237-259, 267-268 written by Benjamin Nguyen -->

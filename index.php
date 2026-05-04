@@ -84,3 +84,8 @@ if(!isset($_SESSION['user_id']) || ($role !== 'student' && $role !== 'teacher' &
 </html>
 
 <!-- Lines 1-85 written by Benjamin Nguyen -->
+<!-- lines 4-9 written by Caleb McHaney -->
+<!-- lines 42-43, 51-52, 54, 58, 60-62, 64-69, 74-77 written by Jordan Munster -->
+<!-- lines 81 written by Noah Reynolds -->
+<!-- lines 1-3, 10-41, 44-50, 53, 55-57, 59, 63, 70-73, 78-80, 82-85 written by Benjamin Nguyen -->
+<!-- lines 86 written by Benjamin Nguyen -->

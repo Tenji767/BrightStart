@@ -81,4 +81,6 @@ if (!$stmt->execute()) {
 echo $lesson_id ? "Lesson updated successfully" : "Lesson saved successfully";
 
 //lines 1-84 by Benjamin Nguyen
-
+// lines 2-7, 22, 39, 41-43, 45-46, 48-61, 65, 67-75, 77, 81, 83 written by Caleb McHaney
+// lines 1, 9-14, 16-18, 20-21, 23-38, 40, 44, 47, 62-64, 66, 76, 78-80, 84 written by Benjamin Nguyen
+// lines 8, 15, 19, 82 written by Benjamin Nguyen
