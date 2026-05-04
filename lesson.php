@@ -73,4 +73,4 @@ echo "<div id='lesson-content'>";
 echo $row['lesson_content_html'];
 echo "</div>";
 ?>
-<!-- lines 1-36 written by Benjamin Nguyen -->
+<!-- lines 1-58, 66-75 written by Benjamin Nguyen , 59-65 by Benjamin N-->

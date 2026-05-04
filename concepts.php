@@ -146,4 +146,4 @@ practiceBtn.addEventListener("click", () => {
 </body>
 
 </html>
-<!-- lines 1-112 written by Benjamin Nguyen -->
+<!-- lines 1-43, 70-148 written by Benjamin Nguyen, lines 44-69 by Caleb M -->

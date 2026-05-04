@@ -208,3 +208,4 @@ if ($lessons_result->num_rows === 0) {
 
 </body>
 </html>
+<!-- Lines 1-210 by Benjamin N -->

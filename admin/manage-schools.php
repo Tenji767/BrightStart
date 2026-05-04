@@ -270,3 +270,5 @@ document.getElementById("search").addEventListener("keyup", function () {
     </div>
 </body>
 </html>
+
+<!-- File written by Benjamin N, styling by Jordan M -->

@@ -29,9 +29,6 @@ $school = $schoolQuery->fetch_assoc();
 $school_id = $school['school_id'];
 
 
-/* Create Student */
-
-// if($type == "student"){
 
     if($join_code != $school['student_join_code']){
         die("Invalid student join code.");
@@ -42,23 +39,7 @@ $school_id = $school['school_id'];
     VALUES
     ('$school_id','$grade_id','$name','$email','$password')";
     
-// }
 
-
-// /* Create Teacher */
-
-// if($type == "teacher"){
-
-//     if($join_code != $school['teacher_join_code']){
-//         die("Invalid teacher join code.");
-//     }
-
-//     $sql = "INSERT INTO TeacherAccount
-//     (school_id, teacher_name, email, password_hash)
-//     VALUES
-//     ('$school_id','$name','$email','$password')";
-   
-// }
 
 $stmt = $conn->prepare("SELECT id FROM StudentAccount WHERE email = ?");
 $stmt->bind_param("s", $email);

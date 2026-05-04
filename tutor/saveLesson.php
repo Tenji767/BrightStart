@@ -90,5 +90,4 @@ if(!$stmt->execute()){//runs statement execute and checks if it worked or not
 
 echo "Lesson saved";//confirmation
 
-//lines 1-67 by Benjamin Nguyen
-
+//Page made by Benjamin N, debugged by Caleb M

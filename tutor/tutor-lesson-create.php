@@ -232,6 +232,5 @@ function saveLesson() {
 </body>
 </html>
 
-<!--...I think most of this I learned from ChatGPT and a lot I just pasted over...this shouldn't count...-->
 
 <!-- Lines 230 by Benjamin Nguyen -->
